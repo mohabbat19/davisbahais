@@ -32,8 +32,8 @@
     <meta name="geo.position" content="38.5449;-121.7405">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="nine-pointed-star.png">
-    <link rel="shortcut icon" type="image/png" href="nine-pointed-star.png">
+    <link rel="icon" type="image/svg+xml" href="nine-pointed-star.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="nine-pointed-star.svg">
     
     <!-- Structured Data for Local Business -->
     <script type="application/ld+json">
@@ -91,10 +91,13 @@
             
             h1 {
                 font-size: 1.75rem !important;
+                line-height: 1.3 !important;
             }
             
             h2 {
                 font-size: 2rem !important;
+                line-height: 1.3 !important;
+                padding-bottom: 0.2em !important;
             }
             
             h3 {
@@ -128,6 +131,13 @@
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             letter-spacing: -0.02em;
+            padding-bottom: 0.1em;
+        }
+        
+        /* Prevent text cutoff */
+        h2 {
+            line-height: 1.2 !important;
+            overflow: visible !important;
         }
         
         .bahai-blue {
@@ -151,6 +161,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            display: inline-block;
+            overflow: visible;
         }
         
         .nav-link {
@@ -350,7 +362,7 @@
         .dot-indicator.active {
             width: 32px;
             border-radius: 4px;
-            background: linear-gradient(90deg, #003262, #FDB515) !important;
+            background: #003262 !important;
         }
         
         input:focus, textarea:focus {
@@ -578,7 +590,7 @@
                     {/* Welcome Section */}
                     <div className="max-w-7xl mx-auto px-4 py-8 sm:py-16">
                         <div className="text-center mb-12 sm:mb-20">
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold gradient-text mb-4 sm:mb-6 leading-tight">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold gradient-text mb-4 sm:mb-6 leading-tight" style={{lineHeight: '1.2', paddingBottom: '0.5rem'}}>
                                 Building a Vibrant<br/>Community Together
                             </h2>
                         </div>
