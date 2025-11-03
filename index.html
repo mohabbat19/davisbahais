@@ -25,7 +25,7 @@
         }
         
         .nav-link:hover {
-            color: #5eb3b7;
+            color: #1e3a8a;
         }
         
         .activity-card {
@@ -38,11 +38,27 @@
         }
         
         .bahai-blue {
-            color: #5eb3b7;
+            color: #1e3a8a;
+        }
+        
+        .bahai-purple {
+            color: #7c3aed;
+        }
+        
+        .bahai-gold {
+            color: #d97706;
         }
         
         .bahai-bg-blue {
-            background-color: #5eb3b7;
+            background-color: #1e3a8a;
+        }
+        
+        .bahai-bg-purple {
+            background-color: #7c3aed;
+        }
+        
+        .bahai-bg-gold {
+            background-color: #d97706;
         }
         
         .page-transition {
@@ -54,6 +70,24 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(-100%); }
+        }
+        
+        .quote-enter {
+            animation: slideIn 1s ease-in-out;
+        }
+        
+        .quote-exit {
+            animation: slideOut 1s ease-in-out;
+        }
+        
         .quote-text {
             font-style: italic;
             font-size: 1.75rem;
@@ -61,18 +95,18 @@
         }
         
         .image-placeholder {
-            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #5eb3b7;
+            color: #7c3aed;
             font-size: 1.2rem;
             font-weight: 600;
         }
         
         .section-divider {
             height: 2px;
-            background: linear-gradient(to right, transparent, #5eb3b7, transparent);
+            background: linear-gradient(to right, transparent, #7c3aed, #d97706, transparent);
             margin: 4rem 0;
         }
     </style>
@@ -97,7 +131,7 @@
                                     onClick={() => setCurrentPage('Home')}
                                     className={`nav-link px-4 py-2 rounded-md font-medium ${
                                         currentPage === 'Home' 
-                                            ? 'bahai-bg-blue text-white' 
+                                            ? 'bahai-bg-purple text-white' 
                                             : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                                 >
@@ -107,7 +141,7 @@
                                     onClick={() => setCurrentPage('Community Events')}
                                     className={`nav-link px-4 py-2 rounded-md font-medium ${
                                         currentPage === 'Community Events' 
-                                            ? 'bahai-bg-blue text-white' 
+                                            ? 'bahai-bg-purple text-white' 
                                             : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                                 >
@@ -129,6 +163,22 @@
                 message: ''
             });
 
+            const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+
+            const quotes = [
+                "Throughout history, God has sent to humanity a series of divine Educators—known as Manifestations of God—whose teachings have provided the basis for the advancement of civilization. These Manifestations have included Abraham, Krishna, Zoroaster, Moses, Buddha, Jesus, and Muḥammad. Bahá'u'lláh, the latest of these Messengers, explained that the religions of the world come from the same Source and are in essence successive chapters of one religion from God. Bahá'ís believe the crucial need facing humanity is to find a unifying vision of the future of society and of the nature and purpose of life. Such a vision unfolds in the writings of Bahá'u'lláh.",
+                "If the learned and worldly-wise men of this age were to allow mankind to inhale the fragrance of fellowship and love, every understanding heart would apprehend the meaning of true liberty, and discover the secret of undisturbed peace and absolute composure. – Bahá'u'lláh –",
+                "It is with such thoughts in mind that Bahá'ís enter into collaboration, as their resources permit, with an increasing number of movements, organizations, groups and individuals, establishing partnerships that strive to transform society and further the cause of unity, promote human welfare, and contribute to world solidarity. – The Universal House of Justice –"
+            ];
+
+            React.useEffect(() => {
+                const timer = setInterval(() => {
+                    setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
+                }, 8000); // Change quote every 8 seconds
+
+                return () => clearInterval(timer);
+            }, []);
+
             const handleSubmit = (e) => {
                 e.preventDefault();
                 alert('Thank you for your message! We will get back to you soon.');
@@ -143,25 +193,25 @@
                 {
                     title: "Children's Classes",
                     description: "Spiritual education for children ages 6-11 through stories, songs, art, and dynamic activities",
-                    color: "bg-blue-50",
+                    color: "bg-purple-50",
                     details: "Bahá'ís see the young as the most precious treasure a community can possess. In them are the promise and guarantee of the future. Yet, in order for this promise to be realized, children need to receive spiritual nourishment. In a world where the joy and innocence of childhood can be so easily overwhelmed by the aggressive pursuit of materialistic ends, the moral and spiritual education of children assumes vital importance.\n\nBahá'í classes and activities for children are raising a new generation of spiritually vibrant young people with the potential to grow up free from prejudice. Children learn that they are important to God and that they have a critical role to play in serving humanity and bettering the world.\n\nThrough music, stories, art, games, drama, and community service, children learn about spiritual qualities, such as truthfulness, humility, and justice that will shape their lives and guide their choices."
                 },
                 {
                     title: "Youth Empowerment",
                     description: "Empowering youth ages 12-15 to navigate their lives and serve their communities",
-                    color: "bg-green-50",
+                    color: "bg-blue-50",
                     details: "Bahá'ís believe that those in their early adolescent years possess altruism, a keen sense of justice, an eagerness to learn about the universe, and a desire to contribute to the construction of a better world. The Junior Youth Spiritual Empowerment Program is designed to assist youth around the ages of 12 to 15 to navigate a crucial stage in their lives by helping them to form a strong moral identity and empowering them to contribute to the well-being of their communities and society at large.\n\nBy developing their spiritual qualities, intellectual capabilities, and capacities for service, the participants come to see that they can become agents of positive change in the world.\n\nThe program adopts a participatory mode of learning where the facilitator and participants learn from each other. Groups of participants engage in activities such as artistic expression, discussion, drama, cooperative games, the study of literature, storytelling, and acts of community service."
                 },
                 {
                     title: "Devotional Gatherings",
                     description: "Tranquil environments for sharing prayers, poetry, and inspirational writings",
-                    color: "bg-purple-50",
+                    color: "bg-amber-50",
                     details: "Bahá'ís in every community, including Davis, offer devotional gatherings to allow people of all faiths and backgrounds to come together and share prayers, poetry, and words of inspiration in a dynamic yet tranquil atmosphere.\n\nThese devotional gatherings are held in neighborhoods all over Davis and are free and open to all. They provide a space for spiritual nourishment and connection with others seeking to cultivate peace and unity in their lives."
                 },
                 {
                     title: "Study Circles",
                     description: "Explore spiritual themes and enable personal and collective growth",
-                    color: "bg-yellow-50",
+                    color: "bg-indigo-50",
                     details: "Bahá'ís in Davis and in communities in every country around the world offer free study circles designed to provide participants with the knowledge, spiritual insights and skills to enable them to contribute to the betterment of society, starting with their own neighborhood. This is accomplished through a systematic study of a sequence of courses based on the Bahá'í Writings called the Ruhi Institute.\n\nParticipants of the study circle study materials based on concepts relating to individual and collective spiritual development. Some of the main concepts explored are how to: create and maintain an environment that helps people develop their intellectual and spiritual capacities; foster a devotional character within a community through prayer and meditation; strengthen bonds of friendship and camaraderie among all people; make the education of children and empowerment of youth an integral part of community life.\n\nStudy circles are conducted in informal settings with a small group of participants and are facilitated by a trained, volunteer tutor whose primary role is to guide the discussion between the participants and ensure the environment fostered by the group is one of inclusion, respect, and unity.\n\nAnyone aged fifteen or older, whether a Bahá'í or not, is welcome to take part in the Ruhi Institute."
                 }
             ];
@@ -174,13 +224,30 @@
                             <div className="image-placeholder rounded-lg shadow-lg mb-8" style={{height: '400px'}}>
                                 [Hero Image: Community gathering or diverse group of people]
                             </div>
-                            <div className="text-center mb-12">
-                                <button className="bahai-bg-blue text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl mr-4 mb-4">
-                                    Learn About the Bahá'í Faith
-                                </button>
-                                <button className="bg-gray-200 text-gray-800 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl mb-4">
-                                    What Bahá'í's Believe
-                                </button>
+                            
+                            {/* Rotating Quotes Section */}
+                            <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-amber-50 rounded-lg p-8 md:p-12 mb-8 shadow-lg min-h-[300px] flex items-center justify-center">
+                                <div className="quote-enter">
+                                    <p className="text-lg md:text-xl text-gray-700 leading-relaxed text-center italic">
+                                        {quotes[currentQuoteIndex]}
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            {/* Quote Navigation Dots */}
+                            <div className="flex justify-center space-x-3 mb-12">
+                                {quotes.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setCurrentQuoteIndex(index)}
+                                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                                            index === currentQuoteIndex 
+                                                ? 'bahai-bg-purple w-8' 
+                                                : 'bg-gray-300 hover:bg-gray-400'
+                                        }`}
+                                        aria-label={`Go to quote ${index + 1}`}
+                                    />
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -193,16 +260,6 @@
                         <p className="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto leading-relaxed">
                             We welcome everyone from all backgrounds and religions to join in this process of global transformation. Whether you're seeking spiritual connection, want to serve your community, or are curious about the Bahá'í Faith, there's a place for you here.
                         </p>
-
-                        {/* Quote Section */}
-                        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-12 mb-16 text-center">
-                            <p className="quote-text text-gray-700 mb-4">
-                                "The best beloved of all things in My sight is Justice..."
-                            </p>
-                            <p className="text-red-600 font-semibold text-lg">
-                                Bahá'u'lláh (Founder of the Bahá'í Faith)
-                            </p>
-                        </div>
 
                         {/* Community Building */}
                         <div className="mb-16">
@@ -221,24 +278,11 @@
 
                         {/* Get Involved Section */}
                         <div id="get-involved" className="mb-16">
-                            <h2 className="text-4xl font-bold text-center bahai-blue mb-12">Get Involved</h2>
-                            
-                            {/* Activity Cards Overview */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                                {activities.map((activity, index) => (
-                                    <div key={index} className={`activity-card ${activity.color} rounded-lg p-6 text-center shadow-md`}>
-                                        <div className="image-placeholder rounded-lg mb-4" style={{height: '150px', fontSize: '0.9rem'}}>
-                                            [Image: {activity.title}]
-                                        </div>
-                                        <h3 className="text-xl font-bold text-gray-800 mb-3">{activity.title}</h3>
-                                        <p className="text-gray-600 text-sm">{activity.description}</p>
-                                    </div>
-                                ))}
-                            </div>
+                            <h2 className="text-4xl font-bold text-center bahai-purple mb-12">Get Involved</h2>
 
                             {/* Detailed Activity Descriptions */}
                             {activities.map((activity, index) => (
-                                <div key={index} className="mb-12 bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+                                <div key={index} className="mb-12 bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border-l-4 border-purple-500">
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                                         <div className="md:col-span-1">
                                             <div className="image-placeholder rounded-lg" style={{height: '200px'}}>
@@ -254,7 +298,7 @@
                                     </div>
                                     <p className="text-gray-600 italic">
                                         For more information about {activity.title.toLowerCase()} in Davis, contact us at{' '}
-                                        <a href="mailto:davisbahais@gmail.com" className="bahai-blue hover:underline font-semibold">
+                                        <a href="mailto:davisbahais@gmail.com" className="bahai-purple hover:underline font-semibold">
                                             davisbahais@gmail.com
                                         </a>
                                     </p>
@@ -275,10 +319,10 @@
 
                         {/* Contact Section */}
                         <div id="contact" className="mb-16">
-                            <h2 className="text-4xl font-bold text-center bahai-blue mb-8">Get In Touch</h2>
+                            <h2 className="text-4xl font-bold text-center bahai-gold mb-8">Get In Touch</h2>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                                <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-lg p-8">
+                                <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-8 shadow-lg">
                                     <h3 className="text-2xl font-bold text-gray-800 mb-4">Contact Information</h3>
                                     <p className="text-gray-700 mb-6 leading-relaxed">
                                         There are various ways to get involved with the Davis Bahá'í Community, and we would love to hear from you!
@@ -292,7 +336,7 @@
                                         </div>
                                         <div>
                                             <p className="text-gray-700 font-semibold mb-2">Email:</p>
-                                            <a href="mailto:davisbahais@gmail.com" className="text-xl bahai-blue hover:underline font-bold">
+                                            <a href="mailto:davisbahais@gmail.com" className="text-xl bahai-purple hover:underline font-bold">
                                                 davisbahais@gmail.com
                                             </a>
                                         </div>
@@ -301,7 +345,7 @@
                                         <p className="text-gray-700 text-sm">
                                             <strong>Not in Davis?</strong> Find a Bahá'í community near you by calling{' '}
                                             <span className="font-bold">1-800-22-Unite (1-800-228-6483)</span> or visit{' '}
-                                            <a href="https://www.bahai.us/find-bahais/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline">
+                                            <a href="https://www.bahai.us/find-bahais/" target="_blank" rel="noopener noreferrer" className="bahai-purple hover:underline">
                                                 Find Bahá'ís
                                             </a>
                                         </p>
@@ -322,7 +366,7 @@
                                                 value={formData.name}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-400"
                                             />
                                         </div>
 
@@ -337,7 +381,7 @@
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-400"
                                             />
                                         </div>
 
@@ -351,7 +395,7 @@
                                                 name="subject"
                                                 value={formData.subject}
                                                 onChange={handleChange}
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-400"
                                             />
                                         </div>
 
@@ -365,13 +409,13 @@
                                                 value={formData.message}
                                                 onChange={handleChange}
                                                 rows="4"
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-400"
                                             ></textarea>
                                         </div>
 
                                         <button
                                             type="submit"
-                                            className="w-full bahai-bg-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl"
+                                            className="w-full bahai-bg-purple text-white px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl"
                                         >
                                             Send Message
                                         </button>
@@ -395,8 +439,8 @@
                         </p>
                         
                         {/* Google Calendar Embed */}
-                        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-                            <div className="mb-6 bg-blue-50 rounded-lg p-6">
+                        <div className="bg-white rounded-lg shadow-lg p-6 mb-8 border-l-4 border-purple-500">
+                            <div className="mb-6 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-6">
                                 <p className="text-gray-700 mb-3 font-semibold">📅 To add your Google Calendar:</p>
                                 <ol className="text-gray-600 space-y-2 text-sm list-decimal list-inside">
                                     <li>Go to your Google Calendar settings</li>
@@ -406,7 +450,7 @@
                                     <li>Replace the placeholder below with your embed code</li>
                                 </ol>
                             </div>
-                            <div className="rounded-lg overflow-hidden border-2 border-gray-200">
+                            <div className="rounded-lg overflow-hidden border-2 border-purple-200">
                                 <iframe 
                                     src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID&ctz=America/Los_Angeles" 
                                     style={{border: 0}} 
@@ -418,13 +462,13 @@
                             </div>
                         </div>
 
-                        <div className="text-center bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-8">
+                        <div className="text-center bg-gradient-to-r from-purple-50 via-blue-50 to-amber-50 rounded-lg p-8 shadow-lg">
                             <p className="text-lg text-gray-700 mb-4">
                                 Have questions about an upcoming event?
                             </p>
                             <p className="text-gray-700">
                                 Contact us at{' '}
-                                <a href="mailto:davisbahais@gmail.com" className="bahai-blue hover:underline font-bold text-xl">
+                                <a href="mailto:davisbahais@gmail.com" className="bahai-purple hover:underline font-bold text-xl">
                                     davisbahais@gmail.com
                                 </a>
                                 {' '}or call{' '}
@@ -441,14 +485,14 @@
         // Footer Component
         const Footer = () => {
             return (
-                <footer className="bg-gray-100 py-8 mt-16 border-t-2 border-gray-200">
+                <footer className="bg-gray-100 py-8 mt-16 border-t-2 border-purple-200">
                     <div className="max-w-6xl mx-auto px-4">
                         <div className="flex flex-wrap justify-center items-center gap-4 mb-6">
                             <a 
                                 href="https://www.bahai.org/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-gray-700 hover:bahai-blue transition-colors font-medium"
+                                className="text-gray-700 hover:bahai-purple transition-colors font-medium"
                             >
                                 Worldwide Bahá'í Community »
                             </a>
@@ -466,7 +510,7 @@
                                 href="https://www.bahai.org/library/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-gray-700 hover:bahai-blue transition-colors font-medium"
+                                className="text-gray-700 hover:bahai-gold transition-colors font-medium"
                             >
                                 Bahá'í Reference Library »
                             </a>
@@ -475,7 +519,7 @@
                                 href="https://news.bahai.org/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-gray-700 hover:bahai-blue transition-colors font-medium"
+                                className="text-gray-700 hover:bahai-purple transition-colors font-medium"
                             >
                                 Baha'i World News »
                             </a>
@@ -483,13 +527,13 @@
                         <div className="text-center text-gray-600 text-sm space-y-2">
                             <p>
                                 The Baha'i Faith is established in more than 100,000 localities in virtually every country and territory around the world.{' '}
-                                <a href="https://www.bahai.org/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline font-medium">
+                                <a href="https://www.bahai.org/" target="_blank" rel="noopener noreferrer" className="bahai-purple hover:underline font-medium">
                                     A Global Community
                                 </a>
                             </p>
                             <p>
                                 Imagery Copyright © Baha'i International Community{' '}
-                                <a href="https://media.bahai.org/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline">
+                                <a href="https://media.bahai.org/" target="_blank" rel="noopener noreferrer" className="bahai-purple hover:underline">
                                     https://media.bahai.org/
                                 </a>
                             </p>
