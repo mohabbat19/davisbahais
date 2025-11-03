@@ -210,11 +210,15 @@
 
             return (
                 <div className="page-transition">
-                    {/* Hero Section with Image Placeholder */}
+                    {/* Hero Section with Image */}
                     <div className="pt-32 pb-8 px-4">
                         <div className="max-w-6xl mx-auto">
-                            <div className="image-placeholder rounded-lg shadow-lg mb-8" style={{height: '400px'}}>
-                                [Hero Image: Community gathering or diverse group of people]
+                            <div className="rounded-lg shadow-lg mb-8 overflow-hidden" style={{height: '400px'}}>
+                                <img 
+                                    src="Children Classes.jpg" 
+                                    alt="Davis Baha'i Community gathering" 
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                             
                             {/* Rotating Quotes Section */}
@@ -273,12 +277,24 @@
                             <h2 className="text-4xl font-bold text-center bahai-blue mb-12">Get Involved</h2>
 
                             {/* Detailed Activity Descriptions */}
-                            {activities.map((activity, index) => (
+                            {activities.map((activity, index) => {
+                                const imageMap = {
+                                    "Children's Classes": "Children Classes.jpg",
+                                    "Youth Empowerment": "Youth Empowerment.jpg",
+                                    "Devotional Gatherings": "Devotional Gathering.jpg",
+                                    "Study Circles": "Study Circle.jpg"
+                                };
+                                
+                                return (
                                 <div key={index} className="mb-12 bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border-l-4 border-blue-900">
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                                         <div className="md:col-span-1">
-                                            <div className="image-placeholder rounded-lg" style={{height: '200px'}}>
-                                                [Image: {activity.title}]
+                                            <div className="rounded-lg overflow-hidden shadow-md" style={{height: '200px'}}>
+                                                <img 
+                                                    src={imageMap[activity.title]} 
+                                                    alt={activity.title} 
+                                                    className="w-full h-full object-cover"
+                                                />
                                             </div>
                                         </div>
                                         <div className="md:col-span-2">
@@ -295,7 +311,7 @@
                                         </a>
                                     </p>
                                 </div>
-                            ))}
+                            )})}
                         </div>
 
                         <div className="section-divider"></div>
