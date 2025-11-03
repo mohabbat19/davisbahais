@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Davis Bahá'í Community</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: white;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #5eb3b7;
+        }
+        
+        .activity-card {
+            transition: all 0.4s ease;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(94, 179, 183, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+        
+        .bahai-blue {
+            color: #5eb3b7;
+        }
+        
+        .bahai-bg-blue {
+            background-color: #5eb3b7;
+        }
+        
+        .bahai-border-blue {
+            border-color: #5eb3b7;
+        }
+        
+        .page-transition {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .star-icon {
+            width: 60px;
+            height: 60px;
+            fill: #5eb3b7;
+        }
+        
+        .quote-text {
+            font-style: italic;
+            font-size: 1.75rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Star icon component
+        const StarIcon = () => (
+            <svg className="star-icon mx-auto" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,10 L58,38 L88,38 L64,56 L72,84 L50,66 L28,84 L36,56 L12,38 L42,38 Z" />
+            </svg>
+        );
+
+        // Navigation Component
+        const Navigation = ({ currentPage, setCurrentPage }) => {
+            const [isScrolled, setIsScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setIsScrolled(window.scrollY > 20);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <nav className={`fixed w-full top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-lg' : 'bg-white'}`}>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex flex-col items-center py-4">
+                            <div className="flex items-center space-x-3 mb-3">
+                                <StarIcon />
+                                <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
+                                    Welcome to the<br/>
+                                    <span className="text-4xl md:text-5xl">Bahá'í Faith in Davis</span>
+                                </h1>
+                                <StarIcon />
+                            </div>
+                            <div className="flex space-x-1 md:space-x-6 text-sm md:text-base">
+                                {['Home', 'Community Events', 'Get Involved', 'Contact Us'].map(item => (
+                                    <button
+                                        key={item}
+                                        onClick={() => setCurrentPage(item)}
+                                        className={`nav-link px-3 py-2 rounded-md font-medium ${
+                                            currentPage === item 
+                                                ? 'bahai-bg-blue text-white' 
+                                                : 'text-gray-700 hover:bg-gray-100'
+                                        }`}
+                                    >
+                                        {item}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            );
+        };
+
+        // Home Page Component
+        const HomePage = () => {
+            const activities = [
+                {
+                    title: "Children's Classes",
+                    icon: "👦👧",
+                    description: "Spiritual education for children ages 6-11 through stories, songs, art, and activities",
+                    color: "bg-blue-50"
+                },
+                {
+                    title: "Youth Empowerment",
+                    icon: "🌱",
+                    description: "Empowering youth ages 12-15 to navigate their lives and serve their communities",
+                    color: "bg-green-50"
+                },
+                {
+                    title: "Devotional Gatherings",
+                    icon: "🕊️",
+                    description: "Tranquil environments for sharing prayers, poetry, and inspirational writings",
+                    color: "bg-purple-50"
+                },
+                {
+                    title: "Study Circles",
+                    icon: "📚",
+                    description: "Explore spiritual themes and enable personal and collective growth",
+                    color: "bg-yellow-50"
+                }
+            ];
+
+            return (
+                <div className="page-transition">
+                    {/* Hero Section */}
+                    <div className="hero-gradient pt-32 pb-16 px-4">
+                        <div className="max-w-6xl mx-auto text-center">
+                            <div className="mb-8">
+                                <button className="bahai-bg-blue text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl mr-4 mb-4">
+                                    Learn About the Bahá'í Faith
+                                </button>
+                                <button className="bg-gray-200 text-gray-800 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl mb-4">
+                                    What Bahá'í's Believe
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Main Content */}
+                    <div className="max-w-6xl mx-auto px-4 py-12">
+                        <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-4">
+                            Join Us in Building a Vibrant Davis Community
+                        </h2>
+                        <p className="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">
+                            We welcome everyone from all backgrounds and religions to join in this process of global transformation.
+                        </p>
+
+                        {/* Activity Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                            {activities.map((activity, index) => (
+                                <div key={index} className={`activity-card ${activity.color} rounded-lg p-6 text-center shadow-md cursor-pointer`}>
+                                    <div className="text-6xl mb-4">{activity.icon}</div>
+                                    <h3 className="text-xl font-bold text-gray-800 mb-3">{activity.title}</h3>
+                                    <p className="text-gray-600 text-sm">{activity.description}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Quote Section */}
+                        <div className="bg-gray-50 rounded-lg p-12 mb-12 text-center">
+                            <p className="quote-text text-gray-700 mb-4">
+                                "The best beloved of all things in My sight is Justice..."
+                            </p>
+                            <p className="text-red-600 font-semibold">
+                                Bahá'u'lláh (Founder of the Bahá'í Faith)
+                            </p>
+                        </div>
+
+                        {/* Community Building Section */}
+                        <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-8 mb-12">
+                            <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                In neighborhoods across the country, including Davis, Bahá'ís, and their friends are engaged in a community-building process that cultivates love and translates it into action.
+                            </p>
+                            <p className="text-lg text-gray-700 leading-relaxed">
+                                It's no secret that America is going through a tumultuous time. Tensions and divisions surface every day, reminding us that the stains of injustice and racial prejudice are set deeply in the fabric of our society. Bahá'í's are committed to reshaping society around principles of oneness – such as love, inclusivity, reciprocity, and diversity. We hope to join hands with the countless like-minded persons working for these same goals, and invite everyone to take a look at our approach.
+                            </p>
+                        </div>
+
+                        {/* Vision Quote */}
+                        <div className="text-center py-8">
+                            <p className="text-2xl text-gray-700 italic">
+                                "Let your vision be world embracing..." — Bahá'u'lláh
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Community Events Page
+        const CommunityEventsPage = () => {
+            return (
+                <div className="page-transition pt-32 px-4 pb-16">
+                    <div className="max-w-6xl mx-auto">
+                        <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">Community Events Calendar</h2>
+                        <p className="text-center text-gray-600 mb-8">
+                            Join us for upcoming events and gatherings in the Davis Bahá'í Community
+                        </p>
+                        
+                        {/* Google Calendar Embed Placeholder */}
+                        <div className="bg-gray-100 rounded-lg p-8 text-center border-2 border-dashed border-gray-300">
+                            <p className="text-gray-600 mb-4">
+                                To embed your Google Calendar:
+                            </p>
+                            <ol className="text-left max-w-2xl mx-auto text-gray-600 space-y-2">
+                                <li>1. Go to your Google Calendar settings</li>
+                                <li>2. Select the calendar you want to embed</li>
+                                <li>3. Scroll to "Integrate calendar" section</li>
+                                <li>4. Copy the iframe embed code</li>
+                                <li>5. Replace this placeholder with your embed code</li>
+                            </ol>
+                            <div className="mt-8">
+                                <iframe 
+                                    src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID&ctz=America/Los_Angeles" 
+                                    style={{border: 0}} 
+                                    width="100%" 
+                                    height="600" 
+                                    frameBorder="0" 
+                                    scrolling="no"
+                                    className="rounded-lg"
+                                ></iframe>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 text-center">
+                            <p className="text-gray-600">
+                                For more information about events, contact us at{' '}
+                                <a href="mailto:davisbahais@gmail.com" className="bahai-blue hover:underline">
+                                    davisbahais@gmail.com
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Get Involved Page
+        const GetInvolvedPage = () => {
+            const activities = [
+                {
+                    title: "Children's Classes",
+                    description: "classes that provide spiritual education for children ages 6-11 through stories, songs, art, and other dynamic activities",
+                    details: "Bahá'ís see the young as the most precious treasure a community can possess. In them are the promise and guarantee of the future. Yet, in order for this promise to be realized, children need to receive spiritual nourishment. In a world where the joy and innocence of childhood can be so easily overwhelmed by the aggressive pursuit of materialistic ends, the moral and spiritual education of children assumes vital importance. Bahá'í classes and activities for children are raising a new generation of spiritually vibrant young people with the potential to grow up free from prejudice. Children learn that they are important to God and that they have a critical role to play in serving humanity and bettering the world. Through music, stories, art, games, drama, and community service children learn about spiritual qualities, such as truthfulness, humility, and justice that will shape their lives and guide their choices."
+                },
+                {
+                    title: "Junior Youth Spiritual Empowerment Program",
+                    description: "classes that empower youth ages 12-15 to navigate a critical period of their lives and to serve their communities",
+                    details: "Bahá'ís believe that those in their early adolescent years possess altruism, a keen sense of justice, an eagerness to learn about the universe, and a desire to contribute to the construction of a better world. The Junior Youth Spiritual Empowerment Program is designed to assist youth around the ages of 12 to 15 to navigate a crucial stage in their lives by helping them to form a strong moral identity and empowering them to contribute to the well-being of their communities and society at large. By developing their spiritual qualities, intellectual capabilities, and capacities for service, the participants come to see that they can become agents of positive change in the world. The program adopts a participatory mode of learning where the facilitator and participants learn from each other. Groups of participants engage in activities such as artistic expression, discussion, drama, cooperative games, the study of literature, storytelling, and acts of community service."
+                },
+                {
+                    title: "Devotional Gatherings",
+                    description: "tranquil environments where participants of all ages and backgrounds come together to share prayers, poetry, and other inspirational writings and music for spiritual nourishment",
+                    details: "Bahá'ís in every community, including Davis, offer devotional gatherings to allow people of all faiths and backgrounds to come together and share prayers, poetry, and words of inspiration in a dynamic yet tranquil atmosphere. These devotional gatherings are held in neighborhoods all over Davis and are free and open to all."
+                },
+                {
+                    title: "Study Circles",
+                    description: "classes for youth and adults age 15 and above that explore spiritual themes and enable participants to share insights regarding personal and collective growth",
+                    details: "Bahá'ís in Davis and in communities in every country around the world offer free study circles designed to provide participants with the knowledge, spiritual insights and skills to enable them to contribute to the betterment of society, starting with their own neighborhood. This is accomplished through a systematic study of a sequence of courses based on the Bahá'í Writings called the Ruhi Institute. Participants of the study circle study materials based on concepts relating to individual and collective spiritual development. Some of the main concepts explored are how to: create and maintain an environment that helps people develop their intellectual and spiritual capacities; foster a devotional character within a community through prayer and meditation; strengthen bonds of friendship and camaraderie among all people; make the education of children and empowerment of youth an integral part of community life. Study circles are conducted in informal settings with a small group of participants and are facilitated by a trained, volunteer tutor whose primary role is to guide the discussion between the participants and ensure the environment fostered by the group is one of inclusion, respect, and unity. In response to the materials they study, participants in study circles arise to carry out specific acts of service relating to the themes discussed, including organizing devotional gatherings, spiritual education classes for children and youth groups. As participants complete the sequence of Ruhi Institute courses, they have the opportunity to tutor and accompany others along this path of service. As people engage in study circles, they develop a common vision of individual and collective transformation and they undertake related acts of service. This gradually builds the capacity of the community to reflect a pattern of life that places social transformation and fellowship at its heart. Anyone aged fifteen or older, whether a Bahá'í or not, is welcome to take part in the Ruhi Institute."
+                }
+            ];
+
+            return (
+                <div className="page-transition pt-32 px-4 pb-16">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="bg-gray-50 rounded-lg p-8 mb-12">
+                            <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                In neighborhoods across the country, including Davis, Bahá'ís, and their friends are engaged in a community-building process that cultivates love and translates it into action.
+                            </p>
+                            <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                It's no secret that America is going through a tumultuous time. Tensions and divisions surface every day, reminding us that the stains of injustice and racial prejudice are set deeply in the fabric of our society. Bahá'í's are committed to reshaping society around principles of oneness – such as love, inclusivity, reciprocity, and diversity. We hope to join hands with the countless like-minded persons working for these same goals, and invite everyone to take a look at our approach.
+                            </p>
+                            <p className="text-lg text-gray-700 leading-relaxed">
+                                You are welcome to join us in this adventure. Here are some activities that you can get involved in right away:
+                            </p>
+                        </div>
+
+                        {activities.map((activity, index) => (
+                            <div key={index} className="mb-8 bg-white rounded-lg shadow-md p-8 hover:shadow-xl transition-shadow duration-300">
+                                <h3 className="text-2xl font-bold bahai-blue mb-3">{activity.title}</h3>
+                                <p className="text-gray-700 mb-4 font-semibold">{activity.description}</p>
+                                <p className="text-gray-600 leading-relaxed">{activity.details}</p>
+                                <p className="mt-4 text-gray-600">
+                                    For more information about {activity.title.toLowerCase()} in Davis, contact us at{' '}
+                                    <a href="mailto:davisbahais@gmail.com" className="bahai-blue hover:underline">
+                                        davisbahais@gmail.com
+                                    </a>
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        // Contact Us Page
+        const ContactUsPage = () => {
+            const [formData, setFormData] = useState({
+                name: '',
+                email: '',
+                subject: '',
+                message: ''
+            });
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                setFormData({ name: '', email: '', subject: '', message: '' });
+            };
+
+            const handleChange = (e) => {
+                setFormData({ ...formData, [e.target.name]: e.target.value });
+            };
+
+            return (
+                <div className="page-transition pt-32 px-4 pb-16">
+                    <div className="max-w-3xl mx-auto">
+                        <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">Contact Us</h2>
+                        
+                        <div className="bg-gray-50 rounded-lg p-8 mb-8">
+                            <p className="text-gray-700 mb-4">
+                                There are various ways to get involved with the Davis Bahá'í Community, and we would love to hear from you.
+                            </p>
+                            <p className="text-gray-700 mb-4">
+                                To contact the Davis Bahá'í Community immediately, please call or text{' '}
+                                <a href="tel:+12092590095" className="bahai-blue hover:underline font-semibold">
+                                    +1 209 259 0095
+                                </a>{' '}
+                                or email{' '}
+                                <a href="mailto:davisbahais@gmail.com" className="bahai-blue hover:underline font-semibold">
+                                    davisbahais@gmail.com
+                                </a>
+                            </p>
+                            <p className="text-gray-700 mb-4">
+                                You may also get in touch with us by completing the fields below.
+                            </p>
+                            <p className="text-gray-700">
+                                If you do not live in or near Davis but would like to get in touch with a Bahá'í near you, please call{' '}
+                                <span className="font-semibold">1-800-22-Unite (1-800-228-6483)</span> or click here:{' '}
+                                <a href="https://www.bahai.us/find-bahais/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline">
+                                    Find Bahá'ís
+                                </a>
+                                .
+                            </p>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-8">
+                            <div className="mb-6">
+                                <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
+                                    Name *
+                                </label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                />
+                            </div>
+
+                            <div className="mb-6">
+                                <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
+                                    Email *
+                                </label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                />
+                            </div>
+
+                            <div className="mb-6">
+                                <label className="block text-gray-700 font-semibold mb-2" htmlFor="subject">
+                                    Subject
+                                </label>
+                                <input
+                                    type="text"
+                                    id="subject"
+                                    name="subject"
+                                    value={formData.subject}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                />
+                            </div>
+
+                            <div className="mb-6">
+                                <label className="block text-gray-700 font-semibold mb-2" htmlFor="message">
+                                    Message
+                                </label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    rows="6"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                ></textarea>
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="bahai-bg-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl"
+                            >
+                                Send
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            );
+        };
+
+        // Footer Component
+        const Footer = () => {
+            return (
+                <footer className="bg-gray-100 py-8 mt-16">
+                    <div className="max-w-6xl mx-auto px-4">
+                        <div className="flex flex-wrap justify-center items-center space-x-6 mb-6">
+                            <a 
+                                href="https://www.bahai.org/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:text-blue-600 transition-colors"
+                            >
+                                Worldwide Bahá'í Community »
+                            </a>
+                            <a 
+                                href="https://www.bahai.us/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:text-blue-600 transition-colors"
+                            >
+                                Baha'is of the United States »
+                            </a>
+                            <a 
+                                href="https://www.bahai.org/library/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:text-blue-600 transition-colors"
+                            >
+                                Bahá'í Reference Library »
+                            </a>
+                            <a 
+                                href="https://news.bahai.org/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:text-blue-600 transition-colors"
+                            >
+                                Baha'i World News »
+                            </a>
+                        </div>
+                        <div className="text-center text-gray-600 text-sm">
+                            <p className="mb-2">
+                                The Baha'i Faith is established in more than 100,000 localities in virtually every country and territory around the world.{' '}
+                                <a href="https://www.bahai.org/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline">
+                                    A Global Community
+                                </a>
+                            </p>
+                            <p>
+                                Imagery Copyright © Baha'i International Community{' '}
+                                <a href="https://media.bahai.org/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline">
+                                    https://media.bahai.org/
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
+
+        // Main App Component
+        const App = () => {
+            const [currentPage, setCurrentPage] = useState('Home');
+
+            const renderPage = () => {
+                switch(currentPage) {
+                    case 'Home':
+                        return <HomePage />;
+                    case 'Community Events':
+                        return <CommunityEventsPage />;
+                    case 'Get Involved':
+                        return <GetInvolvedPage />;
+                    case 'Contact Us':
+                        return <ContactUsPage />;
+                    default:
+                        return <HomePage />;
+                }
+            };
+
+            return (
+                <div className="min-h-screen bg-white">
+                    <Navigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                    <main>
+                        {renderPage()}
+                    </main>
+                    <Footer />
+                </div>
+            );
+        };
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
