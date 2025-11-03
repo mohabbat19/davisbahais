@@ -9,32 +9,26 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: white;
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
         
         h1, h2, h3, h4 {
-            font-family: 'Crimson Text', serif;
-        }
-        
-        .nav-link {
-            transition: all 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            color: #003262;
-        }
-        
-        .activity-card {
-            transition: all 0.4s ease;
-        }
-        
-        .activity-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
         
         .bahai-blue {
@@ -53,53 +47,182 @@
             background-color: #FDB515;
         }
         
-        .page-transition {
-            animation: fadeIn 0.5s ease-in;
+        .gradient-text {
+            background: linear-gradient(135deg, #003262 0%, #0055a5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #FDB515;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .activity-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(253, 181, 21, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .activity-card:hover::before {
+            left: 100%;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 50, 98, 0.15);
+        }
+        
+        .page-transition {
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
         }
         
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(100%); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes slideOut {
-            from { opacity: 1; transform: translateX(0); }
-            to { opacity: 0; transform: translateX(-100%); }
+            from { 
+                opacity: 0; 
+                transform: translateX(50px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0);
+            }
         }
         
         .quote-enter {
-            animation: slideIn 1s ease-in-out;
+            animation: slideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .quote-exit {
-            animation: slideOut 1s ease-in-out;
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
         }
         
-        .quote-text {
-            font-style: italic;
-            font-size: 1.75rem;
-            line-height: 1.6;
+        .image-container img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .image-placeholder {
-            background: linear-gradient(135deg, #e8f0f7 0%, #d4e5f7 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #003262;
-            font-size: 1.2rem;
-            font-weight: 600;
+        .image-container:hover img {
+            transform: scale(1.05);
         }
         
         .section-divider {
-            height: 2px;
-            background: linear-gradient(to right, transparent, #003262, #FDB515, transparent);
-            margin: 4rem 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 50, 98, 0.1), transparent);
+            margin: 5rem 0;
+        }
+        
+        .btn-modern {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-modern::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-modern:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -10px rgba(0, 50, 98, 0.3);
+        }
+        
+        .quote-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-left: 4px solid #FDB515;
+            position: relative;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 80px;
+            color: rgba(0, 50, 98, 0.1);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .dot-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .dot-indicator.active {
+            width: 32px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #003262, #FDB515) !important;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #003262 !important;
+            box-shadow: 0 0 0 3px rgba(0, 50, 98, 0.1);
+        }
+        
+        .modern-border {
+            border-radius: 20px;
+            border: 1px solid rgba(0, 50, 98, 0.08);
+        }
+        
+        .gradient-overlay {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 50, 98, 0.4) 100%);
         }
     </style>
 </head>
@@ -111,33 +234,43 @@
 
         // Navigation Component
         const Navigation = ({ currentPage, setCurrentPage }) => {
+            const [isScrolled, setIsScrolled] = useState(false);
+
+            React.useEffect(() => {
+                const handleScroll = () => {
+                    setIsScrolled(window.scrollY > 20);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
             return (
-                <nav className="fixed w-full top-0 z-50 bg-white shadow-md">
+                <nav className={`fixed w-full top-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg py-4' : 'bg-white py-6'}`}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex flex-col items-center py-4">
-                            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                        <div className="flex items-center justify-between">
+                            <h1 className="text-2xl md:text-3xl font-bold gradient-text">
                                 Davis Bahá'í Community
                             </h1>
-                            <div className="flex space-x-8 text-base md:text-lg">
+                            <div className="flex space-x-8">
                                 <button
                                     onClick={() => setCurrentPage('Home')}
-                                    className={`nav-link px-4 py-2 rounded-md font-medium ${
+                                    className={`nav-link px-4 py-2 rounded-full font-medium text-sm transition-all ${
                                         currentPage === 'Home' 
-                                            ? 'bahai-bg-blue text-white' 
-                                            : 'text-gray-700 hover:bg-gray-100'
+                                            ? 'bahai-bg-blue text-white shadow-lg' 
+                                            : 'text-gray-700 hover:text-blue-900'
                                     }`}
                                 >
                                     Home
                                 </button>
                                 <button
                                     onClick={() => setCurrentPage('Community Events')}
-                                    className={`nav-link px-4 py-2 rounded-md font-medium ${
+                                    className={`nav-link px-4 py-2 rounded-full font-medium text-sm transition-all ${
                                         currentPage === 'Community Events' 
-                                            ? 'bahai-bg-blue text-white' 
-                                            : 'text-gray-700 hover:bg-gray-100'
+                                            ? 'bahai-bg-blue text-white shadow-lg' 
+                                            : 'text-gray-700 hover:text-blue-900'
                                     }`}
                                 >
-                                    Community Events
+                                    Events
                                 </button>
                             </div>
                         </div>
@@ -166,7 +299,7 @@
             React.useEffect(() => {
                 const timer = setInterval(() => {
                     setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
-                }, 8000); // Change quote every 8 seconds
+                }, 8000);
 
                 return () => clearInterval(timer);
             }, []);
@@ -184,64 +317,64 @@
             const activities = [
                 {
                     title: "Children's Classes",
-                    description: "Spiritual education for children ages 6-11 through stories, songs, art, and dynamic activities",
-                    color: "bg-blue-50",
-                    details: "Bahá'ís see the young as the most precious treasure a community can possess. In them are the promise and guarantee of the future. Yet, in order for this promise to be realized, children need to receive spiritual nourishment. In a world where the joy and innocence of childhood can be so easily overwhelmed by the aggressive pursuit of materialistic ends, the moral and spiritual education of children assumes vital importance.\n\nBahá'í classes and activities for children are raising a new generation of spiritually vibrant young people with the potential to grow up free from prejudice. Children learn that they are important to God and that they have a critical role to play in serving humanity and bettering the world.\n\nThrough music, stories, art, games, drama, and community service, children learn about spiritual qualities, such as truthfulness, humility, and justice that will shape their lives and guide their choices."
+                    image: "Children Classes.jpg",
+                    description: "Spiritual education for children ages 6-11",
+                    details: "Bahá'ís see the young as the most precious treasure a community can possess. In them are the promise and guarantee of the future. Yet, in order for this promise to be realized, children need to receive spiritual nourishment.\n\nBahá'í classes and activities for children are raising a new generation of spiritually vibrant young people with the potential to grow up free from prejudice. Children learn that they are important to God and that they have a critical role to play in serving humanity and bettering the world.\n\nThrough music, stories, art, games, drama, and community service, children learn about spiritual qualities, such as truthfulness, humility, and justice that will shape their lives and guide their choices."
                 },
                 {
                     title: "Youth Empowerment",
-                    description: "Empowering youth ages 12-15 to navigate their lives and serve their communities",
-                    color: "bg-amber-50",
-                    details: "Bahá'ís believe that those in their early adolescent years possess altruism, a keen sense of justice, an eagerness to learn about the universe, and a desire to contribute to the construction of a better world. The Junior Youth Spiritual Empowerment Program is designed to assist youth around the ages of 12 to 15 to navigate a crucial stage in their lives by helping them to form a strong moral identity and empowering them to contribute to the well-being of their communities and society at large.\n\nBy developing their spiritual qualities, intellectual capabilities, and capacities for service, the participants come to see that they can become agents of positive change in the world.\n\nThe program adopts a participatory mode of learning where the facilitator and participants learn from each other. Groups of participants engage in activities such as artistic expression, discussion, drama, cooperative games, the study of literature, storytelling, and acts of community service."
+                    image: "Youth Empowerment.jpg",
+                    description: "Empowering youth ages 12-15 to create positive change",
+                    details: "Bahá'ís believe that those in their early adolescent years possess altruism, a keen sense of justice, an eagerness to learn about the universe, and a desire to contribute to the construction of a better world.\n\nThe Junior Youth Spiritual Empowerment Program is designed to assist youth around the ages of 12 to 15 to navigate a crucial stage in their lives by helping them to form a strong moral identity and empowering them to contribute to the well-being of their communities and society at large.\n\nThe program adopts a participatory mode of learning where the facilitator and participants learn from each other through artistic expression, discussion, drama, cooperative games, storytelling, and community service."
                 },
                 {
                     title: "Devotional Gatherings",
-                    description: "Tranquil environments for sharing prayers, poetry, and inspirational writings",
-                    color: "bg-blue-50",
+                    image: "Devotional Gathering.jpg",
+                    description: "Spaces for sharing prayers and inspiration",
                     details: "Bahá'ís in every community, including Davis, offer devotional gatherings to allow people of all faiths and backgrounds to come together and share prayers, poetry, and words of inspiration in a dynamic yet tranquil atmosphere.\n\nThese devotional gatherings are held in neighborhoods all over Davis and are free and open to all. They provide a space for spiritual nourishment and connection with others seeking to cultivate peace and unity in their lives."
                 },
                 {
                     title: "Study Circles",
-                    description: "Explore spiritual themes and enable personal and collective growth",
-                    color: "bg-amber-50",
-                    details: "Bahá'ís in Davis and in communities in every country around the world offer free study circles designed to provide participants with the knowledge, spiritual insights and skills to enable them to contribute to the betterment of society, starting with their own neighborhood. This is accomplished through a systematic study of a sequence of courses based on the Bahá'í Writings called the Ruhi Institute.\n\nParticipants of the study circle study materials based on concepts relating to individual and collective spiritual development. Some of the main concepts explored are how to: create and maintain an environment that helps people develop their intellectual and spiritual capacities; foster a devotional character within a community through prayer and meditation; strengthen bonds of friendship and camaraderie among all people; make the education of children and empowerment of youth an integral part of community life.\n\nStudy circles are conducted in informal settings with a small group of participants and are facilitated by a trained, volunteer tutor whose primary role is to guide the discussion between the participants and ensure the environment fostered by the group is one of inclusion, respect, and unity.\n\nAnyone aged fifteen or older, whether a Bahá'í or not, is welcome to take part in the Ruhi Institute."
+                    image: "Study Circle.jpg",
+                    description: "Exploring spiritual themes for personal growth",
+                    details: "Bahá'ís in Davis and communities around the world offer free study circles designed to provide participants with the knowledge, spiritual insights and skills to enable them to contribute to the betterment of society, starting with their own neighborhood.\n\nParticipants study materials based on concepts relating to individual and collective spiritual development, including how to create environments that help people develop their intellectual and spiritual capacities, foster devotional character through prayer, strengthen bonds of friendship, and make the education of children integral to community life.\n\nAnyone aged fifteen or older, whether a Bahá'í or not, is welcome to take part."
                 }
             ];
 
             return (
                 <div className="page-transition">
-                    {/* Hero Section with Image */}
-                    <div className="pt-32 pb-8 px-4">
-                        <div className="max-w-6xl mx-auto">
-                            <div className="rounded-lg shadow-lg mb-8 overflow-hidden" style={{height: '400px'}}>
+                    {/* Hero Section */}
+                    <div className="pt-24 pb-12 px-4">
+                        <div className="max-w-7xl mx-auto">
+                            <div className="image-container rounded-3xl shadow-2xl mb-12 overflow-hidden relative" style={{height: '500px'}}>
                                 <img 
                                     src="Children Classes.jpg" 
                                     alt="Davis Baha'i Community gathering" 
                                     className="w-full h-full object-cover"
                                 />
+                                <div className="gradient-overlay absolute inset-0"></div>
                             </div>
                             
-                            {/* Rotating Quotes Section */}
-                            <div className="bg-gradient-to-r from-blue-50 via-amber-50 to-blue-50 rounded-lg p-8 md:p-12 mb-8 shadow-lg min-h-[300px] flex items-center justify-center">
-                                <div className="quote-enter">
-                                    <p className="text-lg md:text-xl text-gray-700 leading-relaxed text-center italic">
+                            {/* Rotating Quotes */}
+                            <div className="quote-box rounded-3xl p-8 md:p-16 mb-12 shadow-xl">
+                                <div className="quote-enter max-w-4xl mx-auto">
+                                    <p className="text-lg md:text-2xl text-gray-800 leading-relaxed italic font-light">
                                         {quotes[currentQuoteIndex]}
                                     </p>
                                 </div>
                             </div>
                             
                             {/* Quote Navigation Dots */}
-                            <div className="flex justify-center space-x-3 mb-12">
+                            <div className="flex justify-center space-x-3 mb-16">
                                 {quotes.map((_, index) => (
                                     <button
                                         key={index}
                                         onClick={() => setCurrentQuoteIndex(index)}
-                                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                                        className={`dot-indicator transition-all ${
                                             index === currentQuoteIndex 
-                                                ? 'bahai-bg-blue w-8' 
+                                                ? 'active' 
                                                 : 'bg-gray-300 hover:bg-gray-400'
                                         }`}
-                                        aria-label={`Go to quote ${index + 1}`}
                                     />
                                 ))}
                             </div>
@@ -249,121 +382,129 @@
                     </div>
 
                     {/* Welcome Section */}
-                    <div className="max-w-6xl mx-auto px-4 py-8">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-4">
-                            Join Us in Building a Vibrant Davis Community
-                        </h2>
-                        <p className="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto leading-relaxed">
-                            We welcome everyone from all backgrounds and religions to join in this process of global transformation. Whether you're seeking spiritual connection, want to serve your community, or are curious about the Bahá'í Faith, there's a place for you here.
-                        </p>
+                    <div className="max-w-7xl mx-auto px-4 py-16">
+                        <div className="text-center mb-20">
+                            <h2 className="text-5xl md:text-7xl font-bold gradient-text mb-6 leading-tight">
+                                Building a Vibrant<br/>Community Together
+                            </h2>
+                            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
+                                Join us in creating meaningful connections and fostering positive change in Davis
+                            </p>
+                        </div>
 
                         {/* Community Building */}
-                        <div className="mb-16">
-                            <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                                In neighborhoods across the country, including Davis, Bahá'ís and their friends are engaged in a community-building process that cultivates love and translates it into action.
-                            </p>
-                            <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                                It's no secret that America is going through a tumultuous time. Tensions and divisions surface every day, reminding us that the stains of injustice and racial prejudice are set deeply in the fabric of our society. Bahá'í's are committed to reshaping society around principles of oneness – such as love, inclusivity, reciprocity, and diversity. We hope to join hands with the countless like-minded persons working for these same goals, and invite everyone to take a look at our approach.
-                            </p>
-                            <p className="text-lg text-gray-700 leading-relaxed">
-                                You are welcome to join us in this adventure. Here are some ways you can get involved right away:
-                            </p>
+                        <div className="max-w-4xl mx-auto mb-20">
+                            <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+                                <p>
+                                    In neighborhoods across the country, including Davis, Bahá'ís and their friends are engaged in a community-building process that cultivates love and translates it into action.
+                                </p>
+                                <p>
+                                    We're committed to reshaping society around principles of oneness—love, inclusivity, reciprocity, and diversity. Join us in building a better world, starting right here in our community.
+                                </p>
+                            </div>
                         </div>
 
                         <div className="section-divider"></div>
 
                         {/* Get Involved Section */}
-                        <div id="get-involved" className="mb-16">
-                            <h2 className="text-4xl font-bold text-center bahai-blue mb-12">Get Involved</h2>
+                        <div id="get-involved" className="mb-20">
+                            <div className="text-center mb-16">
+                                <h2 className="text-5xl md:text-6xl font-bold gradient-text mb-4">Ways to Get Involved</h2>
+                                <p className="text-xl text-gray-600 font-light">Choose your path to make a difference</p>
+                            </div>
 
-                            {/* Detailed Activity Descriptions */}
-                            {activities.map((activity, index) => {
-                                const imageMap = {
-                                    "Children's Classes": "Children Classes.jpg",
-                                    "Youth Empowerment": "Youth Empowerment.jpg",
-                                    "Devotional Gatherings": "Devotional Gathering.jpg",
-                                    "Study Circles": "Study Circle.jpg"
-                                };
-                                
-                                return (
-                                <div key={index} className="mb-12 bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border-l-4 border-blue-900">
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                                        <div className="md:col-span-1">
-                                            <div className="rounded-lg overflow-hidden shadow-md" style={{height: '200px'}}>
-                                                <img 
-                                                    src={imageMap[activity.title]} 
-                                                    alt={activity.title} 
-                                                    className="w-full h-full object-cover"
-                                                />
+                            {/* Activity Cards */}
+                            <div className="space-y-12">
+                                {activities.map((activity, index) => (
+                                    <div key={index} className="activity-card modern-border bg-white p-6 md:p-10 hover:shadow-2xl transition-all">
+                                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                                            <div className="lg:col-span-2">
+                                                <div className="image-container rounded-2xl overflow-hidden shadow-lg" style={{height: '280px'}}>
+                                                    <img 
+                                                        src={activity.image} 
+                                                        alt={activity.title} 
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="lg:col-span-3">
+                                                <div className="inline-block px-4 py-1 rounded-full bahai-bg-gold text-white text-sm font-semibold mb-4">
+                                                    {index + 1}
+                                                </div>
+                                                <h3 className="text-3xl md:text-4xl font-bold bahai-blue mb-4">{activity.title}</h3>
+                                                <p className="text-gray-600 leading-relaxed mb-6 whitespace-pre-line">
+                                                    {activity.details}
+                                                </p>
+                                                <a 
+                                                    href="mailto:davisbahais@gmail.com" 
+                                                    className="inline-flex items-center text-blue-900 hover:bahai-gold font-semibold transition-colors group"
+                                                >
+                                                    Learn more 
+                                                    <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                </a>
                                             </div>
                                         </div>
-                                        <div className="md:col-span-2">
-                                            <h3 className="text-3xl font-bold bahai-blue mb-4">{activity.title}</h3>
-                                            <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                                                {activity.details}
-                                            </p>
-                                        </div>
                                     </div>
-                                    <p className="text-gray-600 italic">
-                                        For more information about {activity.title.toLowerCase()} in Davis, contact us at{' '}
-                                        <a href="mailto:davisbahais@gmail.com" className="bahai-blue hover:underline font-semibold">
-                                            davisbahais@gmail.com
-                                        </a>
-                                    </p>
-                                </div>
-                            )})}
+                                ))}
+                            </div>
                         </div>
 
                         <div className="section-divider"></div>
 
                         {/* Vision Quote */}
-                        <div className="text-center py-12 mb-16">
-                            <p className="text-3xl text-gray-700 italic font-light">
-                                "Let your vision be world embracing..." — Bahá'u'lláh
+                        <div className="text-center py-16 mb-16">
+                            <p className="text-3xl md:text-4xl text-gray-700 italic font-light max-w-3xl mx-auto leading-relaxed">
+                                "Let your vision be world embracing..." 
+                                <span className="block mt-4 text-2xl bahai-gold">— Bahá'u'lláh</span>
                             </p>
                         </div>
 
                         <div className="section-divider"></div>
 
                         {/* Contact Section */}
-                        <div id="contact" className="mb-16">
-                            <h2 className="text-4xl font-bold text-center bahai-gold mb-8">Get In Touch</h2>
+                        <div id="contact" className="mb-20">
+                            <div className="text-center mb-16">
+                                <h2 className="text-5xl md:text-6xl font-bold gradient-text mb-4">Get In Touch</h2>
+                                <p className="text-xl text-gray-600 font-light">We'd love to hear from you</p>
+                            </div>
                             
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                                <div className="bg-gradient-to-br from-blue-50 to-amber-50 rounded-lg p-8 shadow-lg">
-                                    <h3 className="text-2xl font-bold text-gray-800 mb-4">Contact Information</h3>
-                                    <p className="text-gray-700 mb-6 leading-relaxed">
-                                        There are various ways to get involved with the Davis Bahá'í Community, and we would love to hear from you!
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                                <div className="modern-border bg-gradient-to-br from-blue-50 to-amber-50 p-10 shadow-lg">
+                                    <h3 className="text-3xl font-bold text-gray-800 mb-6">Contact Information</h3>
+                                    <p className="text-gray-700 mb-8 leading-relaxed text-lg">
+                                        There are various ways to get involved with the Davis Bahá'í Community!
                                     </p>
-                                    <div className="space-y-4">
+                                    <div className="space-y-6">
                                         <div>
-                                            <p className="text-gray-700 font-semibold mb-2">Call or Text:</p>
-                                            <a href="tel:+12092590095" className="text-2xl bahai-blue hover:underline font-bold">
+                                            <p className="text-sm text-gray-600 font-semibold mb-2 uppercase tracking-wide">Call or Text</p>
+                                            <a href="tel:+12092590095" className="text-3xl bahai-blue hover:bahai-gold font-bold transition-colors">
                                                 +1 209 259 0095
                                             </a>
                                         </div>
                                         <div>
-                                            <p className="text-gray-700 font-semibold mb-2">Email:</p>
-                                            <a href="mailto:davisbahais@gmail.com" className="text-xl bahai-blue hover:underline font-bold">
+                                            <p className="text-sm text-gray-600 font-semibold mb-2 uppercase tracking-wide">Email</p>
+                                            <a href="mailto:davisbahais@gmail.com" className="text-2xl bahai-blue hover:bahai-gold font-bold transition-colors break-all">
                                                 davisbahais@gmail.com
                                             </a>
                                         </div>
                                     </div>
-                                    <div className="mt-8 pt-6 border-t border-gray-300">
-                                        <p className="text-gray-700 text-sm">
+                                    <div className="mt-10 pt-8 border-t border-gray-300">
+                                        <p className="text-gray-700">
                                             <strong>Not in Davis?</strong> Find a Bahá'í community near you by calling{' '}
-                                            <span className="font-bold">1-800-22-Unite (1-800-228-6483)</span> or visit{' '}
-                                            <a href="https://www.bahai.us/find-bahais/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline">
+                                            <span className="font-bold">1-800-22-Unite</span> or visit{' '}
+                                            <a href="https://www.bahai.us/find-bahais/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline font-semibold">
                                                 Find Bahá'ís
                                             </a>
                                         </p>
                                     </div>
                                 </div>
 
-                                <div className="bg-white rounded-lg shadow-lg p-8">
-                                    <h3 className="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h3>
-                                    <form onSubmit={handleSubmit}>
-                                        <div className="mb-4">
+                                <div className="modern-border bg-white p-10 shadow-lg">
+                                    <h3 className="text-3xl font-bold text-gray-800 mb-8">Send Us a Message</h3>
+                                    <form onSubmit={handleSubmit} className="space-y-6">
+                                        <div>
                                             <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
                                                 Name *
                                             </label>
@@ -374,11 +515,11 @@
                                                 value={formData.name}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl transition-all"
                                             />
                                         </div>
 
-                                        <div className="mb-4">
+                                        <div>
                                             <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
                                                 Email *
                                             </label>
@@ -389,11 +530,11 @@
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl transition-all"
                                             />
                                         </div>
 
-                                        <div className="mb-4">
+                                        <div>
                                             <label className="block text-gray-700 font-semibold mb-2" htmlFor="subject">
                                                 Subject
                                             </label>
@@ -403,11 +544,11 @@
                                                 name="subject"
                                                 value={formData.subject}
                                                 onChange={handleChange}
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl transition-all"
                                             />
                                         </div>
 
-                                        <div className="mb-6">
+                                        <div>
                                             <label className="block text-gray-700 font-semibold mb-2" htmlFor="message">
                                                 Message
                                             </label>
@@ -416,14 +557,14 @@
                                                 name="message"
                                                 value={formData.message}
                                                 onChange={handleChange}
-                                                rows="4"
-                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600"
+                                                rows="5"
+                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl transition-all resize-none"
                                             ></textarea>
                                         </div>
 
                                         <button
                                             type="submit"
-                                            className="w-full bahai-bg-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl"
+                                            className="w-full btn-modern bahai-bg-blue text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg"
                                         >
                                             Send Message
                                         </button>
@@ -439,18 +580,20 @@
         // Community Events Page
         const CommunityEventsPage = () => {
             return (
-                <div className="page-transition pt-32 px-4 pb-16">
-                    <div className="max-w-6xl mx-auto">
-                        <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-6">Community Events Calendar</h2>
-                        <p className="text-xl text-center text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-                            Join us for upcoming events and gatherings in the Davis Bahá'í Community. All are welcome to participate in our activities, regardless of background or belief.
-                        </p>
+                <div className="page-transition pt-24 px-4 pb-16">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="text-center mb-16">
+                            <h2 className="text-5xl md:text-6xl font-bold gradient-text mb-6">Community Events</h2>
+                            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
+                                Join us for upcoming events and gatherings. All are welcome!
+                            </p>
+                        </div>
                         
                         {/* Google Calendar Embed */}
-                        <div className="bg-white rounded-lg shadow-lg p-6 mb-8 border-l-4 border-blue-900">
-                            <div className="mb-6 bg-gradient-to-r from-blue-50 to-amber-50 rounded-lg p-6">
-                                <p className="text-gray-700 mb-3 font-semibold">📅 To add your Google Calendar:</p>
-                                <ol className="text-gray-600 space-y-2 text-sm list-decimal list-inside">
+                        <div className="modern-border bg-white p-8 mb-12 shadow-lg">
+                            <div className="mb-8 bg-gradient-to-r from-blue-50 to-amber-50 rounded-2xl p-8">
+                                <p className="text-gray-700 mb-4 font-semibold text-lg">📅 To add your Google Calendar:</p>
+                                <ol className="text-gray-600 space-y-2 list-decimal list-inside">
                                     <li>Go to your Google Calendar settings</li>
                                     <li>Select the calendar you want to embed</li>
                                     <li>Scroll to "Integrate calendar" section</li>
@@ -458,7 +601,7 @@
                                     <li>Replace the placeholder below with your embed code</li>
                                 </ol>
                             </div>
-                            <div className="rounded-lg overflow-hidden border-2 border-blue-200">
+                            <div className="rounded-2xl overflow-hidden border-2 border-blue-100">
                                 <iframe 
                                     src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID&ctz=America/Los_Angeles" 
                                     style={{border: 0}} 
@@ -470,20 +613,19 @@
                             </div>
                         </div>
 
-                        <div className="text-center bg-gradient-to-r from-blue-50 via-amber-50 to-blue-50 rounded-lg p-8 shadow-lg">
-                            <p className="text-lg text-gray-700 mb-4">
+                        <div className="text-center modern-border bg-gradient-to-r from-blue-50 via-amber-50 to-blue-50 rounded-2xl p-12 shadow-lg">
+                            <p className="text-xl text-gray-700 mb-6 font-light">
                                 Have questions about an upcoming event?
                             </p>
-                            <p className="text-gray-700">
-                                Contact us at{' '}
-                                <a href="mailto:davisbahais@gmail.com" className="bahai-blue hover:underline font-bold text-xl">
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <a href="mailto:davisbahais@gmail.com" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-xl transition-colors">
                                     davisbahais@gmail.com
                                 </a>
-                                {' '}or call{' '}
-                                <a href="tel:+12092590095" className="bahai-blue hover:underline font-bold text-xl">
+                                <span className="hidden sm:inline text-gray-400">|</span>
+                                <a href="tel:+12092590095" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-xl transition-colors">
                                     +1 209 259 0095
                                 </a>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -493,43 +635,43 @@
         // Footer Component
         const Footer = () => {
             return (
-                <footer className="bg-gray-100 py-8 mt-16 border-t-2 border-blue-200">
-                    <div className="max-w-6xl mx-auto px-4">
-                        <div className="flex flex-wrap justify-center items-center gap-4 mb-6">
+                <footer className="bg-gradient-to-b from-white to-gray-50 py-12 mt-20 border-t border-gray-100">
+                    <div className="max-w-7xl mx-auto px-4">
+                        <div className="flex flex-wrap justify-center items-center gap-6 mb-8">
                             <a 
                                 href="https://www.bahai.org/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="text-gray-700 hover:bahai-blue transition-colors font-medium"
                             >
-                                Worldwide Bahá'í Community »
+                                Worldwide Bahá'í Community →
                             </a>
-                            <span className="text-gray-400">|</span>
+                            <span className="text-gray-300">•</span>
                             <a 
                                 href="https://www.bahai.us/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="text-gray-700 hover:bahai-blue transition-colors font-medium"
                             >
-                                Baha'is of the United States »
+                                Baha'is of the United States →
                             </a>
-                            <span className="text-gray-400">|</span>
+                            <span className="text-gray-300">•</span>
                             <a 
                                 href="https://www.bahai.org/library/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="text-gray-700 hover:bahai-gold transition-colors font-medium"
                             >
-                                Bahá'í Reference Library »
+                                Bahá'í Reference Library →
                             </a>
-                            <span className="text-gray-400">|</span>
+                            <span className="text-gray-300">•</span>
                             <a 
                                 href="https://news.bahai.org/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="text-gray-700 hover:bahai-blue transition-colors font-medium"
                             >
-                                Baha'i World News »
+                                Baha'i World News →
                             </a>
                         </div>
                         <div className="text-center text-gray-600 text-sm space-y-2">
@@ -542,7 +684,7 @@
                             <p>
                                 Imagery Copyright © Baha'i International Community{' '}
                                 <a href="https://media.bahai.org/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline">
-                                    https://media.bahai.org/
+                                    media.bahai.org
                                 </a>
                             </p>
                         </div>
