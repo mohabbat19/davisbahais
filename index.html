@@ -3,7 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Davis Bahá'í Community</title>
+    <title>Davis Bahá'í Community | Join Us in Building Unity and Positive Change</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Join the Davis Bahá'í Community in building unity through children's classes, youth empowerment, devotional gatherings, and study circles. All backgrounds welcome.">
+    <meta name="keywords" content="Bahai Davis, Baha'i Davis California, Davis spiritual community, interfaith Davis, youth empowerment Davis, children's classes Davis, devotional gatherings, study circles, Bahai faith, community building Davis">
+    <meta name="author" content="Davis Bahá'í Community">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://davisbahais.org">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://davisbahais.org">
+    <meta property="og:title" content="Davis Bahá'í Community | Building Unity in Davis, CA">
+    <meta property="og:description" content="Join the Davis Bahá'í Community in building unity through children's classes, youth empowerment, devotional gatherings, and study circles. All backgrounds welcome.">
+    <meta property="og:image" content="Hero.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://davisbahais.org">
+    <meta property="twitter:title" content="Davis Bahá'í Community | Building Unity in Davis, CA">
+    <meta property="twitter:description" content="Join the Davis Bahá'í Community in building unity through children's classes, youth empowerment, devotional gatherings, and study circles.">
+    <meta property="twitter:image" content="Hero.jpg">
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="US-CA">
+    <meta name="geo.placename" content="Davis">
+    <meta name="geo.position" content="38.5449;-121.7405">
+    
+    <!-- Structured Data for Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Davis Bahá'í Community",
+      "url": "https://davisbahais.org",
+      "logo": "Hero.jpg",
+      "description": "The Davis Bahá'í Community offers children's classes, youth empowerment programs, devotional gatherings, and study circles for people of all backgrounds.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Davis",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "email": "bahai.community.davis@gmail.com",
+      "telephone": "+1-209-259-0095",
+      "sameAs": [
+        "https://www.bahai.org",
+        "https://www.bahai.us"
+      ]
+    }
+    </script>
+    
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -23,6 +74,50 @@
             color: #1a1a1a;
             line-height: 1.7;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+                line-height: 1.6;
+            }
+            
+            h1 {
+                font-size: 1.75rem !important;
+            }
+            
+            h2 {
+                font-size: 2rem !important;
+            }
+            
+            h3 {
+                font-size: 1.5rem !important;
+            }
+            
+            .quote-box {
+                padding: 1.5rem !important;
+                min-height: 350px !important;
+            }
+            
+            .activity-card {
+                padding: 1.5rem !important;
+            }
+            
+            .image-container {
+                height: 250px !important;
+            }
+        }
+        
+        /* Improve touch targets for mobile */
+        button, a {
+            min-height: 44px;
+            min-width: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         
         h1, h2, h3, h4 {
@@ -227,6 +322,13 @@
     </style>
 </head>
 <body>
+    <noscript>
+        <div style="text-align: center; padding: 50px; font-family: sans-serif;">
+            <h1>Davis Bahá'í Community</h1>
+            <p>This website requires JavaScript to be enabled. Please enable JavaScript in your browser settings to view this site.</p>
+            <p>Contact us: <a href="mailto:bahai.community.davis@gmail.com">bahai.community.davis@gmail.com</a> | <a href="tel:+12092590095">+1 209 259 0095</a></p>
+        </div>
+    </noscript>
     <div id="root"></div>
 
     <script type="text/babel">
@@ -245,16 +347,16 @@
             }, []);
 
             return (
-                <nav className={`fixed w-full top-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg py-4' : 'bg-white py-6'}`}>
+                <nav className={`fixed w-full top-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg py-3' : 'bg-white py-4'}`}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between">
-                            <h1 className="text-2xl md:text-3xl font-bold gradient-text">
+                            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold gradient-text">
                                 Davis Bahá'í Community
                             </h1>
-                            <div className="flex space-x-8">
+                            <div className="flex space-x-3 sm:space-x-8">
                                 <button
                                     onClick={() => setCurrentPage('Home')}
-                                    className={`nav-link px-4 py-2 rounded-full font-medium text-sm transition-all ${
+                                    className={`nav-link px-3 sm:px-4 py-2 rounded-full font-medium text-xs sm:text-sm transition-all ${
                                         currentPage === 'Home' 
                                             ? 'bahai-bg-blue text-white shadow-lg' 
                                             : 'text-gray-700 hover:text-blue-900'
@@ -264,7 +366,7 @@
                                 </button>
                                 <button
                                     onClick={() => setCurrentPage('Community Events')}
-                                    className={`nav-link px-4 py-2 rounded-full font-medium text-sm transition-all ${
+                                    className={`nav-link px-3 sm:px-4 py-2 rounded-full font-medium text-xs sm:text-sm transition-all ${
                                         currentPage === 'Community Events' 
                                             ? 'bahai-bg-blue text-white shadow-lg' 
                                             : 'text-gray-700 hover:text-blue-900'
@@ -344,30 +446,30 @@
             return (
                 <div className="page-transition">
                     {/* Opening Quote */}
-                    <div className="pt-32 pb-12 px-4">
+                    <div className="pt-24 sm:pt-32 pb-8 sm:pb-12 px-4">
                         <div className="max-w-7xl mx-auto text-center">
-                            <p className="text-4xl md:text-5xl text-gray-700 italic font-light leading-relaxed">
+                            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-700 italic font-light leading-relaxed">
                                 "Let your vision be world embracing..." 
-                                <span className="block mt-4 text-2xl bahai-gold">— Bahá'u'lláh</span>
+                                <span className="block mt-3 sm:mt-4 text-lg sm:text-xl md:text-2xl bahai-gold">— Bahá'u'lláh</span>
                             </p>
                         </div>
                     </div>
 
                     {/* Hero Section */}
-                    <div className="pb-12 px-4">
+                    <div className="pb-8 sm:pb-12 px-4">
                         <div className="max-w-7xl mx-auto">
-                            <div className="image-container rounded-3xl shadow-2xl mb-12 overflow-hidden relative" style={{height: '500px'}}>
+                            <div className="image-container rounded-2xl sm:rounded-3xl shadow-2xl mb-8 sm:mb-12 overflow-hidden relative" style={{height: '300px'}} className="sm:h-96 md:h-[500px]">
                                 <img 
                                     src="Hero.jpg" 
-                                    alt="Davis Baha'i Community gathering" 
+                                    alt="Davis Baha'i Community gathering - diverse group of people engaged in community building activities" 
                                     className="w-full h-full object-cover"
                                 />
                                 <div className="gradient-overlay absolute inset-0"></div>
                             </div>
                             
                             {/* Rotating Quotes */}
-                            <div className="quote-box rounded-3xl p-8 md:p-16 mb-12 shadow-xl">
-                                <div className="quote-enter max-w-4xl mx-auto">
+                            <div className="quote-box rounded-3xl p-8 md:p-16 mb-12 shadow-xl" style={{minHeight: '400px'}}>
+                                <div className="quote-enter max-w-4xl mx-auto flex items-center justify-center" style={{minHeight: '300px'}}>
                                     <p className="text-lg md:text-2xl text-gray-800 leading-relaxed italic font-light">
                                         {quotes[currentQuoteIndex]}
                                     </p>
@@ -392,16 +494,16 @@
                     </div>
 
                     {/* Welcome Section */}
-                    <div className="max-w-7xl mx-auto px-4 py-16">
-                        <div className="text-center mb-20">
-                            <h2 className="text-5xl md:text-7xl font-bold gradient-text mb-6 leading-tight">
+                    <div className="max-w-7xl mx-auto px-4 py-8 sm:py-16">
+                        <div className="text-center mb-12 sm:mb-20">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold gradient-text mb-4 sm:mb-6 leading-tight">
                                 Building a Vibrant<br/>Community Together
                             </h2>
                         </div>
 
                         {/* Community Building */}
-                        <div className="max-w-4xl mx-auto mb-20">
-                            <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+                        <div className="max-w-4xl mx-auto mb-12 sm:mb-20">
+                            <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-gray-700 leading-relaxed">
                                 <p>
                                     In neighborhoods across the country, including Davis, Bahá'ís, and their friends are engaged in a community-building process that cultivates love and translates it into action.
                                 </p>
@@ -414,37 +516,37 @@
                         <div className="section-divider"></div>
 
                         {/* Get Involved Section */}
-                        <div id="get-involved" className="mb-20">
-                            <div className="text-center mb-16">
-                                <h2 className="text-5xl md:text-6xl font-bold gradient-text mb-4">Ways to Get Involved</h2>
-                                <p className="text-xl text-gray-600 font-light">Choose your path to make a difference</p>
+                        <div id="get-involved" className="mb-12 sm:mb-20">
+                            <div className="text-center mb-10 sm:mb-16">
+                                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-3 sm:mb-4">Ways to Get Involved</h2>
+                                <p className="text-lg sm:text-xl text-gray-600 font-light">Choose your path to make a difference</p>
                             </div>
 
                             {/* Activity Cards */}
-                            <div className="space-y-12">
+                            <div className="space-y-8 sm:space-y-12">
                                 {activities.map((activity, index) => (
-                                    <div key={index} className="activity-card modern-border bg-white p-6 md:p-10 hover:shadow-2xl transition-all">
-                                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                                    <div key={index} className="activity-card modern-border bg-white p-4 sm:p-6 md:p-10 hover:shadow-2xl transition-all">
+                                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 items-center">
                                             <div className="lg:col-span-2">
-                                                <div className="image-container rounded-2xl overflow-hidden shadow-lg" style={{height: '280px'}}>
+                                                <div className="image-container rounded-2xl overflow-hidden shadow-lg" style={{height: '220px'}} className="sm:h-64 md:h-[280px]">
                                                     <img 
                                                         src={activity.image} 
-                                                        alt={activity.title} 
+                                                        alt={`${activity.title} - ${activity.description}`} 
                                                         className="w-full h-full object-cover"
                                                     />
                                                 </div>
                                             </div>
                                             <div className="lg:col-span-3">
-                                                <h3 className="text-3xl md:text-4xl font-bold bahai-blue mb-4">{activity.title}</h3>
-                                                <p className="text-gray-600 leading-relaxed mb-6 whitespace-pre-line">
+                                                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold bahai-blue mb-3 sm:mb-4">{activity.title}</h3>
+                                                <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4 sm:mb-6 whitespace-pre-line">
                                                     {activity.details}
                                                 </p>
                                                 <a 
                                                     href="mailto:bahai.community.davis@gmail.com" 
-                                                    className="inline-flex items-center text-blue-900 hover:bahai-gold font-semibold transition-colors group"
+                                                    className="inline-flex items-center text-blue-900 hover:bahai-gold font-semibold transition-colors group text-sm sm:text-base"
                                                 >
                                                     Learn more 
-                                                    <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                                     </svg>
                                                 </a>
@@ -458,8 +560,8 @@
                         <div className="section-divider"></div>
 
                         {/* Tagline before contact */}
-                        <div className="text-center py-16 mb-16">
-                            <p className="text-3xl md:text-4xl text-gray-700 font-light max-w-3xl mx-auto leading-relaxed">
+                        <div className="text-center py-10 sm:py-16 mb-10 sm:mb-16">
+                            <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-700 font-light max-w-3xl mx-auto leading-relaxed px-4">
                                 We're committed to reshaping society around principles of oneness—love, inclusivity, reciprocity, and diversity. Join us in building a better world, starting right here in our community.
                             </p>
                         </div>
@@ -467,34 +569,34 @@
                         <div className="section-divider"></div>
 
                         {/* Contact Section */}
-                        <div id="contact" className="mb-20">
-                            <div className="text-center mb-16">
-                                <h2 className="text-5xl md:text-6xl font-bold gradient-text mb-4">Get In Touch</h2>
-                                <p className="text-xl text-gray-600 font-light">We'd love to hear from you</p>
+                        <div id="contact" className="mb-12 sm:mb-20">
+                            <div className="text-center mb-10 sm:mb-16">
+                                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-3 sm:mb-4">Get In Touch</h2>
+                                <p className="text-lg sm:text-xl text-gray-600 font-light">We'd love to hear from you</p>
                             </div>
                             
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                                <div className="modern-border bg-gradient-to-br from-blue-50 to-amber-50 p-10 shadow-lg">
-                                    <h3 className="text-3xl font-bold text-gray-800 mb-6">Contact Information</h3>
-                                    <p className="text-gray-700 mb-8 leading-relaxed text-lg">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+                                <div className="modern-border bg-gradient-to-br from-blue-50 to-amber-50 p-6 sm:p-10 shadow-lg">
+                                    <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6">Contact Information</h3>
+                                    <p className="text-gray-700 mb-6 sm:mb-8 leading-relaxed text-base sm:text-lg">
                                         There are various ways to get involved with the Davis Bahá'í Community!
                                     </p>
-                                    <div className="space-y-6">
+                                    <div className="space-y-4 sm:space-y-6">
                                         <div>
-                                            <p className="text-sm text-gray-600 font-semibold mb-2 uppercase tracking-wide">Call or Text</p>
-                                            <a href="tel:+12092590095" className="text-3xl bahai-blue hover:bahai-gold font-bold transition-colors">
+                                            <p className="text-xs sm:text-sm text-gray-600 font-semibold mb-2 uppercase tracking-wide">Call or Text</p>
+                                            <a href="tel:+12092590095" className="text-2xl sm:text-3xl bahai-blue hover:bahai-gold font-bold transition-colors block break-all">
                                                 +1 209 259 0095
                                             </a>
                                         </div>
                                         <div>
-                                            <p className="text-sm text-gray-600 font-semibold mb-2 uppercase tracking-wide">Email</p>
-                                            <a href="mailto:bahai.community.davis@gmail.com" className="text-2xl bahai-blue hover:bahai-gold font-bold transition-colors break-all">
+                                            <p className="text-xs sm:text-sm text-gray-600 font-semibold mb-2 uppercase tracking-wide">Email</p>
+                                            <a href="mailto:bahai.community.davis@gmail.com" className="text-lg sm:text-2xl bahai-blue hover:bahai-gold font-bold transition-colors block break-all">
                                                 bahai.community.davis@gmail.com
                                             </a>
                                         </div>
                                     </div>
-                                    <div className="mt-10 pt-8 border-t border-gray-300">
-                                        <p className="text-gray-700">
+                                    <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-gray-300">
+                                        <p className="text-gray-700 text-sm sm:text-base">
                                             <strong>Not in Davis?</strong> Find a Bahá'í community near you by calling{' '}
                                             <span className="font-bold">1-800-22-Unite</span> or visit{' '}
                                             <a href="https://www.bahai.us/find-bahais/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline font-semibold">
@@ -504,8 +606,8 @@
                                     </div>
                                 </div>
 
-                                <div className="modern-border bg-white p-10 shadow-lg">
-                                    <h3 className="text-3xl font-bold text-gray-800 mb-8">Send Us a Message</h3>
+                                <div className="modern-border bg-white p-6 sm:p-10 shadow-lg">
+                                    <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 sm:mb-8">Send Us a Message</h3>
                                     <form onSubmit={handleSubmit} className="space-y-6">
                                         <div>
                                             <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
@@ -583,17 +685,17 @@
         // Community Events Page
         const CommunityEventsPage = () => {
             return (
-                <div className="page-transition pt-24 px-4 pb-16">
+                <div className="page-transition pt-20 sm:pt-24 px-4 pb-12 sm:pb-16">
                     <div className="max-w-7xl mx-auto">
-                        <div className="text-center mb-16">
-                            <h2 className="text-5xl md:text-6xl font-bold gradient-text mb-6">Community Events</h2>
-                            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
+                        <div className="text-center mb-10 sm:mb-16">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-4 sm:mb-6">Community Events</h2>
+                            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light px-4">
                                 Join us for upcoming events and gatherings. All are welcome!
                             </p>
                         </div>
                         
                         {/* Google Calendar Embed */}
-                        <div className="modern-border bg-white p-8 mb-12 shadow-lg">
+                        <div className="modern-border bg-white p-4 sm:p-8 mb-8 sm:mb-12 shadow-lg">
                             <div className="rounded-2xl overflow-hidden border-2 border-blue-100">
                                 <iframe 
                                     src="https://calendar.google.com/calendar/embed?src=bahai.community.davis%40gmail.com&ctz=America%2FLos_Angeles" 
@@ -602,20 +704,21 @@
                                     height="600" 
                                     frameBorder="0" 
                                     scrolling="no"
+                                    title="Davis Baha'i Community Events Calendar"
                                 ></iframe>
                             </div>
                         </div>
 
-                        <div className="text-center modern-border bg-gradient-to-r from-blue-50 via-amber-50 to-blue-50 rounded-2xl p-12 shadow-lg">
-                            <p className="text-xl text-gray-700 mb-6 font-light">
+                        <div className="text-center modern-border bg-gradient-to-r from-blue-50 via-amber-50 to-blue-50 rounded-2xl p-6 sm:p-12 shadow-lg">
+                            <p className="text-lg sm:text-xl text-gray-700 mb-4 sm:mb-6 font-light">
                                 Have questions about an upcoming event?
                             </p>
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <a href="mailto:bahai.community.davis@gmail.com" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-xl transition-colors">
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                                <a href="mailto:bahai.community.davis@gmail.com" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors break-all">
                                     bahai.community.davis@gmail.com
                                 </a>
                                 <span className="hidden sm:inline text-gray-400">|</span>
-                                <a href="tel:+12092590095" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-xl transition-colors">
+                                <a href="tel:+12092590095" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors">
                                     +1 209 259 0095
                                 </a>
                             </div>
@@ -628,46 +731,50 @@
         // Footer Component
         const Footer = () => {
             return (
-                <footer className="bg-gradient-to-b from-white to-gray-50 py-12 mt-20 border-t border-gray-100">
+                <footer className="bg-gradient-to-b from-white to-gray-50 py-8 sm:py-12 mt-12 sm:mt-20 border-t border-gray-100">
                     <div className="max-w-7xl mx-auto px-4">
-                        <div className="flex flex-wrap justify-center items-center gap-6 mb-8">
+                        <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-6 mb-6 sm:mb-8 text-center">
                             <a 
                                 href="https://www.bahai.org/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-gray-700 hover:bahai-blue transition-colors font-medium"
+                                className="text-gray-700 hover:bahai-blue transition-colors font-medium text-sm sm:text-base"
+                                aria-label="Visit Worldwide Bahá'í Community website"
                             >
                                 Worldwide Bahá'í Community →
                             </a>
-                            <span className="text-gray-300">•</span>
+                            <span className="text-gray-300 hidden sm:inline">•</span>
                             <a 
                                 href="https://www.bahai.us/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-gray-700 hover:bahai-blue transition-colors font-medium"
+                                className="text-gray-700 hover:bahai-blue transition-colors font-medium text-sm sm:text-base"
+                                aria-label="Visit Baha'is of the United States website"
                             >
                                 Baha'is of the United States →
                             </a>
-                            <span className="text-gray-300">•</span>
+                            <span className="text-gray-300 hidden sm:inline">•</span>
                             <a 
                                 href="https://www.bahai.org/library/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-gray-700 hover:bahai-gold transition-colors font-medium"
+                                className="text-gray-700 hover:bahai-gold transition-colors font-medium text-sm sm:text-base"
+                                aria-label="Visit Bahá'í Reference Library"
                             >
                                 Bahá'í Reference Library →
                             </a>
-                            <span className="text-gray-300">•</span>
+                            <span className="text-gray-300 hidden sm:inline">•</span>
                             <a 
                                 href="https://news.bahai.org/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-gray-700 hover:bahai-blue transition-colors font-medium"
+                                className="text-gray-700 hover:bahai-blue transition-colors font-medium text-sm sm:text-base"
+                                aria-label="Visit Baha'i World News"
                             >
                                 Baha'i World News →
                             </a>
                         </div>
-                        <div className="text-center text-gray-600 text-sm space-y-2">
+                        <div className="text-center text-gray-600 text-xs sm:text-sm space-y-2">
                             <p>
                                 The Baha'i Faith is established in more than 100,000 localities in virtually every country and territory around the world.{' '}
                                 <a href="https://www.bahai.org/" target="_blank" rel="noopener noreferrer" className="bahai-blue hover:underline font-medium">
