@@ -106,6 +106,10 @@
             
             .quote-box {
                 padding: 1.5rem !important;
+                min-height: 450px !important;
+            }
+            
+            .quote-box .max-w-4xl {
                 min-height: 350px !important;
             }
             
@@ -115,6 +119,16 @@
             
             .image-container {
                 height: 250px !important;
+            }
+            
+            /* Smaller dots on mobile */
+            .dot-indicator {
+                width: 6px !important;
+                height: 6px !important;
+            }
+            
+            .dot-indicator.active {
+                width: 20px !important;
             }
         }
         
@@ -485,7 +499,8 @@
 
             const handleSubmit = (e) => {
                 e.preventDefault();
-                alert('Thank you for your message! We will get back to you soon.');
+                const mailtoLink = `mailto:bahai.community.davis@gmail.com?subject=${encodeURIComponent(formData.subject || 'Contact Form Submission')}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+                window.location.href = mailtoLink;
                 setFormData({ name: '', email: '', subject: '', message: '' });
             };
 
