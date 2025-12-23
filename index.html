@@ -790,50 +790,304 @@
         };
 
         // Community Events Page
-        const CommunityEventsPage = () => {
-            return (
-                <div className="page-transition pt-20 sm:pt-24 px-4 pb-12 sm:pb-16">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="text-center mb-10 sm:mb-16">
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-4 sm:mb-6">Community Events</h2>
-                            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light px-4">
-                                Join us for upcoming events and gatherings. All are welcome!
-                            </p>
-                        </div>
-                        
-                        {/* Google Calendar Embed */}
-                        <div className="modern-border bg-white p-4 sm:p-8 mb-8 sm:mb-12 shadow-lg">
-                            <div className="rounded-2xl overflow-hidden border-2 border-blue-100">
-                                <iframe 
-                                    src="https://calendar.google.com/calendar/embed?src=bahai.community.davis%40gmail.com&ctz=America%2FLos_Angeles" 
-                                    style={{border: 0}} 
-                                    width="100%" 
-                                    height="600" 
-                                    frameBorder="0" 
-                                    scrolling="no"
-                                    title="Davis Baha'i Community Events Calendar"
-                                ></iframe>
-                            </div>
-                        </div>
+      // ============================================
+// UPDATED COMMUNITY EVENTS PAGE COMPONENT
+// ============================================
+// Replace the existing CommunityEventsPage component in your index.html
+// This displays filtered public events and handles RSVPs
 
-                        <div className="text-center modern-border bg-white rounded-2xl p-6 sm:p-12 shadow-lg" style={{background: 'linear-gradient(135deg, #f0f7ff 0%, #fff9e6 50%, #f0f7ff 100%)'}}>
-                            <p className="text-lg sm:text-xl text-gray-700 mb-4 sm:mb-6 font-light">
-                                Have questions about an upcoming event?
-                            </p>
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-                                <a href="mailto:bahai.community.davis@gmail.com" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors break-all">
-                                    bahai.community.davis@gmail.com
-                                </a>
-                                <span className="hidden sm:inline text-gray-400">|</span>
-                                <a href="tel:+15307531601" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors">
-                                    +1 530 753 1601
-                                </a>
+const CommunityEventsPage = () => {
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [rsvpModal, setRsvpModal] = useState({ show: false, event: null });
+    const [rsvpForm, setRsvpForm] = useState({ name: '', email: '', phone: '', attendees: 1 });
+    const [rsvpStatus, setRsvpStatus] = useState({ show: false, message: '', success: false });
+
+    // *** IMPORTANT: Replace this URL with your deployed Google Apps Script URL ***
+    const API_URL = https://script.google.com/macros/s/AKfycbxaAVE5AXDmyTPQTzKV_NHfiiqDFub6CBPX77QEODM5is5OE8TCVKBHwgQct7gtrBiiFg/exec;
+
+    // Fetch public events on component mount
+    React.useEffect(() => {
+        fetchEvents();
+    }, []);
+
+    const fetchEvents = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch(`${API_URL}?action=getEvents`);
+            const data = await response.json();
+            
+            if (data.success) {
+                setEvents(data.events);
+                setError(null);
+            } else {
+                setError(data.message || 'Failed to load events');
+            }
+        } catch (err) {
+            setError('Unable to connect to calendar. Please try again later.');
+            console.error('Error fetching events:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleRSVP = async (e) => {
+        e.preventDefault();
+        
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'rsvp',
+                    eventId: rsvpModal.event.id,
+                    eventTitle: rsvpModal.event.title,
+                    name: rsvpForm.name,
+                    email: rsvpForm.email,
+                    phone: rsvpForm.phone,
+                    attendees: parseInt(rsvpForm.attendees)
+                })
+            });
+
+            const data = await response.json();
+            
+            setRsvpStatus({
+                show: true,
+                message: data.message,
+                success: data.success
+            });
+
+            if (data.success) {
+                // Reset form and close modal after success
+                setTimeout(() => {
+                    setRsvpModal({ show: false, event: null });
+                    setRsvpForm({ name: '', email: '', phone: '', attendees: 1 });
+                    setRsvpStatus({ show: false, message: '', success: false });
+                }, 3000);
+            }
+        } catch (err) {
+            setRsvpStatus({
+                show: true,
+                message: 'Failed to submit RSVP. Please try again or contact us directly.',
+                success: false
+            });
+        }
+    };
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+    };
+
+    const formatTime = (startString, endString, isAllDay) => {
+        if (isAllDay) return 'All Day';
+        
+        const start = new Date(startString);
+        const end = new Date(endString);
+        
+        const formatTimeOnly = (date) => {
+            return date.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+            });
+        };
+        
+        return `${formatTimeOnly(start)} - ${formatTimeOnly(end)}`;
+    };
+
+    return (
+        <div className="page-transition pt-20 sm:pt-24 px-4 pb-12 sm:pb-16">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-10 sm:mb-16">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-4 sm:mb-6">Community Events</h2>
+                    <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light px-4">
+                        Join us for upcoming events and gatherings. All are welcome!
+                    </p>
+                </div>
+
+                {/* Loading State */}
+                {loading && (
+                    <div className="text-center py-16">
+                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900"></div>
+                        <p className="mt-4 text-gray-600">Loading events...</p>
+                    </div>
+                )}
+
+                {/* Error State */}
+                {error && !loading && (
+                    <div className="modern-border bg-red-50 p-8 mb-8 text-center rounded-2xl">
+                        <p className="text-red-600 text-lg mb-4">{error}</p>
+                        <button 
+                            onClick={fetchEvents}
+                            className="btn-modern bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700"
+                        >
+                            Try Again
+                        </button>
+                    </div>
+                )}
+
+                {/* Events List */}
+                {!loading && !error && events.length === 0 && (
+                    <div className="modern-border bg-white p-12 text-center rounded-2xl shadow-lg">
+                        <p className="text-xl text-gray-600 mb-4">No upcoming public events at this time.</p>
+                        <p className="text-gray-500">Check back soon or contact us for more information.</p>
+                    </div>
+                )}
+
+                {!loading && !error && events.length > 0 && (
+                    <div className="space-y-6">
+                        {events.map((event, index) => (
+                            <div key={event.id || index} className="modern-border bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all">
+                                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                                    <div className="flex-1">
+                                        <h3 className="text-2xl sm:text-3xl font-bold bahai-blue mb-3">
+                                            {event.title}
+                                        </h3>
+                                        
+                                        <div className="flex flex-wrap gap-4 mb-4 text-gray-600">
+                                            <div className="flex items-center">
+                                                <svg className="w-5 h-5 mr-2 bahai-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                                <span className="font-semibold">{formatDate(event.startTime)}</span>
+                                            </div>
+                                            
+                                            <div className="flex items-center">
+                                                <svg className="w-5 h-5 mr-2 bahai-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span className="font-semibold">{formatTime(event.startTime, event.endTime, event.isAllDay)}</span>
+                                            </div>
+                                        </div>
+
+                                        {event.description && (
+                                            <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                                                {event.description}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    <div className="lg:ml-6">
+                                        <button
+                                            onClick={() => {
+                                                setRsvpModal({ show: true, event });
+                                                setRsvpStatus({ show: false, message: '', success: false });
+                                            }}
+                                            className="btn-modern bahai-bg-blue text-white px-6 py-3 rounded-xl font-semibold shadow-lg w-full lg:w-auto whitespace-nowrap"
+                                        >
+                                            RSVP for Event
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* Contact Section */}
+                <div className="text-center modern-border bg-white rounded-2xl p-6 sm:p-12 shadow-lg mt-12" style={{background: 'linear-gradient(135deg, #f0f7ff 0%, #fff9e6 50%, #f0f7ff 100%)'}}>
+                    <p className="text-lg sm:text-xl text-gray-700 mb-4 sm:mb-6 font-light">
+                        Have questions about an event?
+                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                        <a href="mailto:bahai.community.davis@gmail.com" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors break-all">
+                            bahai.community.davis@gmail.com
+                        </a>
+                        <span className="hidden sm:inline text-gray-400">|</span>
+                        <a href="tel:+15307531601" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors">
+                            +1 530 753 1601
+                        </a>
                     </div>
                 </div>
-            );
-        };
+            </div>
+
+            {/* RSVP Modal */}
+            {rsvpModal.show && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={() => setRsvpModal({ show: false, event: null })}>
+                    <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex justify-between items-start mb-6">
+                            <h3 className="text-2xl font-bold bahai-blue">RSVP</h3>
+                            <button 
+                                onClick={() => setRsvpModal({ show: false, event: null })}
+                                className="text-gray-400 hover:text-gray-600 text-2xl"
+                            >
+                                ×
+                            </button>
+                        </div>
+
+                        <p className="text-gray-700 mb-6 font-semibold">{rsvpModal.event?.title}</p>
+
+                        {rsvpStatus.show && (
+                            <div className={`p-4 rounded-xl mb-6 ${rsvpStatus.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                                {rsvpStatus.message}
+                            </div>
+                        )}
+
+                        <form onSubmit={handleRSVP} className="space-y-4">
+                            <div>
+                                <label className="block text-gray-700 font-semibold mb-2">Name *</label>
+                                <input
+                                    type="text"
+                                    value={rsvpForm.name}
+                                    onChange={(e) => setRsvpForm({...rsvpForm, name: e.target.value})}
+                                    required
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-700 font-semibold mb-2">Email *</label>
+                                <input
+                                    type="email"
+                                    value={rsvpForm.email}
+                                    onChange={(e) => setRsvpForm({...rsvpForm, email: e.target.value})}
+                                    required
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-700 font-semibold mb-2">Phone (optional)</label>
+                                <input
+                                    type="tel"
+                                    value={rsvpForm.phone}
+                                    onChange={(e) => setRsvpForm({...rsvpForm, phone: e.target.value})}
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-700 font-semibold mb-2">Number of Attendees</label>
+                                <input
+                                    type="number"
+                                    min="1"
+                                    max="10"
+                                    value={rsvpForm.attendees}
+                                    onChange={(e) => setRsvpForm({...rsvpForm, attendees: e.target.value})}
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
+                                />
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="w-full btn-modern bahai-bg-blue text-white px-6 py-4 rounded-xl font-semibold text-lg shadow-lg"
+                            >
+                                Submit RSVP
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 
         // Footer Component
         const Footer = () => {
