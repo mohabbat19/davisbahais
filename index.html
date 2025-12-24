@@ -32,8 +32,8 @@
     <meta name="geo.position" content="38.5449;-121.7405">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png+xml" href="nine-pointed-star.png">
-    <link rel="shortcut icon" type="image/png+xml" href="nine-pointed-star.png">
+    <link rel="icon" type="image/png" href="nine-pointed-star.png">
+    <link rel="shortcut icon" type="image/png" href="nine-pointed-star.png">
     
     <!-- Structured Data for Local Business -->
     <script type="application/ld+json">
@@ -50,14 +50,15 @@
         "addressRegion": "CA",
         "addressCountry": "US"
       },
-      "email": "bahai.community.davis@gmail.com",
-      "telephone": "+1-530-753-1601",
       "sameAs": [
         "https://www.bahai.org",
         "https://www.bahai.us"
       ]
     }
     </script>
+    
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -393,6 +394,15 @@
         .gradient-overlay {
             background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 50, 98, 0.4) 100%);
         }
+        
+        /* Honeypot field - hidden from users but visible to bots */
+        .honeypot {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
@@ -400,7 +410,7 @@
         <div style="text-align: center; padding: 50px; font-family: sans-serif;">
             <h1>Davis Bahá'í Community</h1>
             <p>This website requires JavaScript to be enabled. Please enable JavaScript in your browser settings to view this site.</p>
-            <p>Contact us: <a href="mailto:bahai.community.davis@gmail.com">bahai.community.davis@gmail.com</a> | <a href="tel:+15307531601">+1 530 753 1601</a></p>
+            <p>Contact us: <a href="#" onclick="return false;">Email us</a> | <a href="tel:+15307531601">+1 530 753 1601</a></p>
         </div>
     </noscript>
     <div id="root"></div>
@@ -410,6 +420,35 @@
 
         // *** REPLACE THIS WITH YOUR ACTUAL GOOGLE APPS SCRIPT WEB APP URL ***
         const API_URL = 'https://script.google.com/macros/s/AKfycbw61hsYJXp7efgbLYPaVz_Pi2SLrGalygmIuuSYvLsz6is_RHgwTbE8RC7YCgKpnJnO/exec';
+        
+        // *** REPLACE WITH YOUR RECAPTCHA SITE KEY ***
+        const RECAPTCHA_SITE_KEY = 'YOUR_RECAPTCHA_SITE_KEY';
+
+        // Simple rate limiting (frontend only - also implement on backend)
+        const checkRateLimit = (key) => {
+            const now = Date.now();
+            const submissions = JSON.parse(localStorage.getItem('submissions') || '{}');
+            const userSubmissions = submissions[key] || [];
+            
+            // Remove submissions older than 1 hour
+            const recentSubmissions = userSubmissions.filter(time => now - time < 3600000);
+            
+            // Allow max 3 submissions per hour
+            if (recentSubmissions.length >= 3) {
+                return false;
+            }
+            
+            recentSubmissions.push(now);
+            submissions[key] = recentSubmissions;
+            localStorage.setItem('submissions', JSON.stringify(submissions));
+            return true;
+        };
+
+        // Email decoder (simple obfuscation)
+        const decodeEmail = () => {
+            const parts = ['bahai.community.davis', 'gmail.com'];
+            return parts.join('@');
+        };
 
         // Navigation Component
         const Navigation = ({ currentPage, setCurrentPage }) => {
@@ -475,7 +514,8 @@
             const [formData, setFormData] = useState({
                 name: '',
                 email: '',
-                message: ''
+                message: '',
+                website: '' // Honeypot field
             });
             const [formStatus, setFormStatus] = useState({ submitting: false, success: false, error: false });
 
@@ -503,6 +543,36 @@
 
             const handleSubmit = async (e) => {
                 e.preventDefault();
+                
+                // Check honeypot
+                if (formData.website !== '') {
+                    console.log('Bot detected via honeypot');
+                    return;
+                }
+                
+                // Check rate limit
+                if (!checkRateLimit('contact_form')) {
+                    setFormStatus({ 
+                        submitting: false, 
+                        success: false, 
+                        error: true,
+                        message: 'Too many submissions. Please try again later.'
+                    });
+                    return;
+                }
+                
+                // Validate reCAPTCHA
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    setFormStatus({ 
+                        submitting: false, 
+                        success: false, 
+                        error: true,
+                        message: 'Please complete the reCAPTCHA verification.'
+                    });
+                    return;
+                }
+                
                 setFormStatus({ submitting: true, success: false, error: false });
                 
                 try {
@@ -510,7 +580,8 @@
                         action: 'contact',
                         name: formData.name,
                         email: formData.email,
-                        message: formData.message
+                        message: formData.message,
+                        recaptcha: recaptchaResponse
                     });
 
                     await fetch(API_URL, {
@@ -523,7 +594,8 @@
                     });
 
                     setFormStatus({ submitting: false, success: true, error: false });
-                    setFormData({ name: '', email: '', message: '' });
+                    setFormData({ name: '', email: '', message: '', website: '' });
+                    grecaptcha.reset();
                     
                     setTimeout(() => {
                         setFormStatus({ submitting: false, success: false, error: false });
@@ -531,7 +603,13 @@
                     
                 } catch (error) {
                     console.error('Contact form error:', error);
-                    setFormStatus({ submitting: false, success: false, error: true });
+                    setFormStatus({ 
+                        submitting: false, 
+                        success: false, 
+                        error: true,
+                        message: 'Failed to send message. Please try again or contact us directly.'
+                    });
+                    grecaptcha.reset();
                     
                     setTimeout(() => {
                         setFormStatus({ submitting: false, success: false, error: false });
@@ -697,7 +775,7 @@
                                                     {activity.details}
                                                 </p>
                                                 <a 
-                                                    href="mailto:bahai.community.davis@gmail.com" 
+                                                    href={`mailto:${decodeEmail()}`}
                                                     className="inline-flex items-center text-blue-900 hover:bahai-gold font-semibold transition-colors group text-sm sm:text-base"
                                                 >
                                                     Learn more 
@@ -745,8 +823,8 @@
                                         </div>
                                         <div>
                                             <p className="text-xs sm:text-sm text-gray-600 font-semibold mb-2 uppercase tracking-wide">Email</p>
-                                            <a href="mailto:bahai.community.davis@gmail.com" className="text-lg sm:text-2xl bahai-blue hover:bahai-gold font-bold transition-colors block break-all">
-                                                bahai.community.davis@gmail.com
+                                            <a href={`mailto:${decodeEmail()}`} className="text-lg sm:text-2xl bahai-blue hover:bahai-gold font-bold transition-colors block break-all">
+                                                {decodeEmail()}
                                             </a>
                                         </div>
                                     </div>
@@ -772,11 +850,23 @@
                                     
                                     {formStatus.error && (
                                         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-800">
-                                            There was an error sending your message. Please try again or email us directly.
+                                            {formStatus.message || 'There was an error sending your message. Please try again or email us directly.'}
                                         </div>
                                     )}
                                     
                                     <form onSubmit={handleSubmit} className="space-y-6">
+                                        {/* Honeypot field - hidden from users */}
+                                        <input 
+                                            type="text"
+                                            name="website"
+                                            value={formData.website}
+                                            onChange={handleChange}
+                                            className="honeypot"
+                                            tabIndex="-1"
+                                            autoComplete="off"
+                                            aria-hidden="true"
+                                        />
+                                        
                                         <div>
                                             <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
                                                 Your Name *
@@ -825,6 +915,9 @@
                                             ></textarea>
                                         </div>
 
+                                        {/* reCAPTCHA */}
+                                        <div className="g-recaptcha" data-sitekey={RECAPTCHA_SITE_KEY}></div>
+
                                         <button
                                             type="submit"
                                             disabled={formStatus.submitting}
@@ -847,7 +940,13 @@
             const [loading, setLoading] = useState(true);
             const [error, setError] = useState(null);
             const [rsvpModal, setRsvpModal] = useState({ show: false, event: null });
-            const [rsvpForm, setRsvpForm] = useState({ name: '', email: '', phone: '', attendees: 1 });
+            const [rsvpForm, setRsvpForm] = useState({ 
+                name: '', 
+                email: '', 
+                phone: '', 
+                attendees: 1,
+                company: '' // Honeypot field
+            });
             const [rsvpStatus, setRsvpStatus] = useState({ show: false, message: '', success: false });
 
             useEffect(() => {
@@ -890,6 +989,33 @@
             const handleRSVP = async (e) => {
                 e.preventDefault();
                 
+                // Check honeypot
+                if (rsvpForm.company !== '') {
+                    console.log('Bot detected via honeypot');
+                    return;
+                }
+                
+                // Check rate limit
+                if (!checkRateLimit('rsvp_form')) {
+                    setRsvpStatus({
+                        show: true,
+                        message: 'Too many submissions. Please try again later.',
+                        success: false
+                    });
+                    return;
+                }
+                
+                // Validate reCAPTCHA
+                const recaptchaResponse = grecaptcha.getResponse(1); // Widget ID for RSVP form
+                if (!recaptchaResponse) {
+                    setRsvpStatus({
+                        show: true,
+                        message: 'Please complete the reCAPTCHA verification.',
+                        success: false
+                    });
+                    return;
+                }
+                
                 try {
                     console.log('Submitting RSVP...');
                     
@@ -900,7 +1026,8 @@
                         name: rsvpForm.name,
                         email: rsvpForm.email,
                         phone: rsvpForm.phone,
-                        attendees: parseInt(rsvpForm.attendees)
+                        attendees: parseInt(rsvpForm.attendees),
+                        recaptcha: recaptchaResponse
                     });
 
                     await fetch(API_URL, {
@@ -920,8 +1047,9 @@
 
                     setTimeout(() => {
                         setRsvpModal({ show: false, event: null });
-                        setRsvpForm({ name: '', email: '', phone: '', attendees: 1 });
+                        setRsvpForm({ name: '', email: '', phone: '', attendees: 1, company: '' });
                         setRsvpStatus({ show: false, message: '', success: false });
+                        grecaptcha.reset(1);
                     }, 3000);
                     
                 } catch (err) {
@@ -931,6 +1059,7 @@
                         message: 'Failed to submit RSVP. Please try again or contact us directly.',
                         success: false
                     });
+                    grecaptcha.reset(1);
                 }
             };
 
@@ -1052,8 +1181,8 @@
                                 Have questions about an event?
                             </p>
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-                                <a href="mailto:bahai.community.davis@gmail.com" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors break-all">
-                                    bahai.community.davis@gmail.com
+                                <a href={`mailto:${decodeEmail()}`} className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors break-all">
+                                    {decodeEmail()}
                                 </a>
                                 <span className="hidden sm:inline text-gray-400">|</span>
                                 <a href="tel:+15307531601" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors">
@@ -1065,7 +1194,7 @@
 
                     {rsvpModal.show && (
                         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={() => setRsvpModal({ show: false, event: null })}>
-                            <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                            <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                                 <div className="flex justify-between items-start mb-6">
                                     <h3 className="text-2xl font-bold bahai-blue">RSVP</h3>
                                     <button 
@@ -1085,6 +1214,18 @@
                                 )}
 
                                 <form onSubmit={handleRSVP} className="space-y-4">
+                                    {/* Honeypot field - hidden from users */}
+                                    <input 
+                                        type="text"
+                                        name="company"
+                                        value={rsvpForm.company}
+                                        onChange={(e) => setRsvpForm({...rsvpForm, company: e.target.value})}
+                                        className="honeypot"
+                                        tabIndex="-1"
+                                        autoComplete="off"
+                                        aria-hidden="true"
+                                    />
+                                    
                                     <div>
                                         <label className="block text-gray-700 font-semibold mb-2">Name *</label>
                                         <input
@@ -1128,6 +1269,9 @@
                                             className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
                                         />
                                     </div>
+
+                                    {/* reCAPTCHA for RSVP form */}
+                                    <div className="g-recaptcha" data-sitekey={RECAPTCHA_SITE_KEY}></div>
 
                                     <button
                                         type="submit"
