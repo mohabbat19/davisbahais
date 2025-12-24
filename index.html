@@ -497,16 +497,61 @@
                 return () => clearInterval(timer);
             }, []);
 
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                const mailtoLink = `mailto:bahai.community.davis@gmail.com?subject=Contact from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
-                window.location.href = mailtoLink;
-                setFormData({ name: '', email: '', message: '' });
-            };
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Show loading state
+    const submitButton = e.target.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Sending...';
+    submitButton.disabled = true;
+    
+    try {
+        const formData = new URLSearchParams({
+            action: 'contact',
+            name: formData.name,
+            email: formData.email,
+            message: formData.message
+        });
 
-            const handleChange = (e) => {
-                setFormData({ ...formData, [e.target.name]: e.target.value });
-            };
+        const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData
+        });
+
+        // Show success message
+        submitButton.textContent = 'Message Sent!';
+        submitButton.classList.remove('bahai-bg-blue');
+        submitButton.classList.add('bg-green-600');
+        
+        // Reset form
+        setFormData({ name: '', email: '', message: '' });
+        
+        // Reset button after 3 seconds
+        setTimeout(() => {
+            submitButton.textContent = originalText;
+            submitButton.classList.remove('bg-green-600');
+            submitButton.classList.add('bahai-bg-blue');
+            submitButton.disabled = false;
+        }, 3000);
+        
+    } catch (error) {
+        submitButton.textContent = 'Error - Try Again';
+        submitButton.classList.remove('bahai-bg-blue');
+        submitButton.classList.add('bg-red-600');
+        submitButton.disabled = false;
+        
+        setTimeout(() => {
+            submitButton.textContent = originalText;
+            submitButton.classList.remove('bg-red-600');
+            submitButton.classList.add('bahai-bg-blue');
+        }, 3000);
+    }
+};
 
             const activities = [
                 {
