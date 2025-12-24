@@ -51,7 +51,7 @@
         "addressCountry": "US"
       },
       "email": "bahai.community.davis@gmail.com",
-      "telephone": "+1-209-259-0095",
+      "telephone": "+1-530-753-1601",
       "sameAs": [
         "https://www.bahai.org",
         "https://www.bahai.us"
@@ -408,6 +408,9 @@
     <script type="text/babel">
         const { useState } = React;
 
+        // *** REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL ***
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxtiE26esA1aHbxJaz_hl_R4TXTtscaOycC9i3WKLIdwOoslYMxEXS7VvuQSWWyOP4NWg/exec';
+
         // Navigation Component
         const Navigation = ({ currentPage, setCurrentPage }) => {
             const [isScrolled, setIsScrolled] = useState(false);
@@ -474,6 +477,7 @@
                 email: '',
                 message: ''
             });
+            const [formStatus, setFormStatus] = useState({ submitting: false, success: false, error: false });
 
             const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
             const [fadeClass, setFadeClass] = useState('quote-enter');
@@ -492,66 +496,51 @@
                         setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
                         setFadeClass('quote-enter');
                     }, 300);
-                }, 30000); // Change quote every 30 seconds
+                }, 30000);
 
                 return () => clearInterval(timer);
             }, []);
 
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Show loading state
-    const submitButton = e.target.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    submitButton.textContent = 'Sending...';
-    submitButton.disabled = true;
-    
-    try {
-        const formData = new URLSearchParams({
-            action: 'contact',
-            name: formData.name,
-            email: formData.email,
-            message: formData.message
-        });
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setFormStatus({ submitting: true, success: false, error: false });
+                
+                try {
+                    const formParams = new URLSearchParams({
+                        action: 'contact',
+                        name: formData.name,
+                        email: formData.email,
+                        message: formData.message
+                    });
 
-        const response = await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: formData
-        });
+                    await fetch(API_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: formParams
+                    });
 
-        // Show success message
-        submitButton.textContent = 'Message Sent!';
-        submitButton.classList.remove('bahai-bg-blue');
-        submitButton.classList.add('bg-green-600');
-        
-        // Reset form
-        setFormData({ name: '', email: '', message: '' });
-        
-        // Reset button after 3 seconds
-        setTimeout(() => {
-            submitButton.textContent = originalText;
-            submitButton.classList.remove('bg-green-600');
-            submitButton.classList.add('bahai-bg-blue');
-            submitButton.disabled = false;
-        }, 3000);
-        
-    } catch (error) {
-        submitButton.textContent = 'Error - Try Again';
-        submitButton.classList.remove('bahai-bg-blue');
-        submitButton.classList.add('bg-red-600');
-        submitButton.disabled = false;
-        
-        setTimeout(() => {
-            submitButton.textContent = originalText;
-            submitButton.classList.remove('bg-red-600');
-            submitButton.classList.add('bahai-bg-blue');
-        }, 3000);
-    }
-};
+                    setFormStatus({ submitting: false, success: true, error: false });
+                    setFormData({ name: '', email: '', message: '' });
+                    
+                    setTimeout(() => {
+                        setFormStatus({ submitting: false, success: false, error: false });
+                    }, 5000);
+                    
+                } catch (error) {
+                    setFormStatus({ submitting: false, success: false, error: true });
+                    
+                    setTimeout(() => {
+                        setFormStatus({ submitting: false, success: false, error: false });
+                    }, 5000);
+                }
+            };
+
+            const handleChange = (e) => {
+                setFormData({ ...formData, [e.target.name]: e.target.value });
+            };
 
             const activities = [
                 {
@@ -773,6 +762,19 @@ const handleSubmit = async (e) => {
 
                                 <div className="modern-border bg-white p-6 sm:p-10 shadow-lg">
                                     <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 sm:mb-8">Send Us a Message</h3>
+                                    
+                                    {formStatus.success && (
+                                        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800">
+                                            Thank you! Your message has been sent successfully.
+                                        </div>
+                                    )}
+                                    
+                                    {formStatus.error && (
+                                        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-800">
+                                            There was an error sending your message. Please try again or email us directly.
+                                        </div>
+                                    )}
+                                    
                                     <form onSubmit={handleSubmit} className="space-y-6">
                                         <div>
                                             <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
@@ -785,7 +787,8 @@ const handleSubmit = async (e) => {
                                                 value={formData.name}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl transition-all"
+                                                disabled={formStatus.submitting}
+                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl transition-all disabled:bg-gray-100"
                                             />
                                         </div>
 
@@ -800,7 +803,8 @@ const handleSubmit = async (e) => {
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 required
-                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl transition-all"
+                                                disabled={formStatus.submitting}
+                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl transition-all disabled:bg-gray-100"
                                             />
                                         </div>
 
@@ -814,16 +818,18 @@ const handleSubmit = async (e) => {
                                                 value={formData.message}
                                                 onChange={handleChange}
                                                 required
+                                                disabled={formStatus.submitting}
                                                 rows="6"
-                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl transition-all resize-none"
+                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl transition-all resize-none disabled:bg-gray-100"
                                             ></textarea>
                                         </div>
 
                                         <button
                                             type="submit"
-                                            className="w-full btn-modern bahai-bg-blue text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg"
+                                            disabled={formStatus.submitting}
+                                            className="w-full btn-modern bahai-bg-blue text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                                         >
-                                            Send Message
+                                            {formStatus.submitting ? 'Sending...' : 'Send Message'}
                                         </button>
                                     </form>
                                 </div>
@@ -835,307 +841,290 @@ const handleSubmit = async (e) => {
         };
 
         // Community Events Page
-// ============================================
-// COMPLETE COMMUNITY EVENTS PAGE COMPONENT
-// ============================================
-// Copy this ENTIRE section to replace your CommunityEventsPage
+        const CommunityEventsPage = () => {
+            const [events, setEvents] = useState([]);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+            const [rsvpModal, setRsvpModal] = useState({ show: false, event: null });
+            const [rsvpForm, setRsvpForm] = useState({ name: '', email: '', phone: '', attendees: 1 });
+            const [rsvpStatus, setRsvpStatus] = useState({ show: false, message: '', success: false });
 
-const CommunityEventsPage = () => {
-    const [events, setEvents] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [rsvpModal, setRsvpModal] = useState({ show: false, event: null });
-    const [rsvpForm, setRsvpForm] = useState({ name: '', email: '', phone: '', attendees: 1 });
-    const [rsvpStatus, setRsvpStatus] = useState({ show: false, message: '', success: false });
+            React.useEffect(() => {
+                fetchEvents();
+            }, []);
 
-    // *** REPLACE WITH YOUR GOOGLE APPS SCRIPT URL ***
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxBcFY1-SXLtY6pMzSMQy6_LBzPqa8SR3DBuQrAes6rYuLCMKvRaY18BvxvH22pwIK15Q/exec';
+            const fetchEvents = async () => {
+                try {
+                    setLoading(true);
+                    const response = await fetch(`${API_URL}?action=getEvents`);
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        setEvents(data.events);
+                        setError(null);
+                    } else {
+                        setError(data.message || 'Failed to load events');
+                    }
+                } catch (err) {
+                    setError('Unable to connect to calendar. Please try again later.');
+                    console.error('Error fetching events:', err);
+                } finally {
+                    setLoading(false);
+                }
+            };
 
-    // Fetch public events on component mount
-    React.useEffect(() => {
-        fetchEvents();
-    }, []);
+            const handleRSVP = async (e) => {
+                e.preventDefault();
+                
+                try {
+                    const formData = new URLSearchParams({
+                        action: 'rsvp',
+                        eventId: rsvpModal.event.id,
+                        eventTitle: rsvpModal.event.title,
+                        name: rsvpForm.name,
+                        email: rsvpForm.email,
+                        phone: rsvpForm.phone,
+                        attendees: parseInt(rsvpForm.attendees)
+                    });
 
-    const fetchEvents = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${API_URL}?action=getEvents`);
-            const data = await response.json();
-            
-            if (data.success) {
-                setEvents(data.events);
-                setError(null);
-            } else {
-                setError(data.message || 'Failed to load events');
-            }
-        } catch (err) {
-            setError('Unable to connect to calendar. Please try again later.');
-            console.error('Error fetching events:', err);
-        } finally {
-            setLoading(false);
-        }
-    };
+                    await fetch(API_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: formData
+                    });
 
-    const handleRSVP = async (e) => {
-        e.preventDefault();
-        
-        try {
-            // Use URL-encoded form data instead of JSON to avoid preflight
-            const formData = new URLSearchParams({
-                action: 'rsvp',
-                eventId: rsvpModal.event.id,
-                eventTitle: rsvpModal.event.title,
-                name: rsvpForm.name,
-                email: rsvpForm.email,
-                phone: rsvpForm.phone,
-                attendees: parseInt(rsvpForm.attendees)
-            });
+                    setRsvpStatus({
+                        show: true,
+                        message: 'RSVP received successfully! We look forward to seeing you.',
+                        success: true
+                    });
 
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                mode: 'no-cors', // This bypasses CORS preflight
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: formData
-            });
+                    setTimeout(() => {
+                        setRsvpModal({ show: false, event: null });
+                        setRsvpForm({ name: '', email: '', phone: '', attendees: 1 });
+                        setRsvpStatus({ show: false, message: '', success: false });
+                    }, 3000);
+                    
+                } catch (err) {
+                    setRsvpStatus({
+                        show: true,
+                        message: 'Failed to submit RSVP. Please try again or contact us directly.',
+                        success: false
+                    });
+                }
+            };
 
-            // With no-cors mode, we can't read the response, so just assume success
-            setRsvpStatus({
-                show: true,
-                message: 'RSVP received successfully! We look forward to seeing you.',
-                success: true
-            });
+            const formatDate = (dateString) => {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+            };
 
-            // Reset form and close modal after success
-            setTimeout(() => {
-                setRsvpModal({ show: false, event: null });
-                setRsvpForm({ name: '', email: '', phone: '', attendees: 1 });
-                setRsvpStatus({ show: false, message: '', success: false });
-            }, 3000);
-            
-        } catch (err) {
-            setRsvpStatus({
-                show: true,
-                message: 'Failed to submit RSVP. Please try again or contact us directly.',
-                success: false
-            });
-        }
-    };
+            const formatTime = (startString, endString, isAllDay) => {
+                if (isAllDay) return 'All Day';
+                
+                const start = new Date(startString);
+                const end = new Date(endString);
+                
+                const formatTimeOnly = (date) => {
+                    return date.toLocaleTimeString('en-US', { 
+                        hour: 'numeric', 
+                        minute: '2-digit',
+                        hour12: true 
+                    });
+                };
+                
+                return `${formatTimeOnly(start)} - ${formatTimeOnly(end)}`;
+            };
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-        });
-    };
-
-    const formatTime = (startString, endString, isAllDay) => {
-        if (isAllDay) return 'All Day';
-        
-        const start = new Date(startString);
-        const end = new Date(endString);
-        
-        const formatTimeOnly = (date) => {
-            return date.toLocaleTimeString('en-US', { 
-                hour: 'numeric', 
-                minute: '2-digit',
-                hour12: true 
-            });
-        };
-        
-        return `${formatTimeOnly(start)} - ${formatTimeOnly(end)}`;
-    };
-
-    return (
-        <div className="page-transition pt-20 sm:pt-24 px-4 pb-12 sm:pb-16">
-            <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-10 sm:mb-16">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-4 sm:mb-6">Community Events</h2>
-                    <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light px-4">
-                        Join us for upcoming events and gatherings. All are welcome!
-                    </p>
-                </div>
-
-                {/* Loading State */}
-                {loading && (
-                    <div className="text-center py-16">
-                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900"></div>
-                        <p className="mt-4 text-gray-600">Loading events...</p>
-                    </div>
-                )}
-
-                {/* Error State */}
-                {error && !loading && (
-                    <div className="modern-border bg-red-50 p-8 mb-8 text-center rounded-2xl">
-                        <p className="text-red-600 text-lg mb-4">{error}</p>
-                        <button 
-                            onClick={fetchEvents}
-                            className="btn-modern bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700"
-                        >
-                            Try Again
-                        </button>
-                    </div>
-                )}
-
-                {/* Events List */}
-                {!loading && !error && events.length === 0 && (
-                    <div className="modern-border bg-white p-12 text-center rounded-2xl shadow-lg">
-                        <p className="text-xl text-gray-600 mb-4">No upcoming public events at this time.</p>
-                        <p className="text-gray-500">Check back soon or contact us for more information.</p>
-                    </div>
-                )}
-
-                {!loading && !error && events.length > 0 && (
-                    <div className="space-y-6">
-                        {events.map((event, index) => (
-                            <div key={event.id || index} className="modern-border bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all">
-                                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-                                    <div className="flex-1">
-                                        <h3 className="text-2xl sm:text-3xl font-bold bahai-blue mb-3">
-                                            {event.title}
-                                        </h3>
-                                        
-                                        <div className="flex flex-wrap gap-4 mb-4 text-gray-600">
-                                            <div className="flex items-center">
-                                                <svg className="w-5 h-5 mr-2 bahai-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                </svg>
-                                                <span className="font-semibold">{formatDate(event.startTime)}</span>
-                                            </div>
-                                            
-                                            <div className="flex items-center">
-                                                <svg className="w-5 h-5 mr-2 bahai-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                </svg>
-                                                <span className="font-semibold">{formatTime(event.startTime, event.endTime, event.isAllDay)}</span>
-                                            </div>
-                                        </div>
-
-                                        {event.description && (
-                                            <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                                                {event.description}
-                                            </p>
-                                        )}
-                                    </div>
-
-                                    <div className="lg:ml-6">
-                                        <button
-                                            onClick={() => {
-                                                setRsvpModal({ show: true, event });
-                                                setRsvpStatus({ show: false, message: '', success: false });
-                                            }}
-                                            className="btn-modern bahai-bg-blue text-white px-6 py-3 rounded-xl font-semibold shadow-lg w-full lg:w-auto whitespace-nowrap"
-                                        >
-                                            RSVP for Event
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {/* Contact Section */}
-                <div className="text-center modern-border bg-white rounded-2xl p-6 sm:p-12 shadow-lg mt-12" style={{background: 'linear-gradient(135deg, #f0f7ff 0%, #fff9e6 50%, #f0f7ff 100%)'}}>
-                    <p className="text-lg sm:text-xl text-gray-700 mb-4 sm:mb-6 font-light">
-                        Have questions about an event?
-                    </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-                        <a href="mailto:bahai.community.davis@gmail.com" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors break-all">
-                            bahai.community.davis@gmail.com
-                        </a>
-                        <span className="hidden sm:inline text-gray-400">|</span>
-                        <a href="tel:+15307531601" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors">
-                            +1 530 753 1601
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            {/* RSVP Modal */}
-            {rsvpModal.show && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={() => setRsvpModal({ show: false, event: null })}>
-                    <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
-                        <div className="flex justify-between items-start mb-6">
-                            <h3 className="text-2xl font-bold bahai-blue">RSVP</h3>
-                            <button 
-                                onClick={() => setRsvpModal({ show: false, event: null })}
-                                className="text-gray-400 hover:text-gray-600 text-2xl"
-                            >
-                                ×
-                            </button>
+            return (
+                <div className="page-transition pt-20 sm:pt-24 px-4 pb-12 sm:pb-16">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="text-center mb-10 sm:mb-16">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-4 sm:mb-6">Community Events</h2>
+                            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light px-4">
+                                Join us for upcoming events and gatherings. All are welcome!
+                            </p>
                         </div>
 
-                        <p className="text-gray-700 mb-6 font-semibold">{rsvpModal.event?.title}</p>
-
-                        {rsvpStatus.show && (
-                            <div className={`p-4 rounded-xl mb-6 ${rsvpStatus.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
-                                {rsvpStatus.message}
+                        {loading && (
+                            <div className="text-center py-16">
+                                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900"></div>
+                                <p className="mt-4 text-gray-600">Loading events...</p>
                             </div>
                         )}
 
-                        <form onSubmit={handleRSVP} className="space-y-4">
-                            <div>
-                                <label className="block text-gray-700 font-semibold mb-2">Name *</label>
-                                <input
-                                    type="text"
-                                    value={rsvpForm.name}
-                                    onChange={(e) => setRsvpForm({...rsvpForm, name: e.target.value})}
-                                    required
-                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
-                                />
+                        {error && !loading && (
+                            <div className="modern-border bg-red-50 p-8 mb-8 text-center rounded-2xl">
+                                <p className="text-red-600 text-lg mb-4">{error}</p>
+                                <button 
+                                    onClick={fetchEvents}
+                                    className="btn-modern bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700"
+                                >
+                                    Try Again
+                                </button>
                             </div>
+                        )}
 
-                            <div>
-                                <label className="block text-gray-700 font-semibold mb-2">Email *</label>
-                                <input
-                                    type="email"
-                                    value={rsvpForm.email}
-                                    onChange={(e) => setRsvpForm({...rsvpForm, email: e.target.value})}
-                                    required
-                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
-                                />
+                        {!loading && !error && events.length === 0 && (
+                            <div className="modern-border bg-white p-12 text-center rounded-2xl shadow-lg">
+                                <p className="text-xl text-gray-600 mb-4">No upcoming public events at this time.</p>
+                                <p className="text-gray-500">Check back soon or contact us for more information.</p>
                             </div>
+                        )}
 
-                            <div>
-                                <label className="block text-gray-700 font-semibold mb-2">Phone (optional)</label>
-                                <input
-                                    type="tel"
-                                    value={rsvpForm.phone}
-                                    onChange={(e) => setRsvpForm({...rsvpForm, phone: e.target.value})}
-                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
-                                />
+                        {!loading && !error && events.length > 0 && (
+                            <div className="space-y-6">
+                                {events.map((event, index) => (
+                                    <div key={event.id || index} className="modern-border bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all">
+                                        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                                            <div className="flex-1">
+                                                <h3 className="text-2xl sm:text-3xl font-bold bahai-blue mb-3">
+                                                    {event.title}
+                                                </h3>
+                                                
+                                                <div className="flex flex-wrap gap-4 mb-4 text-gray-600">
+                                                    <div className="flex items-center">
+                                                        <svg className="w-5 h-5 mr-2 bahai-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                        </svg>
+                                                        <span className="font-semibold">{formatDate(event.startTime)}</span>
+                                                    </div>
+                                                    
+                                                    <div className="flex items-center">
+                                                        <svg className="w-5 h-5 mr-2 bahai-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                        <span className="font-semibold">{formatTime(event.startTime, event.endTime, event.isAllDay)}</span>
+                                                    </div>
+                                                </div>
+
+                                                {event.description && (
+                                                    <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                                                        {event.description}
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            <div className="lg:ml-6">
+                                                <button
+                                                    onClick={() => {
+                                                        setRsvpModal({ show: true, event });
+                                                        setRsvpStatus({ show: false, message: '', success: false });
+                                                    }}
+                                                    className="btn-modern bahai-bg-blue text-white px-6 py-3 rounded-xl font-semibold shadow-lg w-full lg:w-auto whitespace-nowrap"
+                                                >
+                                                    RSVP for Event
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
+                        )}
 
-                            <div>
-                                <label className="block text-gray-700 font-semibold mb-2">Number of Attendees</label>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    max="10"
-                                    value={rsvpForm.attendees}
-                                    onChange={(e) => setRsvpForm({...rsvpForm, attendees: e.target.value})}
-                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
-                                />
+                        <div className="text-center modern-border bg-white rounded-2xl p-6 sm:p-12 shadow-lg mt-12" style={{background: 'linear-gradient(135deg, #f0f7ff 0%, #fff9e6 50%, #f0f7ff 100%)'}}>
+                            <p className="text-lg sm:text-xl text-gray-700 mb-4 sm:mb-6 font-light">
+                                Have questions about an event?
+                            </p>
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                                <a href="mailto:bahai.community.davis@gmail.com" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors break-all">
+                                    bahai.community.davis@gmail.com
+                                </a>
+                                <span className="hidden sm:inline text-gray-400">|</span>
+                                <a href="tel:+15307531601" className="inline-flex items-center text-blue-900 hover:bahai-gold font-bold text-base sm:text-xl transition-colors">
+                                    +1 530 753 1601
+                                </a>
                             </div>
-
-                            <button
-                                type="submit"
-                                className="w-full btn-modern bahai-bg-blue text-white px-6 py-4 rounded-xl font-semibold text-lg shadow-lg"
-                            >
-                                Submit RSVP
-                            </button>
-                        </form>
+                        </div>
                     </div>
+
+                    {rsvpModal.show && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={() => setRsvpModal({ show: false, event: null })}>
+                            <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                                <div className="flex justify-between items-start mb-6">
+                                    <h3 className="text-2xl font-bold bahai-blue">RSVP</h3>
+                                    <button 
+                                        onClick={() => setRsvpModal({ show: false, event: null })}
+                                        className="text-gray-400 hover:text-gray-600 text-2xl"
+                                    >
+                                        ×
+                                    </button>
+                                </div>
+
+                                <p className="text-gray-700 mb-6 font-semibold">{rsvpModal.event?.title}</p>
+
+                                {rsvpStatus.show && (
+                                    <div className={`p-4 rounded-xl mb-6 ${rsvpStatus.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                                        {rsvpStatus.message}
+                                    </div>
+                                )}
+
+                                <form onSubmit={handleRSVP} className="space-y-4">
+                                    <div>
+                                        <label className="block text-gray-700 font-semibold mb-2">Name *</label>
+                                        <input
+                                            type="text"
+                                            value={rsvpForm.name}
+                                            onChange={(e) => setRsvpForm({...rsvpForm, name: e.target.value})}
+                                            required
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-gray-700 font-semibold mb-2">Email *</label>
+                                        <input
+                                            type="email"
+                                            value={rsvpForm.email}
+                                            onChange={(e) => setRsvpForm({...rsvpForm, email: e.target.value})}
+                                            required
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-gray-700 font-semibold mb-2">Phone (optional)</label>
+                                        <input
+                                            type="tel"
+                                            value={rsvpForm.phone}
+                                            onChange={(e) => setRsvpForm({...rsvpForm, phone: e.target.value})}
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-gray-700 font-semibold mb-2">Number of Attendees</label>
+                                        <input
+                                            type="number"
+                                            min="1"
+                                            max="10"
+                                            value={rsvpForm.attendees}
+                                            onChange={(e) => setRsvpForm({...rsvpForm, attendees: e.target.value})}
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl"
+                                        />
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        className="w-full btn-modern bahai-bg-blue text-white px-6 py-4 rounded-xl font-semibold text-lg shadow-lg"
+                                    >
+                                        Submit RSVP
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    )}
                 </div>
-            )}
-        </div>
-    );
-};
+            );
+        };
 
         // Footer Component
         const Footer = () => {
@@ -1217,7 +1206,6 @@ const CommunityEventsPage = () => {
             );
         };
 
-        // Render the app
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
