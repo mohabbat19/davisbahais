@@ -790,11 +790,10 @@
         };
 
         // Community Events Page
-      // ============================================
-// UPDATED COMMUNITY EVENTS PAGE COMPONENT
 // ============================================
-// Replace the existing CommunityEventsPage component in your index.html
-// This displays filtered public events and handles RSVPs
+// COMPLETE COMMUNITY EVENTS PAGE COMPONENT
+// ============================================
+// Copy this ENTIRE section to replace your CommunityEventsPage
 
 const CommunityEventsPage = () => {
     const [events, setEvents] = useState([]);
@@ -804,7 +803,7 @@ const CommunityEventsPage = () => {
     const [rsvpForm, setRsvpForm] = useState({ name: '', email: '', phone: '', attendees: 1 });
     const [rsvpStatus, setRsvpStatus] = useState({ show: false, message: '', success: false });
 
-    // *** IMPORTANT: Replace this URL with your deployed Google Apps Script URL ***
+    // *** REPLACE WITH YOUR GOOGLE APPS SCRIPT URL ***
     const API_URL = 'https://script.google.com/macros/s/AKfycbyxYmb32AbsiiiEe9jVlx9E-xlgNH8TkoDR61eBgeIy-Xg-dyEY2UOEdfJgKElYorPbPA/exec';
 
     // Fetch public events on component mount
@@ -832,66 +831,44 @@ const CommunityEventsPage = () => {
         }
     };
 
-// ============================================
-// UPDATED handleRSVP FUNCTION FOR index.html
-// ============================================
-// Replace your existing handleRSVP function with this
-
-const handleRSVP = async (e) => {
-    e.preventDefault();
-    
-    try {
-        // Use URL-encoded form data instead of JSON to avoid preflight
-        const formData = new URLSearchParams({
-            action: 'rsvp',
-            eventId: rsvpModal.event.id,
-            eventTitle: rsvpModal.event.title,
-            name: rsvpForm.name,
-            email: rsvpForm.email,
-            phone: rsvpForm.phone,
-            attendees: parseInt(rsvpForm.attendees)
-        });
-
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            mode: 'no-cors', // This bypasses CORS preflight
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: formData
-        });
-
-        // With no-cors mode, we can't read the response, so just assume success
-        setRsvpStatus({
-            show: true,
-            message: 'RSVP received successfully! We look forward to seeing you.',
-            success: true
-        });
-
-        // Reset form and close modal after success
-        setTimeout(() => {
-            setRsvpModal({ show: false, event: null });
-            setRsvpForm({ name: '', email: '', phone: '', attendees: 1 });
-            setRsvpStatus({ show: false, message: '', success: false });
-        }, 3000);
+    const handleRSVP = async (e) => {
+        e.preventDefault();
         
-    } catch (err) {
-        setRsvpStatus({
-            show: true,
-            message: 'Failed to submit RSVP. Please try again or contact us directly.',
-            success: false
-        });
-    }
-};
+        try {
+            // Use URL-encoded form data instead of JSON to avoid preflight
+            const formData = new URLSearchParams({
+                action: 'rsvp',
+                eventId: rsvpModal.event.id,
+                eventTitle: rsvpModal.event.title,
+                name: rsvpForm.name,
+                email: rsvpForm.email,
+                phone: rsvpForm.phone,
+                attendees: parseInt(rsvpForm.attendees)
+            });
 
-            if (data.success) {
-                // Reset form and close modal after success
-                setTimeout(() => {
-                    setRsvpModal({ show: false, event: null });
-                    setRsvpForm({ name: '', email: '', phone: '', attendees: 1 });
-                    setRsvpStatus({ show: false, message: '', success: false });
-                }, 3000);
-            }
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                mode: 'no-cors', // This bypasses CORS preflight
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formData
+            });
+
+            // With no-cors mode, we can't read the response, so just assume success
+            setRsvpStatus({
+                show: true,
+                message: 'RSVP received successfully! We look forward to seeing you.',
+                success: true
+            });
+
+            // Reset form and close modal after success
+            setTimeout(() => {
+                setRsvpModal({ show: false, event: null });
+                setRsvpForm({ name: '', email: '', phone: '', attendees: 1 });
+                setRsvpStatus({ show: false, message: '', success: false });
+            }, 3000);
+            
         } catch (err) {
             setRsvpStatus({
                 show: true,
