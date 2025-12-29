@@ -58,7 +58,7 @@
     </script>
     
     <!-- Google reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
     
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -418,22 +418,27 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // *** REPLACE THIS WITH YOUR ACTUAL GOOGLE APPS SCRIPT WEB APP URL ***
+        // Configuration
         const API_URL = 'https://script.google.com/macros/s/AKfycbymN9xgb4WoxvVg3JBeIt58BxxN98Ji_d9Gqaor5I8PWHOTOSQ7ub6kTxJpXuH3f9AJ_w/exec';
-        
-        // *** REPLACE WITH YOUR RECAPTCHA SITE KEY ***
         const RECAPTCHA_SITE_KEY = '6LdxpjosAAAAACW1KcMDjC7M9ydUJjpWQU4OTye_';
 
-        // Simple rate limiting (frontend only - also implement on backend)
+        // Global reCAPTCHA widget IDs
+        window.contactRecaptchaWidget = null;
+        window.rsvpRecaptchaWidget = null;
+
+        // reCAPTCHA callback when API loads
+        window.onRecaptchaLoad = () => {
+            console.log('reCAPTCHA API loaded');
+        };
+
+        // Simple rate limiting
         const checkRateLimit = (key) => {
             const now = Date.now();
             const submissions = JSON.parse(localStorage.getItem('submissions') || '{}');
             const userSubmissions = submissions[key] || [];
             
-            // Remove submissions older than 1 hour
             const recentSubmissions = userSubmissions.filter(time => now - time < 3600000);
             
-            // Allow max 3 submissions per hour
             if (recentSubmissions.length >= 3) {
                 return false;
             }
@@ -444,7 +449,7 @@
             return true;
         };
 
-        // Email decoder (simple obfuscation)
+        // Email decoder
         const decodeEmail = () => {
             const parts = ['bahai.community.davis', 'gmail.com'];
             return parts.join('@');
@@ -515,10 +520,9 @@
                 name: '',
                 email: '',
                 message: '',
-                website: '' // Honeypot field
+                website: ''
             });
             const [formStatus, setFormStatus] = useState({ submitting: false, success: false, error: false });
-
             const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
             const [fadeClass, setFadeClass] = useState('quote-enter');
 
@@ -529,6 +533,35 @@
                 "It is with such thoughts in mind that Bahá'ís enter into collaboration, as their resources permit, with an increasing number of movements, organizations, groups and individuals, establishing partnerships that strive to transform society and further the cause of unity, promote human welfare, and contribute to world solidarity. – The Universal House of Justice –"
             ];
 
+            // Initialize contact form reCAPTCHA
+            useEffect(() => {
+                const initContactRecaptcha = () => {
+                    if (window.grecaptcha && window.grecaptcha.render && !window.contactRecaptchaWidget) {
+                        try {
+                            const element = document.getElementById('recaptcha-contact');
+                            if (element && !element.hasChildNodes()) {
+                                window.contactRecaptchaWidget = window.grecaptcha.render('recaptcha-contact', {
+                                    'sitekey': RECAPTCHA_SITE_KEY
+                                });
+                                console.log('Contact reCAPTCHA initialized');
+                            }
+                        } catch (e) {
+                            console.log('Contact reCAPTCHA error:', e);
+                        }
+                    }
+                };
+
+                const checkAndInit = setInterval(() => {
+                    if (window.grecaptcha && window.grecaptcha.render) {
+                        initContactRecaptcha();
+                        clearInterval(checkAndInit);
+                    }
+                }, 100);
+
+                return () => clearInterval(checkAndInit);
+            }, []);
+
+            // Quote rotation
             useEffect(() => {
                 const timer = setInterval(() => {
                     setFadeClass('');
@@ -544,13 +577,11 @@
             const handleSubmit = async (e) => {
                 e.preventDefault();
                 
-                // Check honeypot
                 if (formData.website !== '') {
                     console.log('Bot detected via honeypot');
                     return;
                 }
                 
-                // Check rate limit
                 if (!checkRateLimit('contact_form')) {
                     setFormStatus({ 
                         submitting: false, 
@@ -561,8 +592,10 @@
                     return;
                 }
                 
-                // Validate reCAPTCHA
-                const recaptchaResponse = grecaptcha.getResponse();
+                const recaptchaResponse = window.contactRecaptchaWidget !== null 
+                    ? window.grecaptcha.getResponse(window.contactRecaptchaWidget)
+                    : '';
+                    
                 if (!recaptchaResponse) {
                     setFormStatus({ 
                         submitting: false, 
@@ -584,22 +617,26 @@
                         recaptcha: recaptchaResponse
                     });
 
-                    await fetch(API_URL, {
+                    const response = await fetch(API_URL, {
                         method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
                         body: formParams
                     });
 
-                    setFormStatus({ submitting: false, success: true, error: false });
-                    setFormData({ name: '', email: '', message: '', website: '' });
-                    grecaptcha.reset();
+                    const data = await response.json();
                     
-                    setTimeout(() => {
-                        setFormStatus({ submitting: false, success: false, error: false });
-                    }, 5000);
+                    if (data.success) {
+                        setFormStatus({ submitting: false, success: true, error: false });
+                        setFormData({ name: '', email: '', message: '', website: '' });
+                        if (window.contactRecaptchaWidget !== null) {
+                            window.grecaptcha.reset(window.contactRecaptchaWidget);
+                        }
+                        
+                        setTimeout(() => {
+                            setFormStatus({ submitting: false, success: false, error: false });
+                        }, 5000);
+                    } else {
+                        throw new Error(data.message || 'Submission failed');
+                    }
                     
                 } catch (error) {
                     console.error('Contact form error:', error);
@@ -609,7 +646,9 @@
                         error: true,
                         message: 'Failed to send message. Please try again or contact us directly.'
                     });
-                    grecaptcha.reset();
+                    if (window.contactRecaptchaWidget !== null) {
+                        window.grecaptcha.reset(window.contactRecaptchaWidget);
+                    }
                     
                     setTimeout(() => {
                         setFormStatus({ submitting: false, success: false, error: false });
@@ -855,7 +894,6 @@
                                     )}
                                     
                                     <form onSubmit={handleSubmit} className="space-y-6">
-                                        {/* Honeypot field - hidden from users */}
                                         <input 
                                             type="text"
                                             name="website"
@@ -915,8 +953,7 @@
                                             ></textarea>
                                         </div>
 
-                                        {/* reCAPTCHA */}
-                                        <div className="g-recaptcha" data-sitekey={RECAPTCHA_SITE_KEY}></div>
+                                        <div id="recaptcha-contact"></div>
 
                                         <button
                                             type="submit"
@@ -945,7 +982,7 @@
                 email: '', 
                 phone: '', 
                 attendees: 1,
-                company: '' // Honeypot field
+                company: ''
             });
             const [rsvpStatus, setRsvpStatus] = useState({ show: false, message: '', success: false });
 
@@ -953,12 +990,42 @@
                 fetchEvents();
             }, []);
 
+            // Initialize RSVP reCAPTCHA when modal opens
+            useEffect(() => {
+                if (rsvpModal.show) {
+                    const initRsvpRecaptcha = () => {
+                        if (window.grecaptcha && window.grecaptcha.render && window.rsvpRecaptchaWidget === null) {
+                            setTimeout(() => {
+                                try {
+                                    const element = document.getElementById('recaptcha-rsvp');
+                                    if (element && !element.hasChildNodes()) {
+                                        window.rsvpRecaptchaWidget = window.grecaptcha.render('recaptcha-rsvp', {
+                                            'sitekey': RECAPTCHA_SITE_KEY
+                                        });
+                                        console.log('RSVP reCAPTCHA initialized');
+                                    }
+                                } catch (e) {
+                                    console.log('RSVP reCAPTCHA error:', e);
+                                }
+                            }, 100);
+                        }
+                    };
+
+                    const checkAndInit = setInterval(() => {
+                        if (window.grecaptcha && window.grecaptcha.render) {
+                            initRsvpRecaptcha();
+                            clearInterval(checkAndInit);
+                        }
+                    }, 100);
+
+                    return () => clearInterval(checkAndInit);
+                }
+            }, [rsvpModal.show]);
+
             const fetchEvents = async () => {
                 try {
                     setLoading(true);
                     setError(null);
-                    
-                    console.log('Fetching events from:', `${API_URL}?action=getEvents`);
                     
                     const response = await fetch(`${API_URL}?action=getEvents`, {
                         method: 'GET',
@@ -967,10 +1034,7 @@
                         }
                     });
                     
-                    console.log('Response status:', response.status);
-                    
                     const data = await response.json();
-                    console.log('Events data:', data);
                     
                     if (data.success) {
                         setEvents(data.events || []);
@@ -989,13 +1053,11 @@
             const handleRSVP = async (e) => {
                 e.preventDefault();
                 
-                // Check honeypot
                 if (rsvpForm.company !== '') {
                     console.log('Bot detected via honeypot');
                     return;
                 }
                 
-                // Check rate limit
                 if (!checkRateLimit('rsvp_form')) {
                     setRsvpStatus({
                         show: true,
@@ -1005,8 +1067,10 @@
                     return;
                 }
                 
-                // Validate reCAPTCHA
-                const recaptchaResponse = grecaptcha.getResponse(1); // Widget ID for RSVP form
+                const recaptchaResponse = window.rsvpRecaptchaWidget !== null 
+                    ? window.grecaptcha.getResponse(window.rsvpRecaptchaWidget)
+                    : '';
+                    
                 if (!recaptchaResponse) {
                     setRsvpStatus({
                         show: true,
@@ -1017,8 +1081,6 @@
                 }
                 
                 try {
-                    console.log('Submitting RSVP...');
-                    
                     const formData = new URLSearchParams({
                         action: 'rsvp',
                         eventId: rsvpModal.event.id,
@@ -1030,27 +1092,32 @@
                         recaptcha: recaptchaResponse
                     });
 
-                    await fetch(API_URL, {
+                    const response = await fetch(API_URL, {
                         method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
                         body: formData
                     });
 
-                    setRsvpStatus({
-                        show: true,
-                        message: 'RSVP received successfully! We look forward to seeing you.',
-                        success: true
-                    });
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        setRsvpStatus({
+                            show: true,
+                            message: 'RSVP received successfully! We look forward to seeing you.',
+                            success: true
+                        });
 
-                    setTimeout(() => {
-                        setRsvpModal({ show: false, event: null });
-                        setRsvpForm({ name: '', email: '', phone: '', attendees: 1, company: '' });
-                        setRsvpStatus({ show: false, message: '', success: false });
-                        grecaptcha.reset(1);
-                    }, 3000);
+                        setTimeout(() => {
+                            setRsvpModal({ show: false, event: null });
+                            setRsvpForm({ name: '', email: '', phone: '', attendees: 1, company: '' });
+                            setRsvpStatus({ show: false, message: '', success: false });
+                            if (window.rsvpRecaptchaWidget !== null) {
+                                window.grecaptcha.reset(window.rsvpRecaptchaWidget);
+                            }
+                            window.rsvpRecaptchaWidget = null;
+                        }, 3000);
+                    } else {
+                        throw new Error(data.message || 'Submission failed');
+                    }
                     
                 } catch (err) {
                     console.error('RSVP error:', err);
@@ -1059,7 +1126,9 @@
                         message: 'Failed to submit RSVP. Please try again or contact us directly.',
                         success: false
                     });
-                    grecaptcha.reset(1);
+                    if (window.rsvpRecaptchaWidget !== null) {
+                        window.grecaptcha.reset(window.rsvpRecaptchaWidget);
+                    }
                 }
             };
 
@@ -1193,12 +1262,18 @@
                     </div>
 
                     {rsvpModal.show && (
-                        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={() => setRsvpModal({ show: false, event: null })}>
+                        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={() => {
+                            setRsvpModal({ show: false, event: null });
+                            window.rsvpRecaptchaWidget = null;
+                        }}>
                             <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                                 <div className="flex justify-between items-start mb-6">
                                     <h3 className="text-2xl font-bold bahai-blue">RSVP</h3>
                                     <button 
-                                        onClick={() => setRsvpModal({ show: false, event: null })}
+                                        onClick={() => {
+                                            setRsvpModal({ show: false, event: null });
+                                            window.rsvpRecaptchaWidget = null;
+                                        }}
                                         className="text-gray-400 hover:text-gray-600 text-2xl"
                                     >
                                         ×
@@ -1214,7 +1289,6 @@
                                 )}
 
                                 <form onSubmit={handleRSVP} className="space-y-4">
-                                    {/* Honeypot field - hidden from users */}
                                     <input 
                                         type="text"
                                         name="company"
@@ -1270,8 +1344,7 @@
                                         />
                                     </div>
 
-                                    {/* reCAPTCHA for RSVP form */}
-                                    <div className="g-recaptcha" data-sitekey={RECAPTCHA_SITE_KEY}></div>
+                                    <div id="recaptcha-rsvp"></div>
 
                                     <button
                                         type="submit"
