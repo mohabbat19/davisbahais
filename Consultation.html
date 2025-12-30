@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bahá'í Feast Consultation Guide | Davis Community</title>
+    
+    <link rel="icon" type="image/png" href="nine-pointed-star.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .bahai-blue { color: #003262; }
+        .bahai-gold { color: #FDB515; }
+        .bahai-bg-blue { background-color: #003262; }
+        .bahai-bg-gold { background-color: #FDB515; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #003262 0%, #0055a5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .quote-box {
+            background: linear-gradient(135deg, #fafbfc 0%, #f5f7fa 100%);
+            border-left: 4px solid #FDB515;
+            position: relative;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 60px;
+            color: rgba(0, 50, 98, 0.1);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .theme-section {
+            background: white;
+            border: 1px solid rgba(0, 50, 98, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .reflection-question {
+            background: #f0f7ff;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 3px solid #003262;
+        }
+        
+        .facilitator-note {
+            background: #fff9e6;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border-left: 4px solid #FDB515;
+        }
+        
+        .feast-content {
+            display: none;
+        }
+        
+        .feast-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23003262'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.5em;
+            padding-right: 3rem;
+        }
+        
+        .print-button {
+            background: #003262;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .print-button:hover {
+            background: #0055a5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 50, 98, 0.3);
+        }
+        
+        .print-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .toggle-button {
+            background: #FDB515;
+            color: #003262;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .toggle-button:hover {
+            background: #e6a314;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(253, 181, 21, 0.3);
+        }
+        
+        .toggle-arrow {
+            transition: transform 0.3s;
+        }
+        
+        .toggle-arrow.open {
+            transform: rotate(180deg);
+        }
+        
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .collapsible-content.open {
+            max-height: 2000px;
+            transition: max-height 0.5s ease-in;
+        }
+        
+        @media print {
+            .no-print { display: none !important; }
+            #cover-page { display: none !important; }
+            .feast-content { display: none !important; page-break-after: always; }
+            .feast-content.active { display: block !important; }
+            body { background: white; }
+            .facilitator-note { page-break-inside: avoid; }
+            .theme-section { page-break-inside: avoid; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 1.75rem !important; }
+            h2 { font-size: 1.5rem !important; }
+            .theme-section, .quote-box { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Cover Page -->
+    <div id="cover-page" class="max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-6">
+                Feast Consultation Guide
+            </h1>
+            <p class="text-2xl text-gray-600 font-light">
+                A Resource for Deepening and Community Mobilization
+            </p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="theme-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-6">The Power of Feast Consultation</h2>
+            
+            <div class="space-y-4 text-lg text-gray-700">
+                <p>
+                    The Nineteen Day Feast serves as a vital catalyst for mobilizing the Bahá'í community toward the fulfillment of its sacred mission. Through meaningful consultation, we unite our vision, deepen our understanding, and align our efforts with the guidance of the Universal House of Justice.
+                </p>
+                
+                <p>
+                    This guide provides thematic content for each of the 19 Feasts throughout the year, drawing from authoritative guidance on the Nine Year Plan and America's destiny. Each Feast builds upon the previous ones, creating a progressive journey of learning and action.
+                </p>
+            </div>
+
+            <div class="quote-box mt-8">
+                <p class="text-lg italic text-gray-800">
+                    "We consult with each other in a loving and sincere spirit of search for truth. In sum, we rely on proven experience in applying the teachings to show us the way forward. And all the while, we remain true to the guidance of the House of Justice in illuminating our path."
+                </p>
+                <p class="text-right mt-4 font-semibold text-gray-700">
+                    — National Spiritual Assembly, September 30, 2024
+                </p>
+            </div>
+
+            <div class="quote-box">
+                <p class="text-lg italic text-gray-800">
+                    "The methods and instruments of the Plan are now well known to us all, as is the evolving framework in which they operate. This framework encompasses a wide range of activities—distinct, yet closely related—for the expansion and consolidation of the Bahá'í community, social action, and engagement in the discourses of society. In cluster after cluster, these dimensions must be nurtured in a systematic and coherent manner so that they come to include steadily increasing numbers of people and exert ever-greater impact on the life of society."
+                </p>
+                <p class="text-right mt-4 font-semibold text-gray-700">
+                    — National Spiritual Assembly, September 30, 2024
+                </p>
+            </div>
+        </div>
+
+        <!-- Feast Selection -->
+        <div class="theme-section no-print">
+            <h2 class="text-3xl font-bold bahai-blue mb-6">Select a Feast</h2>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-3 text-lg">Choose the Feast for consultation:</label>
+                <select id="feast-selector" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg">
+                    <option value="">-- Select Feast --</option>
+                    <option value="feast-1">1. Bahá (Splendor) - March 2-20</option>
+                    <option value="feast-2">2. Jalál (Glory) - March 21-April 8</option>
+                    <option value="feast-3">3. Jamál (Beauty) - April 9-27</option>
+                    <option value="feast-4">4. 'Aẓamat (Grandeur) - April 28-May 16</option>
+                    <option value="feast-5">5. Núr (Light) - May 17-June 4</option>
+                    <option value="feast-6">6. Raḥmat (Mercy) - June 5-23</option>
+                    <option value="feast-7">7. Kalimát (Words) - June 24-July 12</option>
+                    <option value="feast-8">8. Kamál (Perfection) - July 13-31</option>
+                    <option value="feast-9">9. Asmá' (Names) - August 1-19</option>
+                    <option value="feast-10">10. 'Izzat (Might) - August 20-September 7</option>
+                    <option value="feast-11">11. Mashíyyat (Will) - September 8-26</option>
+                    <option value="feast-12">12. 'Ilm (Knowledge) - September 27-October 15</option>
+                    <option value="feast-13">13. Qudrat (Power) - October 16-November 3</option>
+                    <option value="feast-14">14. Qawl (Speech) - November 4-22</option>
+                    <option value="feast-15">15. Masá'il (Questions) - November 23-December 11</option>
+                    <option value="feast-16">16. Sharaf (Honor) - December 12-30</option>
+                    <option value="feast-17">17. Sulṭán (Sovereignty) - December 31-January 18</option>
+                    <option value="feast-18">18. Mulk (Dominion) - January 19-February 6</option>
+                    <option value="feast-19">19. 'Alá' (Loftiness) - February 7-March 1</option>
+                </select>
+            </div>
+
+            <button onclick="printSelectedFeast()" id="print-btn" class="print-button w-full md:w-auto" disabled>
+                Print Selected Feast
+            </button>
+            <p id="print-message" class="text-sm text-gray-500 mt-2">Please select a Feast to enable printing</p>
+        </div>
+
+        <!-- Collapsible Notes to Facilitator -->
+        <div class="no-print">
+            <button onclick="toggleNotes()" class="toggle-button mb-4">
+                <span>📋 Notes to the Feast Facilitator</span>
+                <svg class="toggle-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            
+            <div id="facilitator-notes" class="collapsible-content">
+                <div class="facilitator-note">
+                    <h3 class="text-2xl font-bold bahai-blue mb-4">Strategy for the Year</h3>
+                    
+                    <div class="space-y-4 text-gray-700">
+                        <p class="font-semibold">Progressive Themes Throughout the Year:</p>
+                        
+                        <div class="ml-4 space-y-3">
+                            <p><strong>Feasts 1-3 (Foundation):</strong> Establish understanding of America's destiny and the society-building power of the Faith. Help friends grasp the vision of what we're building together.</p>
+                            
+                            <p><strong>Feasts 4-6 (Capacity Building):</strong> Deepen appreciation for the institute process and youth empowerment. Build capacity for systematic learning and reflection.</p>
+                            
+                            <p><strong>Feasts 7-9 (Action & Service):</strong> Explore the core activities and social action. Connect spiritual principles to practical service.</p>
+                            
+                            <p><strong>Feasts 10-12 (Community Development):</strong> Focus on cluster movement, racial unity, and creating spaces of spiritual refuge in neighborhoods.</p>
+                            
+                            <p><strong>Feasts 13-15 (Institutional Strength):</strong> Build understanding of the role of institutions and the importance of administrative capacity.</p>
+                            
+                            <p><strong>Feasts 16-19 (Vision Forward):</strong> Inspire with the vision of divine civilization, renew commitment to living sacrifice, and cultivate hope amid crisis.</p>
+                        </div>
+
+                        <p class="mt-6 font-semibold">Facilitation Tips:</p>
+                        <ul class="ml-8 list-disc space-y-2">
+                            <li>Allow time for silent reflection before discussion</li>
+                            <li>Encourage all voices to be heard</li>
+                            <li>Connect themes to local cluster activities</li>
+                            <li>Consider breaking into smaller groups after every 3 Feasts for deeper discussion</li>
+                            <li>Document insights and action points for follow-up</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 1: Bahá (Splendor) -->
+    <div id="feast-1" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Bahá</h1>
+            <p class="text-2xl text-gray-600">Splendor • March 2-20</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: America's Ordained Destiny</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>This Feast opens the year by establishing the foundational vision: America's unique role in the unfoldment of Bahá'u'lláh's World Order. Help friends understand that our work in Davis is part of fulfilling this divine destiny.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: The Promise of America's Future</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The continent of America is in the eyes of the one true God the land wherein the splendors of His light shall be revealed, where the mysteries of His Faith shall be unveiled, where the righteous will abide and the free assemble... This American nation is equipped and empowered to accomplish that which will adorn the pages of history, to become the envy of the world and be blest in both the East and the West for the triumph of its people... The American continent gives signs and evidences of very great advancement. Its future is even more promising, for its influence and illumination are far-reaching. It will lead all nations spiritually."
+                </p>
+                <p class="text-right mt-4 font-semibold">— 'Abdu'l-Bahá, quoted in NSA letter, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How does understanding America's spiritual destiny shape our approach to community building in Davis?</li>
+                    <li>What does it mean that America will "lead all nations spiritually"?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Chosen Despite Spiritual Deficiencies</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "It is precisely by reason of the patent evils which, notwithstanding its other admittedly great characteristics and achievements, an excessive and binding materialism has unfortunately engendered within it that the Author of their Faith and the Center of His Covenant have singled it out to become the standard-bearer of the New World Order envisaged in their writings. It is by such means as this that Bahá'u'lláh can best demonstrate to a heedless generation His almighty power to raise up from the very midst of a people, immersed in a sea of materialism, a prey to one of the most virulent and long-standing forms of racial prejudice, and notorious for its political corruption, lawlessness and laxity in moral standards, men and women who, as time goes by, will increasingly exemplify those essential virtues of self-renunciation, of moral rectitude, of chastity, of indiscriminating fellowship, of holy discipline, and of spiritual insight."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Shoghi Effendi, quoted in NSA letter, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we demonstrate these virtues in our own lives and in our community-building efforts?</li>
+                    <li>What gives us hope that transformation is possible despite current challenges?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: The Time Has Come</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "In The Advent of Divine Justice, Shoghi Effendi explained to the Bahá'ís of America that, given the restricted size of their community and the limited influence it wielded, they must focus, at that time, on its own growth and development as it learned to apply the Teachings. He promised, however, that the time would come when they would be called upon to engage their fellow citizens in a process of working for the healing and betterment of their nation. That time has now come. And it has come not only for the Bahá'ís of America, but for the Bahá'ís of the world, as the society-building power inherent in the Faith is released in ever-greater measures."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, November 28, 2023, quoted in NSA letter, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What does it mean that "the time has now come" for our fuller engagement?</li>
+                    <li>How can our cluster take concrete steps to release the society-building power of the Faith?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: A Still More Superb Mission</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "And who knows but that when this colossal task has been accomplished a greater, a still more superb mission, incomparable in its splendor, and foreordained for them by Bahá'u'lláh, may not be thrust upon them? The glories of such a mission are of such dazzling splendor, the circumstances attending it so remote, and the contemporary events with the culmination of which it is so closely knit in such a state of flux, that it would be premature to attempt, at the present time, any accurate delineation of its features."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Shoghi Effendi, quoted in NSA letter, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How does this vision of a "still more superb mission" inspire our work today?</li>
+                    <li>What preparations can we make now for opportunities yet to unfold?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 2: Jalál (Glory) -->
+    <div id="feast-2" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Jalál</h1>
+            <p class="text-2xl text-gray-600">Glory • March 21-April 8</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: The Society-Building Power of the Faith</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Building on last month's vision of America's destiny, this Feast explores what it means to release the society-building power of the Faith in practical terms. Connect this to ongoing cluster activities.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Releasing Society-Building Power</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The series of global Plans that began at Riḍván will last a full twenty-five years. It will carry the ark of the Cause into the third century of the Bahá'í Era and conclude at Riḍván 2046. During this period, the Bahá'í world will be focused on a single aim: the release of the society-building power of the Faith in ever-greater measures. The pursuit of this overall aim will require a further rise in the capacity of the individual believer, the local community, and the institutions of the Faith."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What does "society-building power" look like in our neighborhoods?</li>
+                    <li>How can we each contribute to building the capacity of individuals, communities, and institutions?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Creating Spaces of Spiritual Refuge</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Every space that we create, whether in a children's class, a junior youth group, a devotional gathering, a study circle, or any other, can be considered as an environment in which we are transitioning from the Old to the New World Order. Each of these, no matter how modestly it may begin, can be seen as a place of spiritual refuge for our fellow citizens. All are distinguished for their spiritual atmosphere, sense of loving inclusion, and spirit of service. As we sustain and multiply them, they will become havens for ever-larger populations."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we ensure our activities truly serve as "spiritual refuge" for participants?</li>
+                    <li>What specific qualities make a space feel welcoming and transformative?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Building the Good</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Bahá'ís, on the other hand, know the goal they are working towards and know what they must do, step by step, to attain it. Their whole energy is directed towards the building of the good, a good which has such a positive strength that in the face of it the multitude of evils—which are in essence negative—will fade away and be no more. To enter into the quixotic tournament of demolishing one by one the evils in the world is, to a Bahá'í, a vain waste of time and effort."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, 1974, quoted in NSA letter, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How does focusing on "building the good" differ from fighting against evils?</li>
+                    <li>What practical examples can we share of this approach in our community work?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Demonstrating a True Pattern</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "By creating such communities dedicated to the application of Bahá'u'lláh's teachings, we will be pursuing a process of transforming American society that will not falter. A letter written on behalf of Shoghi Effendi asserted, 'Until the public sees in the Bahá'í Community a true pattern, in action, of something better than it already has, it will not respond to the Faith in large numbers.' It is this very pattern that we are now laboring to create."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What would a "true pattern" of community life look like in our cluster?</li>
+                    <li>How can we ensure our pattern is visible and accessible to others?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 3: Jamál (Beauty) -->
+    <div id="feast-3" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Jamál</h1>
+            <p class="text-2xl text-gray-600">Beauty • April 9-27</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Entry by Troops and Cluster Movement</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>This concludes the foundation-building phase. Focus on understanding cluster advancement and the process of entry by troops. Consider organizing a small group discussion after this Feast to reflect on Feasts 1-3 together.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Movement of Clusters</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The goal that the community of the Greatest Name must aspire to fulfil during the current series of global Plans is to establish intensive programmes of growth in all the clusters in the world. This formidable objective implies a broadening and intensification of activity on a scale never witnessed. Rapid progress towards this goal must be achieved in the course of the Nine Year Plan."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What is our cluster's current reality and what milestone should we strive toward?</li>
+                    <li>What specific actions can we take this cycle to advance our cluster?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Building on Strengths</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "This capacity is expressed in the ability to understand, in the light of the guidance, the path of growth and development that has brought us to where we are; a realistic assessment of our current reality; and a clear vision of where we now need to go, together with the practical steps needed to get there. To do these things effectively requires an attitude of humility that stems from the realization that all have insights to share, talents to contribute, and experiences to draw upon in our common effort... We build on strengths instead of focusing on weaknesses. We refuse to adopt a success/failure mode of thinking and the freneticism that inevitably accompanies it."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What strengths exist in our community that we can build upon?</li>
+                    <li>How can we maintain a learning posture rather than a success/failure mindset?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Focus on Processes, Not Just Numbers</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Learning entails not so much a focus on numbers as on the underlying processes of growth. This is not to say that numbers are unimportant. We certainly want the number of activities to grow, but we also want to ensure that they are having the society-building impact envisioned by the House of Justice. This is the only way in which growth can truly be sustained or accelerated."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we assess the quality and impact of our activities beyond counting participants?</li>
+                    <li>What processes need strengthening to ensure sustainable growth?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Universal Participation</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "We are learning to welcome larger and larger numbers of people to immediately join us in the work of transforming our communities. As we have often seen, many such people quickly come to recognize the station of Bahá'u'lláh and readily join the Faith. Others, as they become more deeply engaged, will more gradually become attracted to Bahá'u'lláh and His teachings to the point where, as the House of Justice describes it, they stand at the threshold of embracing the Faith."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we create more opportunities for people to participate in community building?</li>
+                    <li>What does it mean to invite people to "stand at the threshold" with wisdom and love?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 4: 'Aẓamat (Grandeur) -->
+    <div id="feast-4" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of 'Aẓamat</h1>
+            <p class="text-2xl text-gray-600">Grandeur • April 28-May 16</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: The Institute Process</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Begin the capacity-building phase by exploring the institute as the primary means for developing human resources. Connect this to the experience of participants in study circles.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: The Institute as Potent Means</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Increasingly, participation in institute courses is preparing the friends of God for an ever-deeper engagement in the life of the wider community; it is endowing them with the knowledge, insights, and skills that enable them to contribute not only to the process of developing their own community, but to the progress of society. In short, the institute is a potent means for the society-building power of the Faith to find release."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How has the institute process enhanced your capacity to serve?</li>
+                    <li>What insights from study circles can we apply to community challenges?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: An Educational System in Refinement</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "A critical requirement is to enable all those contributing to the work of the institute to progressively advance their understanding of the educational content: its objectives, its structure, its pedagogical principles, its methodology, its central concepts, its interconnections... The knowledge that has now accumulated about factors that contribute to the effectiveness of the institute process is extensive."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we support the quality and effectiveness of institute courses in our cluster?</li>
+                    <li>What steps can we take to deepen our own understanding of the materials we study?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: The Potency of the Word of God</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The training institute has no parallel as an instrument for the systematic exposure of limitless numbers of souls to the life-giving waters of the Revelation and the inexhaustible meaning of the Word of God. But the friends' efforts to increase their understanding of the Faith and its teachings are of course not limited to participation in the institute process."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How does regular engagement with the Word of God transform our capacity to serve?</li>
+                    <li>Beyond institute courses, how can we continue deepening our understanding?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Raising the Capacity for Learning</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The notion of an evolving framework indicates the importance of learning. No two clusters will advance in precisely the same manner, nor at the same pace. Yet all of those that have experienced significant growth have one element in common—the capacity for learning."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How has our cluster's capacity for learning developed over recent cycles?</li>
+                    <li>What mechanisms help us reflect systematically on experience and apply insights?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 5: Núr (Light) -->
+    <div id="feast-5" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Núr</h1>
+            <p class="text-2xl text-gray-600">Light • May 17-June 4</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Education and Human Potential</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Explore the significance of education in all its forms. Connect to the work of teachers and animators and the spiritual education of an entire generation.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Education as Foundation</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The importance of education to a Bahá'í conception of spiritual and social transformation can hardly be overestimated. 'Consider', Bahá'u'lláh states, 'the revelation of the light of the Name of God, the Educator. Behold, how in all things the evidences of such a revelation are manifest, how the betterment of all beings dependeth upon it.'"
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we see education as central to transformation in our community?</li>
+                    <li>What forms of education are we offering, and who do they reach?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Pre-eminent Among Educational Structures</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Pre-eminent among the structures and agencies created by the Bahá'í world to offer education is, of course, the training institute. Indeed, the network of national and regional training institutes operating with such proficiency around the globe is among the choicest fruits of the previous series of global Plans. Building capacity for service within communities by enabling ever-increasing numbers of individuals to benefit from the institute process will continue to be a central feature of the Plans in the present series."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we ensure more people benefit from the institute process?</li>
+                    <li>What support do tutors, teachers, and animators need to strengthen their service?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Spiritual Education of an Entire Generation</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "In such locations, the thoughts of the friends labouring at the grassroots are increasingly occupied with the progress and well-being of everyone dwelling in the vicinity. Bahá'í institutions feel more keenly their responsibility for the spiritual education of an entire generation of children and junior youth, most or even all of whom might already be engaged in community activities."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we ensure every child in our neighborhoods has access to spiritual education?</li>
+                    <li>What does it mean to take responsibility for an entire generation?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Raising Consciousness About Education</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "In many parts of the world, a natural outcome of the participation of individuals and families in the institute process has been an increased consciousness of the importance of education in all its forms. Friends serving as children's class teachers take a keen interest in the broad educational development of those they teach, while friends serving as tutors and animators are naturally concerned with the extent to which those approaching or entering adulthood—girls and boys alike—can access and benefit from education of many kinds."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How is participation in core activities raising consciousness about education?</li>
+                    <li>What broader educational needs exist in our community that we could address?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 6: Raḥmat (Mercy) -->
+    <div id="feast-6" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Raḥmat</h1>
+            <p class="text-2xl text-gray-600">Mercy • June 5-23</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Youth at the Vanguard</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>This concludes the capacity-building phase. Focus on the vital role of youth in the Plan. Consider organizing small group discussions after this Feast to reflect on Feasts 4-6 together.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: All Must Surge, Youth Must Soar</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The Universal House of Justice has again reminded us of the place they must occupy in the vanguard of service: 'All must surge, but the youth must soar.'"
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How are youth in our community serving at the forefront of our efforts?</li>
+                    <li>What opportunities exist for more youth to arise in service?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Youth and the Institute</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Appreciating the effectiveness of the institute process, every follower of Bahá'u'lláh will feel a desire to contribute to its advancement in some way—not least, the Bahá'í youth... They should seize every opportunity—in their schools and universities, and in spaces dedicated to work, family, or social interaction—to encourage more and more souls to benefit from the institute's programmes."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can youth in our community promote participation in the institute process?</li>
+                    <li>What support do young people need to serve effectively as tutors and animators?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Demonstrating Vitality and Commitment</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "No greater demonstration can be given to the peoples of both continents of the youthful vitality and the vibrant power animating the life, and the institutions of the nascent Faith of Bahá'u'lláh than an intelligent, persistent, and effective participation of the Bahá'í youth, of every race, nationality, and class, in both the teaching and administrative spheres of Bahá'í activity."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Shoghi Effendi, quoted in NSA letter, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>In what ways are youth demonstrating the vitality of the Faith in our community?</li>
+                    <li>How can we ensure youth participation in both teaching and administrative work?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: A Cherished Commitment</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Some youth will be able to devote a period of service—perhaps even successive years—to the provision of education, especially to those younger than themselves; for many, support for the institute's activities will be an ever-present dimension of their lives throughout their own education and as they seek a livelihood from their calling in this world; but for none should it be anything less than a cherished commitment."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can youth balance service with education and work commitments?</li>
+                    <li>What does it mean for service to be a "cherished commitment" throughout life?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 7: Kalimát (Words) -->
+    <div id="feast-7" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Kalimát</h1>
+            <p class="text-2xl text-gray-600">Words • June 24-July 12</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Teaching the Faith</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Begin the action and service phase by exploring teaching as sharing the healing message. Focus on the capacity to engage in spiritual conversations.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Engaging in Spiritual Conversations</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "An important dimension of this work is the capacity to engage in conversations on spiritual themes... It is evident that the pattern of activity unfolding at the grassroots opens up a variety of settings in which receptive souls—sometimes whole families or peer groups—can take part in meaningful conversations which awaken interest in the vision of the Faith and the Person of Bahá'u'lláh."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What opportunities exist in our daily lives for meaningful spiritual conversations?</li>
+                    <li>How can we develop confidence in sharing the Faith naturally and authentically?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Understanding Receptivity</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Within this context, receptivity manifests itself in a willingness to participate in the process of community building set in motion by the core activities... More important is that every soul feel welcome to join the community in contributing to the betterment of society, commencing a path of service to humanity on which, at the outset or further along, formal enrolment can occur."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, quoted in NSA letter, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we recognize receptivity in different forms?</li>
+                    <li>What does it mean to welcome people to "join" without pressure to enroll?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Increased Receptivity in America</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "For many Americans, the present circumstances are generating a great deal of anxiety together with a search for hopeful solutions. As a result, there has by all accounts been a significant increase in receptivity to the Bahá'í message. This theme pervaded the observations of the delegates at the most recent National Convention."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What signs of increased receptivity have we observed in our community?</li>
+                    <li>How can we respond wisely to people's search for hope and solutions?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Responding to Diverse Aspirations</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "We might find, for example, a person who is averse to the idea of organized religion, yet is deeply interested in spirituality; a mother who is a devout believer who expresses the need for moral education for her children; an atheist who wishes to improve the condition of society; entire families or cohorts of neighbors who are trying to find ways to create a healthy and safe community where they live, for themselves and for their children."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What diverse aspirations do we encounter in our neighbors and friends?</li>
+                    <li>How can our activities respond to these different needs and interests?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 8: Kamál (Perfection) -->
+    <div id="feast-8" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Kamál</h1>
+            <p class="text-2xl text-gray-600">Perfection • July 13-31</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Social Action</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Explore social action as an essential dimension of community building. Connect to grassroots initiatives emerging from the core activities.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Unified Endeavor at the Grassroots</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Within clusters, expansion and consolidation, social action, and contributing to prevalent discourses are dimensions of a single, unified, outward-looking endeavour carried out at the grassroots of society. All these efforts are pursued according to a common framework for action, and this above all else brings coherence to the overall pattern of activity."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we see social action connected to our expansion and consolidation work?</li>
+                    <li>What gives coherence to all our different lines of action?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Responding to Barriers to Progress</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "As the intensity of community-building work in a cluster increases, the friends there inevitably become more conscious of social, economic, or cultural barriers that are impeding people's spiritual and material progress... When a Bahá'í community's efforts in the field of expansion and consolidation bring it into contact with these situations and many others, it will be drawn to respond to such realities as its circumstances permit."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What barriers to progress have we become aware of in our community?</li>
+                    <li>How might we respond to these realities within our capacity?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Building Capacity for Service</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The contribution made by Bahá'ís is distinguished by its focus on building capacity for service; it is an approach founded on faith in the ability of a population to become the protagonists of their own development."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How does our approach to social action differ from other approaches?</li>
+                    <li>What does it mean to see people as protagonists of their own development?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Proliferation of Initiatives</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Over the course of the Nine Year Plan, and especially as the study of specific institute courses stimulates greater activity in this area, we expect to see a proliferation of formal and informal efforts to promote the social and economic development of a people. Some of these community-based initiatives will require basic administrative structures to sustain their work."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What social action initiatives already exist or could emerge in our cluster?</li>
+                    <li>How can Local Spiritual Assemblies support and nurture these initiatives?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 9: Asmá' (Names) -->
+    <div id="feast-9" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Asmá'</h1>
+            <p class="text-2xl text-gray-600">Names • August 1-19</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Contributing to Discourses</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>This concludes the action and service phase. Explore how we contribute Bahá'í perspectives to society's conversations. Consider organizing small group discussions after this Feast to reflect on Feasts 7-9 together.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Participating in Society's Conversations</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "At heart, this is simply a capacity for participating in a conversation about a matter that affects people's lives and offering a perspective grounded in Bahá'í principles and Bahá'í experience. Viewed in this way, it is a skill which many Bahá'ís have the opportunity to practise almost daily, for instance in their studies or occupations, and which is cultivated through involvement in institute courses."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>In what conversations do we have opportunities to share Bahá'í perspectives?</li>
+                    <li>How can we develop confidence in articulating principles naturally?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Assemblies as Sources of Moral Insight</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "In places where the activities of the Plan have attained a degree of prevalence, the Assembly begins to be viewed more widely as a source of moral insight. Over time, efforts to contribute to societal discourses become more systematic, and Bahá'ís become adept at helping those around them to engage constructively in a discourse and find consensus."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can our Local Spiritual Assembly be seen as a source of moral insight?</li>
+                    <li>What issues in our community would benefit from Bahá'í perspectives?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Creating Spaces for Consultation</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Opportunities are sought out to share the perspectives of the Faith with community leaders and figures in authority, and spaces are created in which representatives of various groups and interests can be assisted to reach a common point of view through consultation."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we create spaces for genuine consultation in our neighborhoods?</li>
+                    <li>What relationships with community leaders could we develop?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Avoiding Political Partisanship</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "It is essential that we avoid the frustrations and pitfalls that will inevitably arise from involvement in activities that are not in keeping with the spirit of Bahá'u'lláh's teachings. However urgent the challenges, we understand that our means must be harmonious with our ends, and we therefore avoid succumbing to the political partisanship, divisiveness, and polarization that increasingly characterize the public sphere."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we engage with social issues while avoiding partisanship?</li>
+                    <li>What does it mean that our means must be harmonious with our ends?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 10: 'Izzat (Might) -->
+    <div id="feast-10" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of 'Izzat</h1>
+            <p class="text-2xl text-gray-600">Might • August 20-September 7</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Advancing Clusters</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Begin the community development phase by exploring what it means to advance clusters systematically. Focus on learning from more advanced clusters.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Prevalence of Bahá'í Activity</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "In such locations, the thoughts of the friends labouring at the grassroots are increasingly occupied with the progress and well-being of everyone dwelling in the vicinity. Bahá'í institutions feel more keenly their responsibility for the spiritual education of an entire generation of children and junior youth, most or even all of whom might already be engaged in community activities."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What would it look like for activities to reach "prevalence" in our neighborhoods?</li>
+                    <li>How can we expand our vision to include the well-being of everyone?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Reading Our Reality</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "They must be able to read their own reality and ask: what, in light of the possibilities and requirements at hand, would be fitting objectives to pursue in the coming cycle or series of cycles?... As the friends ponder what is before them, they will readily see that for every community there is a goal in reach, and for every goal a path to reach it."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What is our current reality, and what fitting objectives are within reach?</li>
+                    <li>How can we learn from clusters that are one step ahead of us?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Community Becomes a Protagonist</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "As represented by its formal structures of administration and informal collaborative arrangements, the Bahá'í community has become a highly visible protagonist in society in its own right, one that is ready to shoulder important responsibilities and intensify a broad, collective process of learning about spiritual and material progress."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What responsibilities is our community ready to shoulder?</li>
+                    <li>How visible are we as a community working for positive change?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Accelerating Progress</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "We are still far short of the anticipated goals for cluster advancement to be met by Ridván 2026... Yet there are hopeful signs... Since the beginning of 2025, 16 additional clusters advanced beyond the third milestone... We cannot say with certainty that this accelerating trend will continue, but over the course of the summer the Regional Bahá'í Councils and regional training institutes signaled their confidence in achieving these goals."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What gives us confidence that acceleration is possible in our cluster?</li>
+                    <li>What concrete steps can we take this cycle to contribute to advancement?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 11: Mashíyyat (Will) -->
+    <div id="feast-11" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Mashíyyat</h1>
+            <p class="text-2xl text-gray-600">Will • September 8-26</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Racial Unity and Justice</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Explore the most vital and challenging issue identified by the Guardian. Connect to the Universal House of Justice's guidance on transforming society through divine love.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: The Most Vital Challenge</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Of the three evil tendencies identified by Shoghi Effendi, all of which must be eradicated from the fabric of our society, that of racial prejudice was identified by him as 'the most vital and challenging issue.' We have been the fortunate recipients of abundant guidance from the Universal House of Justice as to how we are to address this challenge within the context of the current series of Plans."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>Why is racial prejudice identified as the most vital and challenging issue?</li>
+                    <li>How do we see this challenge manifesting in our community and society?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: The Power of Divine Love</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Ultimately, the power to transform the world is effected by love, love originating from the relationship with the divine, love ablaze among members of a community, love extended without restriction to every human being. This divine love, ignited by the Word of God, is disseminated by enkindled souls through intimate conversations that create new susceptibilities in human hearts, open minds to moral persuasion, and loosen the hold of biased norms and social systems."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, July 22, 2020, quoted in NSA letter, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we cultivate divine love in our hearts and community?</li>
+                    <li>What does it mean to disseminate this love through intimate conversations?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Creating Diverse, Loving Communities</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "It is notable as well that the populations now exhibiting these capacities are highly diverse. Usually, the neighborhoods where they live are racially mixed, with people from different backgrounds involved in the life of the community and learning to work together in a spirit of loving harmony. These emerging patterns will help to demonstrate over time the power of the Faith to promote the cause of racial justice and unity."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How diverse is participation in our community-building activities?</li>
+                    <li>What can we do to ensure all feel welcome and valued?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Addressing Issues Through Community Life</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The pattern of spiritual and social life taking shape in clusters... provides abundant opportunities for engagement, experience, consultation, and learning that will lead to change in personal and collective understanding and action. Issues of prejudice of race, class, and color will inevitably arise as the friends reach out to diverse populations, especially in the closely knit context of neighborhoods."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Letter on behalf of Universal House of Justice, quoted in NSA letter, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we address issues of prejudice when they arise in our activities?</li>
+                    <li>What does it mean to create nurturing and familiar environments for all?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 12: 'Ilm (Knowledge) -->
+    <div id="feast-12" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of 'Ilm</h1>
+            <p class="text-2xl text-gray-600">Knowledge • September 27-October 15</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Families and Neighborhoods</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>This concludes the community development phase. Focus on the role of families in community building and creating neighborhood-level transformation. Consider organizing small group discussions after this Feast to reflect on Feasts 10-12 together.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: The Crisis of the Family</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "These forces assailing society have particularly affected the family, sundering its ties, and taking a heavy toll on its members, especially on children. They can expose family members to some of the most destructive social pathologies: an absence of love and care, neglect of the things of the spirit, dehumanization, poverty, insecurity, and violence."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, quoted in NSA letter, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we see families struggling in our community?</li>
+                    <li>What can our community offer to support family well-being?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Families Demonstrating a Way of Life</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Through activities that every Bahá'í family can offer in its home, it can demonstrate a way of life that can be emulated by all those who seek to counteract the divisive forces that feed discontent, conflict, and self-interest, and to weave the bonds of trust, cooperation, and constructive action upon which a healthy community depends."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, quoted in NSA letter, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can our families open their homes for community activities?</li>
+                    <li>What way of life are we demonstrating that others might emulate?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Groups of Families Working Together</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Within each centre of intense activity, collaborative arrangements emerge among groups of families, who organize community-building activities among themselves with a view to widening the embrace of such activities to many nearby households; an informal network of friends provides encouragement and support to the endeavours under way."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What collaborative arrangements exist among families in our community?</li>
+                    <li>How can groups of families coordinate to extend their reach?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Personal Initiative of Populations</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Most promising of all is the way in which these populations are taking personal initiative. This has often been demonstrated within families who have not yet formally embraced the Faith but who themselves identify potential teachers of children's classes and animators, arrange home visits and devotional gatherings, and inaugurate tutorials and services of other kinds."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we encourage and support the initiative of participants?</li>
+                    <li>What does it mean that those not yet Bahá'ís are taking ownership?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 13: Qudrat (Power) -->
+    <div id="feast-13" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Qudrat</h1>
+            <p class="text-2xl text-gray-600">Power • October 16-November 3</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Local Spiritual Assemblies</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Begin the institutional development phase by exploring the vital role of Local Spiritual Assemblies as the "chief sinews" of Bahá'í society.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Chief Sinews of Bahá'í Society</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The administration of the Faith at the grassroots is, of course, intimately connected with the development of Local Spiritual Assemblies. These nascent Houses of Justice are described by Shoghi Effendi as 'the chief sinews of Bahá'í society, as well as the ultimate foundation of its administrative structure', and he greatly emphasizes the importance of their formation."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What does it mean for Local Assemblies to be the "chief sinews" of society?</li>
+                    <li>How can we strengthen our Local Spiritual Assembly?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Recognition Through Electoral Process</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The extent to which the station and leadership of a Local Assembly is recognized in a community is related to how deeply the believers appreciate the sacredness of the electoral process and their duty to participate in it, in an atmosphere wholly free from the taint of suasion or worldly attitudes about power. As consciousness is raised in a community about the spiritual principles underlying Bahá'í elections, a new conception is formed of what it means for someone to be called to serve on an institution."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we view the electoral process and service on institutions?</li>
+                    <li>What conversations can help raise consciousness about Bahá'í elections?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Supporting Community-Building Work</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "A Local Spiritual Assembly maintains a keen interest in learning how best to advance the community-building work within its jurisdiction, and as such it consults regularly with friends involved in coordinating endeavours in the cluster. It follows closely the development of any centres of intense activity in the locality, especially by offering support to the teams of believers who have emerged there and are stimulating the process of growth."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How does our Assembly support teams working in neighborhoods?</li>
+                    <li>What systems ensure regular consultation between Assembly and coordinators?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Developmental Path of Assemblies</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "A community will often have attained a certain level of capacity in relation to community-building endeavours by the time the formation of a Local Assembly becomes possible... The Local Assembly that emerges in such a milieu is likely to be well aware of its responsibility to encourage and strengthen those activities which help to sustain a vibrant community. However, it will also need to gain proficiency in discharging a wide range of other responsibilities."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What stage of development has our Assembly reached?</li>
+                    <li>What new capacities does our Assembly need to develop?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 14: Qawl (Speech) -->
+    <div id="feast-14" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Qawl</h1>
+            <p class="text-2xl text-gray-600">Speech • November 4-22</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Institutional Collaboration</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Explore the dynamic relationships between individuals, communities, and institutions that enable the Faith to advance.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Three Protagonists</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The pursuit of this overall aim will require a further rise in the capacity of the individual believer, the local community, and the institutions of the Faith. These three constant protagonists of the Plan each have a part to play, and each one has capacities and qualities that must be developed. However, each is incapable of manifesting its full potential on its own. It is by strengthening their dynamic relationships with one another that their powers are combined and multiplied."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we see the interplay of individuals, communities, and institutions?</li>
+                    <li>What strengthens the relationships between these three protagonists?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: The Spirit of Cooperation</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "'Abdu'l-Bahá explains that the more the qualities of cooperation and mutual assistance are manifested by a people, 'the more will human society advance in progress and prosperity'; in the Faith, this principle distinguishes and shapes the interactions of individuals, institutions, and communities, and it endows the body of the Cause with moral vigour and spiritual health."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do cooperation and mutual assistance manifest in our community?</li>
+                    <li>What can we do to strengthen these qualities further?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Collaboration Across Regions</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "We look in particular to countries, regions, and clusters where strength and experience have accumulated to generate a flow of pioneers to places where help is needed, and also to provide support by other means. This flow of support is one more way in which the spirit of collaboration and mutual assistance, so essential for progress, manifests itself in systematic action."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can our cluster support other clusters in the region?</li>
+                    <li>What forms of support beyond pioneers might we offer?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Expanding Vision and Capacity</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Over the last series of Plans, the community's capacity to maintain focus on the Faith's most pressing needs emerged as one of its most important strengths. However, this sense of focus has to accommodate many lines of action, all of which must advance without being in competition. This calls for an expanded vision, a nuanced understanding of coexisting imperatives, added flexibility, and heightened institutional collaboration."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we maintain focus while advancing multiple lines of action?</li>
+                    <li>What does heightened institutional collaboration look like in practice?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 15: Masá'il (Questions) -->
+    <div id="feast-15" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Masá'il</h1>
+            <p class="text-2xl text-gray-600">Questions • November 23-December 11</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Auxiliary Board Members</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>This concludes the institutional development phase. Explore the vital role of Auxiliary Board members and assistants in preserving the spirit of community life. Consider organizing small group discussions after this Feast to reflect on Feasts 13-15 together.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Preserving Vitality</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "As the spiritual energies released by earnest pursuit of the Plan surge, they meet resistance from the countervailing forces that hold humanity back from attaining full maturity. In the face of such forces, the vitality of the various lines of action being followed at the local level needs to be preserved and fortified. This critical responsibility is of special relevance to the members of the two Auxiliary Boards."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What countervailing forces do we encounter in our work?</li>
+                    <li>How do Auxiliary Board members help preserve the vitality of our efforts?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Diverse Challenges Across Cultures</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Across different cultures and social environments, they must assist the friends to face different kinds of challenges: to help previously antagonistic groups find unity through pursuit of a common goal; to learn to put aside inherited customs and attitudes that belong to humanity's period of adolescence, and to overcome prejudices of all kinds; to guard against any tendency to view matters with cynicism or an eye for faults, and instead sustain an eager and constructive outlook."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>Which of these challenges do we face most acutely in our community?</li>
+                    <li>How can we assist each other to overcome these obstacles?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Turning Away From Materialism</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "To put one's support of plans for collective action before feelings of personal preference; to harness the power of modern technologies without succumbing to their potentially enervating effects; to prize the sweetness of teaching the Faith and the joy of serving humankind above worldly interests; to reject the opiate of consumerism; to turn away from materialist ideologies and the worldviews they aggressively promote, and fix one's gaze upon the bright beacon that is the laws and principles of God."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do materialist forces affect our community life?</li>
+                    <li>What practices help us maintain focus on spiritual priorities?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Havens of Peace</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Through the power of their good example and the clarity of their good counsel, may they help the friends to grow in faith, assurance, and commitment to a life of service, and accompany them as they build communities that are havens of peace, places where a harried and conflict-scarred humanity may find shelter."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What makes our community a "haven of peace"?</li>
+                    <li>How can we provide shelter for those seeking refuge from conflict?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 16: Sharaf (Honor) -->
+    <div id="feast-16" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Sharaf</h1>
+            <p class="text-2xl text-gray-600">Honor • December 12-30</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Divine Civilization</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Begin the final phase by exploring the ultimate vision: establishment of Divine Civilization as the primary mission of the Faith.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: The Primary Mission</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The establishment of Divine Civilization is, in the words of the Guardian, 'the primary mission of the Bahá'í Faith'. It is to be built upon the most foundational qualities, ones for which the world stands in great need: unity, trustworthiness, mutual support, collaboration, fellow feeling, selflessness, commitment to truth, a sense of responsibility, a thirst to learn, the love of an all-embracing heart."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What does Divine Civilization mean to you?</li>
+                    <li>Which foundational qualities are we cultivating in our community?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Building the Tabernacle of Peace</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "'May this American democracy be the first nation to establish the foundation of international agreement. May it be the first nation to proclaim the unity of mankind. May it be the first to unfurl the standard of the Most Great Peace... The American people are indeed worthy of being the first to build the tabernacle of the great peace and proclaim the oneness of mankind.'"
+                </p>
+                <p class="text-right mt-4 font-semibold">— 'Abdu'l-Bahá, quoted in NSA letter, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What does it mean to build the "tabernacle of the great peace"?</li>
+                    <li>How does our local work contribute to this global vision?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Spiritual Leadership</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "'This American nation is equipped and empowered to accomplish that which will adorn the pages of history, to become the envy of the world and be blest in both the East and the West for the triumph of its people... The American continent gives signs and evidences of very great advancement. Its future is even more promising, for its influence and illumination are far-reaching. It will lead all nations spiritually.'"
+                </p>
+                <p class="text-right mt-4 font-semibold">— 'Abdu'l-Bahá, quoted in NSA letter, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What does spiritual leadership look like in practice?</li>
+                    <li>How can America fulfill this promise of leading spiritually?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Enkindled Souls</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The enkindled souls being raised up through the processes of the Plan are seeking to gain an ever more profound understanding of Bahá'u'lláh's teachings—'the sovereign remedy for every disease'—and to apply them to the needs of their society. They are committed to the prosperity of all, recognizing that the welfare of individuals rests in the welfare of society at large."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How are we becoming enkindled souls?</li>
+                    <li>What does it mean to be committed to the prosperity of all?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 17: Sulṭán (Sovereignty) -->
+    <div id="feast-17" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Sulṭán</h1>
+            <p class="text-2xl text-gray-600">Sovereignty • December 31-January 18</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: A Historic Mission</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Explore the magnitude of the mission before us and the heroism required to fulfill it.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: A Generational Venture</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The Plan that will shortly commence—the first major undertaking in a sacred twenty-five-year venture, generational in its scope and significance—will make demands of the individual believer, the community, and the institutions reminiscent of the demands that the Guardian made of the Bahá'í world at the outset of the Ten Year Crusade. If, by the grace of Almighty God, the friends should succeed in reaching the heights of heroism to which they are now summoned, history will assuredly pay tribute to their actions in terms no less glowing than those with which it honours the glorious deeds that decorate the annals of the first century of the Formative Age."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, December 30, 2021</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What does it mean for this to be a "generational" venture?</li>
+                    <li>What heights of heroism are we being summoned to?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: No Less Glorious</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Our task today is no less glorious than that which faced the earliest followers of our Faith. Our lives must be characterized by the same degree of consecration and sacrifice that illumined the annals of the Heroic Age."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How can we cultivate the spirit of consecration and sacrifice?</li>
+                    <li>What examples from the Heroic Age inspire us today?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Spiritual Renaissance</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Would it seem extravagant, in the light of so sublime an utterance, to expect that in the midst of so enviable a region of the earth and out of the agony and wreckage of an unprecedented crisis there should burst forth a spiritual renaissance which, as it propagates itself through the instrumentality of the American believers, will rehabilitate the fortunes of a decadent age?"
+                </p>
+                <p class="text-right mt-4 font-semibold">— Shoghi Effendi, quoted in NSA letter, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What signs of spiritual renaissance do we perceive?</li>
+                    <li>How can we be instruments of this renaissance?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Spiritual Primacy</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "And finally who can doubt that in the Divine Plan which, in the evening of His life, He unveiled to their eyes He was investing them with that spiritual primacy on which they could rely in the fulfillment of their high destiny?"
+                </p>
+                <p class="text-right mt-4 font-semibold">— Shoghi Effendi, quoted in NSA letter, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What does spiritual primacy entail?</li>
+                    <li>How do we rely on this primacy in our work?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 18: Mulk (Dominion) -->
+    <div id="feast-18" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Mulk</h1>
+            <p class="text-2xl text-gray-600">Dominion • January 19-February 6</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Living Sacrifice</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>Explore the call to living sacrifice and what it means to usher in the World Order through our lives of service.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Not By Death But By Living Sacrifice</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The community of the organized promoters of the Faith of Bahá'u'lláh in the American continent—the spiritual descendants of the dawn-breakers of an heroic Age, who by their death proclaimed the birth of that Faith—must, in turn, usher in, not by their death but through living sacrifice, that promised World Order, the shell ordained to enshrine that priceless jewel, the world civilization, of which the Faith itself is the sole begetter."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Shoghi Effendi, quoted in NSA letter, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What does "living sacrifice" mean in practical terms?</li>
+                    <li>How is living sacrifice different from the martyrdom of the dawn-breakers?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Consecration to the Work</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Let us then address the urgent needs of our generation with renewed determination. Around us we see a society that is quickly losing its bearings... We who have access to that truth must now, in a genuine spirit of humility and respect, invite our brothers and sisters throughout this land to learn together how to apply it for our common salvation."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we maintain humility while sharing the healing message?</li>
+                    <li>What does "common salvation" mean in our context?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Vindication of Highest Hopes</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "May the devotion, unity, and vigor of our efforts vindicate his highest hopes for us."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, September 30, 2024</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What are the Guardian's highest hopes for the American Bahá'í community?</li>
+                    <li>How can our devotion, unity, and vigor vindicate these hopes?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Efforts Needed Now</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "Against the gloom of a stormy sky, how bright the light that gleams from your devoted efforts! Even as the tempest rages in the world, the havens that will shelter humanity are being built in countries, regions, and clusters. But there is much to do... Beloved friends, and promulgators of the divine teachings, and champions of the Blessed Beauty—your efforts are needed now."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Universal House of Justice, quoted in NSA letter, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What specific efforts are needed from each of us right now?</li>
+                    <li>How can we respond to this urgent call?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feast 19: 'Alá' (Loftiness) -->
+    <div id="feast-19" class="feast-content max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Feast of 'Alá'</h1>
+            <p class="text-2xl text-gray-600">Loftiness • February 7-March 1</p>
+            <p class="text-xl text-gray-500 mt-2">Theme: Hope Amid Crisis</p>
+        </div>
+
+        <div class="facilitator-note">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Facilitator Overview</h3>
+            <p>This final Feast of the year cultivates hope and confidence in the ultimate outcome. Reflect on the year's journey and renew commitment for the year ahead. Consider organizing small group discussions after this Feast to reflect on Feasts 16-19 together and on the entire year's journey.</p>
+        </div>
+
+        <!-- Theme 1 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Dual Processes</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "The synchronization of such world-shaking crises with the progressive unfoldment and fruition of their divinely appointed task is itself the work of Providence, the design of an inscrutable Wisdom, and the purpose of an all-compelling Will, a Will that directs and controls, in its own mysterious way, both the fortunes of the Faith and the destinies of men. Such simultaneous processes of rise and of fall, of integration and of disintegration, of order and chaos, with their continuous and reciprocal reactions on each other, are but aspects of a greater Plan."
+                </p>
+                <p class="text-right mt-4 font-semibold">— Shoghi Effendi, quoted in NSA letter, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we see both disintegration and integration at work today?</li>
+                    <li>What gives us confidence in the ultimate outcome despite current crises?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Looking Forward With Confidence</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "It is not difficult at this point to imagine a time, perhaps not long from now, when humankind, having been sufficiently purged of obsolete notions based upon a purely material view of reality, will find itself desperate for a credible source of moral authority and truth. All will be in search of a community that promotes principles in keeping with the needs of an interdependent world, together with a proven process for applying them successfully to the life of society."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How are we preparing now for this future moment of opportunity?</li>
+                    <li>What must we demonstrate to be that credible source of moral authority?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: The System We Are Building</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "These attributes in their fullest expression are reserved only for the System created by Bahá'u'lláh. We are now helping to build that System. It is characterized by full inclusion, universal participation, and a unifying vision. It calls upon the vast resources of the human soul and intellect. It is profoundly mystical in its essence, yet rational and scientific in its methods. It is held together by an invincible Covenant. It is moving steadily forward from strength to strength."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>How do we experience the unique characteristics of Bahá'u'lláh's System?</li>
+                    <li>What progress have we seen in our own community this year?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Theme 4 -->
+        <div class="theme-section">
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: A New Day Will Dawn</h3>
+            
+            <div class="quote-box">
+                <p class="text-gray-800">
+                    "However discouraging the immediate prospects, we can look forward to the future with confidence and hope. The present confusion and turmoil will be relieved, and a new day will dawn."
+                </p>
+                <p class="text-right mt-4 font-semibold">— National Spiritual Assembly, October 17, 2025</p>
+            </div>
+
+            <div class="reflection-question">
+                <p class="font-semibold text-bahai-blue mb-2">Reflection Questions:</p>
+                <ul class="list-disc ml-6 space-y-2">
+                    <li>What sustains our hope amid current challenges?</li>
+                    <li>As we conclude this year's journey through the Feasts, what renewed commitment do we make for the year ahead?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Closing Section -->
+        <div class="facilitator-note mt-12">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Reflection on the Year</h3>
+            <p class="mb-4">As we complete the cycle of 19 Feasts, take time to reflect on the journey:</p>
+            <ul class="list-disc ml-6 space-y-2">
+                <li>How has our understanding of the Nine Year Plan deepened?</li>
+                <li>What patterns of learning and action have emerged in our community?</li>
+                <li>What commitments do we renew for the year ahead?</li>
+                <li>How has our vision of America's destiny and our role in it expanded?</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Toggle facilitator notes
+        function toggleNotes() {
+            const notes = document.getElementById('facilitator-notes');
+            const arrow = document.querySelector('.toggle-arrow');
+            
+            if (notes.classList.contains('open')) {
+                notes.classList.remove('open');
+                arrow.classList.remove('open');
+            } else {
+                notes.classList.add('open');
+                arrow.classList.add('open');
+            }
+        }
+
+        // Feast selector functionality
+        document.getElementById('feast-selector').addEventListener('change', function() {
+            // Hide all feast content
+            const allFeasts = document.querySelectorAll('.feast-content');
+            allFeasts.forEach(feast => feast.classList.remove('active'));
+            
+            // Show selected feast
+            const selectedFeast = this.value;
+            if (selectedFeast) {
+                document.getElementById(selectedFeast).classList.add('active');
+                
+                // Enable print button
+                document.getElementById('print-btn').disabled = false;
+                document.getElementById('print-message').textContent = 'Ready to print ' + this.options[this.selectedIndex].text;
+                
+                // Scroll to top of feast content
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: document.getElementById(selectedFeast).offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            } else {
+                // Disable print button if no feast selected
+                document.getElementById('print-btn').disabled = true;
+                document.getElementById('print-message').textContent = 'Please select a Feast to enable printing';
+            }
+        });
+
+        // Print only selected feast
+        function printSelectedFeast() {
+            const selectedFeast = document.getElementById('feast-selector').value;
+            if (selectedFeast) {
+                window.print();
+            } else {
+                alert('Please select a Feast first');
+            }
+        }
+    </script>
+</body>
+</html>
