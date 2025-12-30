@@ -172,6 +172,13 @@
             max-height: 2000px;
             transition: max-height 0.5s ease-in;
         }
+
+        .top-button {
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            margin-bottom: 2rem;
+        }
         
         @media print {
             .no-print { display: none !important; }
@@ -193,6 +200,50 @@
 <body class="bg-gray-50">
     <!-- Cover Page -->
     <div id="cover-page" class="max-w-5xl mx-auto px-4 py-12">
+        <!-- Top Facilitator Notes Button -->
+        <div class="top-button no-print">
+            <button onclick="toggleNotes()" class="toggle-button w-full md:w-auto">
+                <span>📋 View Facilitator Notes</span>
+                <svg class="toggle-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Collapsible Facilitator Notes -->
+        <div id="facilitator-notes" class="collapsible-content no-print">
+            <div class="facilitator-note">
+                <h3 class="text-2xl font-bold bahai-blue mb-4">Notes to the Feast Facilitator</h3>
+                
+                <div class="space-y-4 text-gray-700">
+                    <p class="font-semibold">Progressive Themes Throughout the Year:</p>
+                    
+                    <div class="ml-4 space-y-3">
+                        <p><strong>Feasts 1-3 (Foundation):</strong> Establish understanding of America's destiny and the society-building power of the Faith. Help friends grasp the vision of what we're building together.</p>
+                        
+                        <p><strong>Feasts 4-6 (Capacity Building):</strong> Deepen appreciation for the institute process and youth empowerment. Build capacity for systematic learning and reflection.</p>
+                        
+                        <p><strong>Feasts 7-9 (Action & Service):</strong> Explore the core activities and social action. Connect spiritual principles to practical service.</p>
+                        
+                        <p><strong>Feasts 10-12 (Community Development):</strong> Focus on cluster movement, racial unity, and creating spaces of spiritual refuge in neighborhoods.</p>
+                        
+                        <p><strong>Feasts 13-15 (Institutional Strength):</strong> Build understanding of the role of institutions and the importance of administrative capacity.</p>
+                        
+                        <p><strong>Feasts 16-19 (Vision Forward):</strong> Inspire with the vision of divine civilization, renew commitment to living sacrifice, and cultivate hope amid crisis.</p>
+                    </div>
+
+                    <p class="mt-6 font-semibold">Facilitation Tips:</p>
+                    <ul class="ml-8 list-disc space-y-2">
+                        <li>Allow time for silent reflection before discussion</li>
+                        <li>Encourage all voices to be heard</li>
+                        <li>Connect themes to local cluster activities</li>
+                        <li>Consider breaking into smaller groups after every 3 Feasts for deeper discussion</li>
+                        <li>Document insights and action points for follow-up</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div class="text-center mb-12">
             <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-6">
                 Feast Consultation Guide
@@ -270,49 +321,6 @@
             </button>
             <p id="print-message" class="text-sm text-gray-500 mt-2">Please select a Feast to enable printing</p>
         </div>
-
-        <!-- Collapsible Notes to Facilitator -->
-        <div class="no-print">
-            <button onclick="toggleNotes()" class="toggle-button mb-4">
-                <span>📋 Notes to the Feast Facilitator</span>
-                <svg class="toggle-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-            </button>
-            
-            <div id="facilitator-notes" class="collapsible-content">
-                <div class="facilitator-note">
-                    <h3 class="text-2xl font-bold bahai-blue mb-4">Strategy for the Year</h3>
-                    
-                    <div class="space-y-4 text-gray-700">
-                        <p class="font-semibold">Progressive Themes Throughout the Year:</p>
-                        
-                        <div class="ml-4 space-y-3">
-                            <p><strong>Feasts 1-3 (Foundation):</strong> Establish understanding of America's destiny and the society-building power of the Faith. Help friends grasp the vision of what we're building together.</p>
-                            
-                            <p><strong>Feasts 4-6 (Capacity Building):</strong> Deepen appreciation for the institute process and youth empowerment. Build capacity for systematic learning and reflection.</p>
-                            
-                            <p><strong>Feasts 7-9 (Action & Service):</strong> Explore the core activities and social action. Connect spiritual principles to practical service.</p>
-                            
-                            <p><strong>Feasts 10-12 (Community Development):</strong> Focus on cluster movement, racial unity, and creating spaces of spiritual refuge in neighborhoods.</p>
-                            
-                            <p><strong>Feasts 13-15 (Institutional Strength):</strong> Build understanding of the role of institutions and the importance of administrative capacity.</p>
-                            
-                            <p><strong>Feasts 16-19 (Vision Forward):</strong> Inspire with the vision of divine civilization, renew commitment to living sacrifice, and cultivate hope amid crisis.</p>
-                        </div>
-
-                        <p class="mt-6 font-semibold">Facilitation Tips:</p>
-                        <ul class="ml-8 list-disc space-y-2">
-                            <li>Allow time for silent reflection before discussion</li>
-                            <li>Encourage all voices to be heard</li>
-                            <li>Connect themes to local cluster activities</li>
-                            <li>Consider breaking into smaller groups after every 3 Feasts for deeper discussion</li>
-                            <li>Document insights and action points for follow-up</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Feast 1: Bahá (Splendor) -->
@@ -320,7 +328,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Bahá</h1>
             <p class="text-2xl text-gray-600">Splendor • March 2-20</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: America's Ordained Destiny</p>
+            <p class="text-xl text-gray-500 mt-2">America's Ordained Destiny</p>
         </div>
 
         <div class="facilitator-note">
@@ -328,9 +336,9 @@
             <p>This Feast opens the year by establishing the foundational vision: America's unique role in the unfoldment of Bahá'u'lláh's World Order. Help friends understand that our work in Davis is part of fulfilling this divine destiny.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: The Promise of America's Future -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: The Promise of America's Future</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">The Promise of America's Future</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -348,9 +356,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Chosen Despite Spiritual Deficiencies -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Chosen Despite Spiritual Deficiencies</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Chosen Despite Spiritual Deficiencies</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -368,9 +376,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: The Time Has Come -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: The Time Has Come</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">The Time Has Come</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -388,9 +396,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: A Still More Superb Mission -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: A Still More Superb Mission</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">A Still More Superb Mission</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -414,7 +422,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Jalál</h1>
             <p class="text-2xl text-gray-600">Glory • March 21-April 8</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: The Society-Building Power of the Faith</p>
+            <p class="text-xl text-gray-500 mt-2">The Society-Building Power of the Faith</p>
         </div>
 
         <div class="facilitator-note">
@@ -422,9 +430,9 @@
             <p>Building on last month's vision of America's destiny, this Feast explores what it means to release the society-building power of the Faith in practical terms. Connect this to ongoing cluster activities.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Releasing Society-Building Power -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Releasing Society-Building Power</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Releasing Society-Building Power</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -442,9 +450,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Creating Spaces of Spiritual Refuge -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Creating Spaces of Spiritual Refuge</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Creating Spaces of Spiritual Refuge</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -462,9 +470,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Building the Good -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Building the Good</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Building the Good</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -482,9 +490,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Demonstrating a True Pattern -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Demonstrating a True Pattern</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Demonstrating a True Pattern</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -508,7 +516,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Jamál</h1>
             <p class="text-2xl text-gray-600">Beauty • April 9-27</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Entry by Troops and Cluster Movement</p>
+            <p class="text-xl text-gray-500 mt-2">Entry by Troops and Cluster Movement</p>
         </div>
 
         <div class="facilitator-note">
@@ -516,9 +524,9 @@
             <p>This concludes the foundation-building phase. Focus on understanding cluster advancement and the process of entry by troops. Consider organizing a small group discussion after this Feast to reflect on Feasts 1-3 together.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Movement of Clusters -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Movement of Clusters</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Movement of Clusters</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -536,9 +544,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Building on Strengths -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Building on Strengths</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Building on Strengths</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -556,9 +564,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Focus on Processes, Not Just Numbers -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Focus on Processes, Not Just Numbers</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Focus on Processes, Not Just Numbers</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -576,9 +584,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Universal Participation -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Universal Participation</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Universal Participation</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -602,7 +610,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of 'Aẓamat</h1>
             <p class="text-2xl text-gray-600">Grandeur • April 28-May 16</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: The Institute Process</p>
+            <p class="text-xl text-gray-500 mt-2">The Institute Process</p>
         </div>
 
         <div class="facilitator-note">
@@ -610,9 +618,9 @@
             <p>Begin the capacity-building phase by exploring the institute as the primary means for developing human resources. Connect this to the experience of participants in study circles.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: The Institute as Potent Means -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: The Institute as Potent Means</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">The Institute as Potent Means</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -630,9 +638,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: An Educational System in Refinement -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: An Educational System in Refinement</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">An Educational System in Refinement</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -650,9 +658,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: The Potency of the Word of God -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: The Potency of the Word of God</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">The Potency of the Word of God</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -670,9 +678,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Raising the Capacity for Learning -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Raising the Capacity for Learning</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Raising the Capacity for Learning</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -696,7 +704,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Núr</h1>
             <p class="text-2xl text-gray-600">Light • May 17-June 4</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Education and Human Potential</p>
+            <p class="text-xl text-gray-500 mt-2">Education and Human Potential</p>
         </div>
 
         <div class="facilitator-note">
@@ -704,9 +712,9 @@
             <p>Explore the significance of education in all its forms. Connect to the work of teachers and animators and the spiritual education of an entire generation.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Education as Foundation -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Education as Foundation</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Education as Foundation</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -724,9 +732,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Pre-eminent Among Educational Structures -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Pre-eminent Among Educational Structures</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Pre-eminent Among Educational Structures</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -744,9 +752,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Spiritual Education of an Entire Generation -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Spiritual Education of an Entire Generation</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Spiritual Education of an Entire Generation</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -764,9 +772,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Raising Consciousness About Education -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Raising Consciousness About Education</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Raising Consciousness About Education</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -790,7 +798,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Raḥmat</h1>
             <p class="text-2xl text-gray-600">Mercy • June 5-23</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Youth at the Vanguard</p>
+            <p class="text-xl text-gray-500 mt-2">Youth at the Vanguard</p>
         </div>
 
         <div class="facilitator-note">
@@ -798,9 +806,9 @@
             <p>This concludes the capacity-building phase. Focus on the vital role of youth in the Plan. Consider organizing small group discussions after this Feast to reflect on Feasts 4-6 together.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: All Must Surge, Youth Must Soar -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: All Must Surge, Youth Must Soar</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">All Must Surge, Youth Must Soar</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -818,9 +826,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Youth and the Institute -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Youth and the Institute</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Youth and the Institute</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -838,9 +846,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Demonstrating Vitality and Commitment -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Demonstrating Vitality and Commitment</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Demonstrating Vitality and Commitment</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -858,9 +866,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: A Cherished Commitment -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: A Cherished Commitment</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">A Cherished Commitment</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -884,7 +892,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Kalimát</h1>
             <p class="text-2xl text-gray-600">Words • June 24-July 12</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Teaching the Faith</p>
+            <p class="text-xl text-gray-500 mt-2">Teaching the Faith</p>
         </div>
 
         <div class="facilitator-note">
@@ -892,9 +900,9 @@
             <p>Begin the action and service phase by exploring teaching as sharing the healing message. Focus on the capacity to engage in spiritual conversations.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Engaging in Spiritual Conversations -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Engaging in Spiritual Conversations</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Engaging in Spiritual Conversations</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -912,9 +920,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Understanding Receptivity -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Understanding Receptivity</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Understanding Receptivity</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -932,9 +940,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Increased Receptivity in America -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Increased Receptivity in America</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Increased Receptivity in America</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -952,9 +960,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Responding to Diverse Aspirations -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Responding to Diverse Aspirations</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Responding to Diverse Aspirations</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -978,7 +986,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Kamál</h1>
             <p class="text-2xl text-gray-600">Perfection • July 13-31</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Social Action</p>
+            <p class="text-xl text-gray-500 mt-2">Social Action</p>
         </div>
 
         <div class="facilitator-note">
@@ -986,9 +994,9 @@
             <p>Explore social action as an essential dimension of community building. Connect to grassroots initiatives emerging from the core activities.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Unified Endeavor at the Grassroots -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Unified Endeavor at the Grassroots</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Unified Endeavor at the Grassroots</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1006,9 +1014,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Responding to Barriers to Progress -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Responding to Barriers to Progress</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Responding to Barriers to Progress</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1026,9 +1034,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Building Capacity for Service -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Building Capacity for Service</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Building Capacity for Service</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1046,9 +1054,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Proliferation of Initiatives -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Proliferation of Initiatives</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Proliferation of Initiatives</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1072,7 +1080,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Asmá'</h1>
             <p class="text-2xl text-gray-600">Names • August 1-19</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Contributing to Discourses</p>
+            <p class="text-xl text-gray-500 mt-2">Contributing to Discourses</p>
         </div>
 
         <div class="facilitator-note">
@@ -1080,9 +1088,9 @@
             <p>This concludes the action and service phase. Explore how we contribute Bahá'í perspectives to society's conversations. Consider organizing small group discussions after this Feast to reflect on Feasts 7-9 together.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Participating in Society's Conversations -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Participating in Society's Conversations</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Participating in Society's Conversations</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1100,9 +1108,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Assemblies as Sources of Moral Insight -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Assemblies as Sources of Moral Insight</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Assemblies as Sources of Moral Insight</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1120,9 +1128,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Creating Spaces for Consultation -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Creating Spaces for Consultation</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Creating Spaces for Consultation</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1140,9 +1148,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Avoiding Political Partisanship -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Avoiding Political Partisanship</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Avoiding Political Partisanship</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1166,7 +1174,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of 'Izzat</h1>
             <p class="text-2xl text-gray-600">Might • August 20-September 7</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Advancing Clusters</p>
+            <p class="text-xl text-gray-500 mt-2">Advancing Clusters</p>
         </div>
 
         <div class="facilitator-note">
@@ -1174,9 +1182,9 @@
             <p>Begin the community development phase by exploring what it means to advance clusters systematically. Focus on learning from more advanced clusters.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Prevalence of Bahá'í Activity -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Prevalence of Bahá'í Activity</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Prevalence of Bahá'í Activity</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1194,9 +1202,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Reading Our Reality -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Reading Our Reality</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Reading Our Reality</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1214,9 +1222,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Community Becomes a Protagonist -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Community Becomes a Protagonist</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Community Becomes a Protagonist</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1234,9 +1242,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Accelerating Progress -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Accelerating Progress</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Accelerating Progress</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1260,7 +1268,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Mashíyyat</h1>
             <p class="text-2xl text-gray-600">Will • September 8-26</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Racial Unity and Justice</p>
+            <p class="text-xl text-gray-500 mt-2">Racial Unity and Justice</p>
         </div>
 
         <div class="facilitator-note">
@@ -1268,9 +1276,9 @@
             <p>Explore the most vital and challenging issue identified by the Guardian. Connect to the Universal House of Justice's guidance on transforming society through divine love.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: The Most Vital Challenge -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: The Most Vital Challenge</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">The Most Vital Challenge</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1288,9 +1296,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: The Power of Divine Love -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: The Power of Divine Love</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">The Power of Divine Love</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1308,9 +1316,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Creating Diverse, Loving Communities -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Creating Diverse, Loving Communities</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Creating Diverse, Loving Communities</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1328,9 +1336,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Addressing Issues Through Community Life -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Addressing Issues Through Community Life</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Addressing Issues Through Community Life</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1354,7 +1362,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of 'Ilm</h1>
             <p class="text-2xl text-gray-600">Knowledge • September 27-October 15</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Families and Neighborhoods</p>
+            <p class="text-xl text-gray-500 mt-2">Families and Neighborhoods</p>
         </div>
 
         <div class="facilitator-note">
@@ -1362,9 +1370,9 @@
             <p>This concludes the community development phase. Focus on the role of families in community building and creating neighborhood-level transformation. Consider organizing small group discussions after this Feast to reflect on Feasts 10-12 together.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: The Crisis of the Family -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: The Crisis of the Family</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">The Crisis of the Family</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1382,9 +1390,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Families Demonstrating a Way of Life -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Families Demonstrating a Way of Life</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Families Demonstrating a Way of Life</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1402,9 +1410,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Groups of Families Working Together -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Groups of Families Working Together</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Groups of Families Working Together</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1422,9 +1430,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Personal Initiative of Populations -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Personal Initiative of Populations</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Personal Initiative of Populations</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1448,7 +1456,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Qudrat</h1>
             <p class="text-2xl text-gray-600">Power • October 16-November 3</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Local Spiritual Assemblies</p>
+            <p class="text-xl text-gray-500 mt-2">Local Spiritual Assemblies</p>
         </div>
 
         <div class="facilitator-note">
@@ -1456,9 +1464,9 @@
             <p>Begin the institutional development phase by exploring the vital role of Local Spiritual Assemblies as the "chief sinews" of Bahá'í society.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Chief Sinews of Bahá'í Society -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Chief Sinews of Bahá'í Society</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Chief Sinews of Bahá'í Society</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1476,9 +1484,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Recognition Through Electoral Process -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Recognition Through Electoral Process</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Recognition Through Electoral Process</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1496,9 +1504,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Supporting Community-Building Work -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Supporting Community-Building Work</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Supporting Community-Building Work</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1516,9 +1524,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Developmental Path of Assemblies -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Developmental Path of Assemblies</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Developmental Path of Assemblies</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1542,7 +1550,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Qawl</h1>
             <p class="text-2xl text-gray-600">Speech • November 4-22</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Institutional Collaboration</p>
+            <p class="text-xl text-gray-500 mt-2">Institutional Collaboration</p>
         </div>
 
         <div class="facilitator-note">
@@ -1550,9 +1558,9 @@
             <p>Explore the dynamic relationships between individuals, communities, and institutions that enable the Faith to advance.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Three Protagonists -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Three Protagonists</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Three Protagonists</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1570,9 +1578,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: The Spirit of Cooperation -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: The Spirit of Cooperation</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">The Spirit of Cooperation</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1590,9 +1598,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Collaboration Across Regions -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Collaboration Across Regions</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Collaboration Across Regions</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1610,9 +1618,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Expanding Vision and Capacity -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Expanding Vision and Capacity</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Expanding Vision and Capacity</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1636,7 +1644,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Masá'il</h1>
             <p class="text-2xl text-gray-600">Questions • November 23-December 11</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Auxiliary Board Members</p>
+            <p class="text-xl text-gray-500 mt-2">Auxiliary Board Members</p>
         </div>
 
         <div class="facilitator-note">
@@ -1644,9 +1652,9 @@
             <p>This concludes the institutional development phase. Explore the vital role of Auxiliary Board members and assistants in preserving the spirit of community life. Consider organizing small group discussions after this Feast to reflect on Feasts 13-15 together.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Preserving Vitality -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Preserving Vitality</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Preserving Vitality</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1664,9 +1672,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Diverse Challenges Across Cultures -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Diverse Challenges Across Cultures</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Diverse Challenges Across Cultures</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1684,9 +1692,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Turning Away From Materialism -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Turning Away From Materialism</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Turning Away From Materialism</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1704,9 +1712,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Havens of Peace -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Havens of Peace</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Havens of Peace</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1730,7 +1738,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Sharaf</h1>
             <p class="text-2xl text-gray-600">Honor • December 12-30</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Divine Civilization</p>
+            <p class="text-xl text-gray-500 mt-2">Divine Civilization</p>
         </div>
 
         <div class="facilitator-note">
@@ -1738,9 +1746,9 @@
             <p>Begin the final phase by exploring the ultimate vision: establishment of Divine Civilization as the primary mission of the Faith.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: The Primary Mission -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: The Primary Mission</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">The Primary Mission</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1758,9 +1766,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Building the Tabernacle of Peace -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Building the Tabernacle of Peace</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Building the Tabernacle of Peace</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1778,9 +1786,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Spiritual Leadership -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Spiritual Leadership</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Spiritual Leadership</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1798,9 +1806,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Enkindled Souls -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Enkindled Souls</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Enkindled Souls</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1824,7 +1832,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Sulṭán</h1>
             <p class="text-2xl text-gray-600">Sovereignty • December 31-January 18</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: A Historic Mission</p>
+            <p class="text-xl text-gray-500 mt-2">A Historic Mission</p>
         </div>
 
         <div class="facilitator-note">
@@ -1832,9 +1840,9 @@
             <p>Explore the magnitude of the mission before us and the heroism required to fulfill it.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: A Generational Venture -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: A Generational Venture</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">A Generational Venture</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1852,9 +1860,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: No Less Glorious -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: No Less Glorious</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">No Less Glorious</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1872,9 +1880,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Spiritual Renaissance -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Spiritual Renaissance</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Spiritual Renaissance</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1892,9 +1900,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Spiritual Primacy -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Spiritual Primacy</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Spiritual Primacy</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1918,7 +1926,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of Mulk</h1>
             <p class="text-2xl text-gray-600">Dominion • January 19-February 6</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Living Sacrifice</p>
+            <p class="text-xl text-gray-500 mt-2">Living Sacrifice</p>
         </div>
 
         <div class="facilitator-note">
@@ -1926,9 +1934,9 @@
             <p>Explore the call to living sacrifice and what it means to usher in the World Order through our lives of service.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Not By Death But By Living Sacrifice -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Not By Death But By Living Sacrifice</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Not By Death But By Living Sacrifice</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1946,9 +1954,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Consecration to the Work -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Consecration to the Work</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Consecration to the Work</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1966,9 +1974,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: Vindication of Highest Hopes -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: Vindication of Highest Hopes</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Vindication of Highest Hopes</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -1986,9 +1994,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: Efforts Needed Now -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: Efforts Needed Now</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Efforts Needed Now</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -2012,7 +2020,7 @@
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold gradient-text mb-4">Feast of 'Alá'</h1>
             <p class="text-2xl text-gray-600">Loftiness • February 7-March 1</p>
-            <p class="text-xl text-gray-500 mt-2">Theme: Hope Amid Crisis</p>
+            <p class="text-xl text-gray-500 mt-2">Hope Amid Crisis</p>
         </div>
 
         <div class="facilitator-note">
@@ -2020,9 +2028,9 @@
             <p>This final Feast of the year cultivates hope and confidence in the ultimate outcome. Reflect on the year's journey and renew commitment for the year ahead. Consider organizing small group discussions after this Feast to reflect on Feasts 16-19 together and on the entire year's journey.</p>
         </div>
 
-        <!-- Theme 1 -->
+        <!-- Theme 1: Dual Processes -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 1: Dual Processes</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Dual Processes</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -2040,9 +2048,9 @@
             </div>
         </div>
 
-        <!-- Theme 2 -->
+        <!-- Theme 2: Looking Forward With Confidence -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 2: Looking Forward With Confidence</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Looking Forward With Confidence</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -2060,9 +2068,9 @@
             </div>
         </div>
 
-        <!-- Theme 3 -->
+        <!-- Theme 3: The System We Are Building -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 3: The System We Are Building</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">The System We Are Building</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -2080,9 +2088,9 @@
             </div>
         </div>
 
-        <!-- Theme 4 -->
+        <!-- Theme 4: A New Day Will Dawn -->
         <div class="theme-section">
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Theme 4: A New Day Will Dawn</h3>
+            <h3 class="text-2xl font-bold bahai-blue mb-4">A New Day Will Dawn</h3>
             
             <div class="quote-box">
                 <p class="text-gray-800">
@@ -2118,13 +2126,16 @@
         function toggleNotes() {
             const notes = document.getElementById('facilitator-notes');
             const arrow = document.querySelector('.toggle-arrow');
+            const button = document.querySelector('.toggle-button span');
             
             if (notes.classList.contains('open')) {
                 notes.classList.remove('open');
                 arrow.classList.remove('open');
+                button.textContent = '📋 View Facilitator Notes';
             } else {
                 notes.classList.add('open');
                 arrow.classList.add('open');
+                button.textContent = '📋 Hide Facilitator Notes';
             }
         }
 
