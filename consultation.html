@@ -288,40 +288,54 @@
 
         <!-- Feast Selection -->
         <div class="theme-section no-print">
-            <h2 class="text-3xl font-bold bahai-blue mb-6">Select a Feast</h2>
+            <h2 class="text-3xl font-bold bahai-blue mb-6">Select a Feast or Study Guide</h2>
             
             <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-3 text-lg">Choose the Feast for consultation:</label>
+                <label class="block text-gray-700 font-semibold mb-3 text-lg">Choose the Feast or Study Guide for consultation:</label>
                 <select id="feast-selector" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg">
-                    <option value="">-- Select Feast --</option>
-                    <option value="feast-1">1. Bahá (Splendor) - March 2-20</option>
-                    <option value="feast-2">2. Jalál (Glory) - March 21-April 8</option>
-                    <option value="feast-3">3. Jamál (Beauty) - April 9-27</option>
-                    <option value="feast-4">4. 'Aẓamat (Grandeur) - April 28-May 16</option>
-                    <option value="feast-5">5. Núr (Light) - May 17-June 4</option>
-                    <option value="feast-6">6. Raḥmat (Mercy) - June 5-23</option>
-                    <option value="feast-7">7. Kalimát (Words) - June 24-July 12</option>
-                    <option value="feast-8">8. Kamál (Perfection) - July 13-31</option>
-                    <option value="feast-9">9. Asmá' (Names) - August 1-19</option>
-                    <option value="feast-10">10. 'Izzat (Might) - August 20-September 7</option>
-                    <option value="feast-11">11. Mashíyyat (Will) - September 8-26</option>
-                    <option value="feast-12">12. 'Ilm (Knowledge) - September 27-October 15</option>
-                    <option value="feast-13">13. Qudrat (Power) - October 16-November 3</option>
-                    <option value="feast-14">14. Qawl (Speech) - November 4-22</option>
-                    <option value="feast-15">15. Masá'il (Questions) - November 23-December 11</option>
-                    <option value="feast-16">16. Sharaf (Honor) - December 12-30</option>
-                    <option value="feast-17">17. Sulṭán (Sovereignty) - December 31-January 18</option>
-                    <option value="feast-18">18. Mulk (Dominion) - January 19-February 6</option>
-                    <option value="feast-19">19. 'Alá' (Loftiness) - February 7-March 1</option>
+                    <option value="">-- Select Feast or Study Guide --</option>
+                    <optgroup label="19 Day Feasts">
+                        <option value="feast-1">1. Bahá (Splendor) - March 2-20</option>
+                        <option value="feast-2">2. Jalál (Glory) - March 21-April 8</option>
+                        <option value="feast-3">3. Jamál (Beauty) - April 9-27</option>
+                        <option value="feast-4">4. 'Aẓamat (Grandeur) - April 28-May 16</option>
+                        <option value="feast-5">5. Núr (Light) - May 17-June 4</option>
+                        <option value="feast-6">6. Raḥmat (Mercy) - June 5-23</option>
+                        <option value="feast-7">7. Kalimát (Words) - June 24-July 12</option>
+                        <option value="feast-8">8. Kamál (Perfection) - July 13-31</option>
+                        <option value="feast-9">9. Asmá' (Names) - August 1-19</option>
+                        <option value="feast-10">10. 'Izzat (Might) - August 20-September 7</option>
+                        <option value="feast-11">11. Mashíyyat (Will) - September 8-26</option>
+                        <option value="feast-12">12. 'Ilm (Knowledge) - September 27-October 15</option>
+                        <option value="feast-13">13. Qudrat (Power) - October 16-November 3</option>
+                        <option value="feast-14">14. Qawl (Speech) - November 4-22</option>
+                        <option value="feast-15">15. Masá'il (Questions) - November 23-December 11</option>
+                        <option value="feast-16">16. Sharaf (Honor) - December 12-30</option>
+                        <option value="feast-17">17. Sulṭán (Sovereignty) - December 31-January 18</option>
+                        <option value="feast-18">18. Mulk (Dominion) - January 19-February 6</option>
+                        <option value="feast-19">19. 'Alá' (Loftiness) - February 7-March 1</option>
+                    </optgroup>
+                    <optgroup label="Study Guides - UHJ December 31, 2025 Message">
+                        <option value="uhj-study-1">Learning and the Third Milestone</option>
+                        <option value="uhj-study-2">Community Spirit and Collaborative Arrangements</option>
+                        <option value="uhj-study-3">Community-Based Initiatives and Social Action</option>
+                        <option value="uhj-study-4">Relationship with Society and Local Government</option>
+                        <option value="uhj-study-5">Enkindled Souls and Individual Transformation</option>
+                    </optgroup>
+                    <optgroup label="Administrative Study Guides">
+                        <option value="elections-study">Bahá'í Elections</option>
+                        <option value="funds-study">Contributing to the Bahá'í Funds</option>
+                    </optgroup>
                 </select>
             </div>
 
             <button onclick="printSelectedFeast()" id="print-btn" class="print-button w-full md:w-auto" disabled>
-                Print Selected Feast
+                Print Selected Guide
             </button>
-            <p id="print-message" class="text-sm text-gray-500 mt-2">Please select a Feast to enable printing</p>
+            <p id="print-message" class="text-sm text-gray-500 mt-2">Please select a Feast or Study Guide to enable printing</p>
         </div>
     </div>
+
 
     <!-- Feast 1: Bahá (Splendor) -->
     <div id="feast-1" class="feast-content max-w-5xl mx-auto px-4 py-12">
