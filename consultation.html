@@ -3490,6 +3490,55 @@
     function scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    // Basic Search Logic
+function searchContent() {
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const resultsList = document.getElementById('results-list');
+    const resultsCount = document.getElementById('results-count');
+    const searchResults = document.getElementById('search-results');
+
+    if (query.length < 2) {
+        searchResults.classList.add('hidden');
+        return;
+    }
+
+    resultsList.innerHTML = '';
+    let count = 0;
+
+    // Search through all feast sections
+    document.querySelectorAll('.theme-section').forEach(section => {
+        if (section.innerText.toLowerCase().includes(query)) {
+            count++;
+            const div = document.createElement('div');
+            div.className = 'search-result';
+            div.innerHTML = `<strong>${section.querySelector('h3').innerText}</strong><br>
+                             <small>${section.innerText.substring(0, 100)}...</small>`;
+            div.onclick = () => {
+                section.scrollIntoView({ behavior: 'smooth' });
+                searchResults.classList.add('hidden');
+            };
+            resultsList.appendChild(div);
+        }
+    });
+
+    resultsCount.innerText = `Found ${count} results`;
+    searchResults.classList.remove('hidden');
+}
+
+// Show/Hide Floating Nav on Scroll
+window.onscroll = function() {
+    const nav = document.getElementById('floating-nav');
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        nav.classList.remove('hidden');
+    } else {
+        nav.classList.add('hidden');
+    }
+};
+
+// Dark Mode Toggle
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+}
     </script>
 </body>
 </html>
