@@ -3750,62 +3750,72 @@
         </div>
     </div>
 
-    <script>
-        // Toggle facilitator notes
-        function toggleNotes() {
-            const notes = document.getElementById('facilitator-notes');
-            const arrow = document.querySelector('.toggle-arrow');
-            const button = document.querySelector('.toggle-button span');
-            
-            if (notes.classList.contains('open')) {
-                notes.classList.remove('open');
-                arrow.classList.remove('open');
-                button.textContent = '📋 View Facilitator Notes';
-            } else {
-                notes.classList.add('open');
-                arrow.classList.add('open');
-                button.textContent = '📋 Hide Facilitator Notes';
-            }
+<script>
+    // Toggle facilitator notes
+    function toggleNotes() {
+        const notes = document.getElementById('facilitator-notes');
+        const arrow = document.querySelector('.toggle-arrow');
+        const button = document.querySelector('.toggle-button span');
+        
+        if (notes.classList.contains('open')) {
+            notes.classList.remove('open');
+            arrow.classList.remove('open');
+            button.textContent = '📋 View Facilitator Notes';
+        } else {
+            notes.classList.add('open');
+            arrow.classList.add('open');
+            button.textContent = '📋 Hide Facilitator Notes';
         }
+    }
 
-        // Feast selector functionality
-        document.getElementById('feast-selector').addEventListener('change', function() {
-            // Hide all feast content
-            const allFeasts = document.querySelectorAll('.feast-content');
-            allFeasts.forEach(feast => feast.classList.remove('active'));
-            
-            // Show selected feast
-            const selectedFeast = this.value;
-            if (selectedFeast) {
-                document.getElementById(selectedFeast).classList.add('active');
+    // Navigation and Selection Logic
+    const selector = document.getElementById('feast-selector');
+    selector.addEventListener('change', function() {
+        const selectedId = this.value;
+        selectAndNavigate(selectedId);
+    });
+
+    function selectAndNavigate(id) {
+        // Hide all content first
+        const allContent = document.querySelectorAll('.feast-content');
+        allContent.forEach(el => el.classList.remove('active'));
+        
+        if (id) {
+            const target = document.getElementById(id);
+            if (target) {
+                target.classList.add('active');
                 
                 // Enable print button
                 document.getElementById('print-btn').disabled = false;
-                document.getElementById('print-message').textContent = 'Ready to print ' + this.options[this.selectedIndex].text;
-                
-                // Scroll to top of feast content
+                document.getElementById('print-message').textContent = 'Ready to print selected guide';
+
+                // Smooth Scroll
                 setTimeout(() => {
                     window.scrollTo({
-                        top: document.getElementById(selectedFeast).offsetTop - 100,
+                        top: target.offsetTop - 50,
                         behavior: 'smooth'
                     });
                 }, 100);
-            } else {
-                // Disable print button if no feast selected
-                document.getElementById('print-btn').disabled = true;
-                document.getElementById('print-message').textContent = 'Please select a Feast to enable printing';
             }
-        });
-
-        // Print only selected feast
-        function printSelectedFeast() {
-            const selectedFeast = document.getElementById('feast-selector').value;
-            if (selectedFeast) {
-                window.print();
-            } else {
-                alert('Please select a Feast first');
-            }
+        } else {
+            document.getElementById('print-btn').disabled = true;
+            document.getElementById('print-message').textContent = 'Please select a guide to enable printing';
         }
+    }
+
+    function printSelectedFeast() {
+        window.print();
+    }
+
+    // Toggle TOC Modal
+    function toggleTOC() {
+        const modal = document.getElementById('toc-modal');
+        modal.classList.toggle('hidden');
+    }
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     </script>
 </body>
 </html>
