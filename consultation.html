@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bahá'í Feast Consultation Guide | Davis Community</title>
+    <meta name="description" content="Comprehensive Bahá'í Feast consultation guide with themes, reflection questions, and study materials for deepening and community mobilization">
     
     <link rel="icon" type="image/png" href="nine-pointed-star.png">
     
@@ -24,6 +25,7 @@
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s, color 0.3s;
         }
         
         h1, h2, h3, h4 {
@@ -111,7 +113,7 @@
             padding-right: 3rem;
         }
         
-        .print-button {
+        .print-button, .action-button {
             background: #003262;
             color: white;
             padding: 0.75rem 2rem;
@@ -120,9 +122,10 @@
             cursor: pointer;
             border: none;
             transition: all 0.3s;
+            display: inline-block;
         }
         
-        .print-button:hover {
+        .print-button:hover, .action-button:hover {
             background: #0055a5;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 50, 98, 0.3);
@@ -180,161 +183,501 @@
             margin-bottom: 2rem;
         }
         
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        #floating-nav {
+            position: fixed;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            padding: 0.5rem;
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        #floating-nav button {
+            padding: 0.75rem;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.25rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #floating-nav button:hover {
+            background: #f3f4f6;
+            transform: scale(1.05);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #003262, #FDB515);
+            transition: width 0.3s ease;
+        }
+        
+        .search-result {
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .search-result:hover {
+            background: #f9fafb;
+            border-color: #003262;
+        }
+        
+        mark {
+            background: #fef3c7;
+            padding: 0 0.25rem;
+            border-radius: 2px;
+        }
+        
+        textarea.notes-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+        
+        textarea.notes-input:focus {
+            outline: none;
+            border-color: #003262;
+        }
+        
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .theme-section,
+        body.dark-mode .quote-box,
+        body.dark-mode .facilitator-note,
+        body.dark-mode #floating-nav,
+        body.dark-mode .search-result {
+            background-color: #2a2a2a;
+            border-color: #404040;
+        }
+        
+        body.dark-mode .reflection-question {
+            background-color: #1e3a5f;
+        }
+        
+        body.dark-mode .bahai-blue {
+            color: #6b9bd1;
+        }
+        
+        body.dark-mode select,
+        body.dark-mode textarea.notes-input {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            border-color: #404040;
+        }
+        
+        body.dark-mode .gradient-text {
+            background: linear-gradient(135deg, #6b9bd1 0%, #8bb3e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 48rem;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        body.dark-mode .modal-content {
+            background: #2a2a2a;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        body.dark-mode .modal-header {
+            border-color: #404040;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #6b7280;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .modal-close:hover {
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+        
+        body.dark-mode .modal-close:hover {
+            background: #404040;
+            color: #e0e0e0;
+        }
+        
         @media print {
             .no-print { display: none !important; }
             #cover-page { display: none !important; }
             .feast-content { display: none !important; page-break-after: always; }
             .feast-content.active { display: block !important; }
-            body { background: white; }
+            body { background: white; color: black; }
             .facilitator-note { page-break-inside: avoid; }
             .theme-section { page-break-inside: avoid; }
+            .quote-box { page-break-inside: avoid; }
+            
+            @page {
+                margin: 1in;
+            }
+            
+            body { 
+                font-size: 12pt; 
+                line-height: 1.5;
+            }
+            
+            h1 { font-size: 24pt; }
+            h2 { font-size: 18pt; }
+            h3 { font-size: 14pt; }
+            
+            .quote-box,
+            .reflection-question,
+            .facilitator-note {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
         }
         
         @media (max-width: 768px) {
             h1 { font-size: 1.75rem !important; }
             h2 { font-size: 1.5rem !important; }
-            .theme-section, .quote-box { padding: 1.5rem; }
+            h3 { font-size: 1.25rem !important; }
+            
+            .theme-section, .quote-box, .facilitator-note { 
+                padding: 1.5rem; 
+            }
+            
+            select, button, .toggle-button {
+                min-height: 44px;
+                font-size: 16px;
+            }
+            
+            .toggle-button,
+            .print-button,
+            .action-button {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 0.5rem;
+            }
+            
+            #floating-nav {
+                right: 0.5rem;
+                padding: 0.25rem;
+            }
+            
+            #floating-nav button {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .top-button {
+                position: sticky;
+                top: 0;
+                background: white;
+                padding: 1rem 0;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            body.dark-mode .top-button {
+                background: #1a1a1a;
+            }
+            
+            .modal-content {
+                margin: 0;
+                max-height: 100vh;
+                border-radius: 0;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Cover Page -->
-    <div id="cover-page" class="max-w-5xl mx-auto px-4 py-12">
-        <!-- Top Facilitator Notes Button -->
-        <div class="top-button no-print">
-            <button onclick="toggleNotes()" class="toggle-button w-full md:w-auto">
-                <span>📋 View Facilitator Notes</span>
-                <svg class="toggle-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-            </button>
-        </div>
+<body>
+    <a href="#main-content" class="sr-only">Skip to main content</a>
 
-        <!-- Collapsible Facilitator Notes -->
-        <div id="facilitator-notes" class="collapsible-content no-print">
-            <div class="facilitator-note">
-                <h3 class="text-2xl font-bold bahai-blue mb-4">Notes to the Feast Facilitator</h3>
-                
-                <div class="space-y-4 text-gray-700">
-                    <p class="font-semibold">Progressive Themes Throughout the Year:</p>
+    <nav id="floating-nav" class="no-print hidden">
+        <button onclick="scrollToTop()" title="Back to top">↑</button>
+        <button onclick="toggleTOC()" title="Table of contents">☰</button>
+        <button onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
+        <button onclick="showProgress()" title="View progress">📊</button>
+    </nav>
+
+    <div id="toc-modal" class="modal no-print hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-2xl font-bold bahai-blue">Table of Contents</h2>
+                <button onclick="toggleTOC()" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="space-y-2">
+                    <div class="font-semibold text-lg mb-3 bahai-blue">19 Day Feasts</div>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-1'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">1. Bahá (Splendor)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-2'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">2. Jalál (Glory)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-3'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">3. Jamál (Beauty)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-4'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">4. 'Aẓamat (Grandeur)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-5'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">5. Núr (Light)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-6'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">6. Raḥmat (Mercy)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-7'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">7. Kalimát (Words)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-8'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">8. Kamál (Perfection)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-9'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">9. Asmá' (Names)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-10'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">10. 'Izzat (Might)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-11'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">11. Mashíyyat (Will)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-12'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">12. 'Ilm (Knowledge)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-13'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">13. Qudrat (Power)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-14'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">14. Qawl (Speech)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-15'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">15. Masá'il (Questions)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-16'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">16. Sharaf (Honor)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-17'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">17. Sulṭán (Sovereignty)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-18'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">18. Mulk (Dominion)</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-19'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">19. 'Alá' (Loftiness)</a>
                     
-                    <div class="ml-4 space-y-3">
-                        <p><strong>Feasts 1-3 (Foundation):</strong> Establish understanding of America's destiny and the society-building power of the Faith. Help friends grasp the vision of what we're building together.</p>
-                        
-                        <p><strong>Feasts 4-6 (Capacity Building):</strong> Deepen appreciation for the institute process and youth empowerment. Build capacity for systematic learning and reflection.</p>
-                        
-                        <p><strong>Feasts 7-9 (Action & Service):</strong> Explore the core activities and social action. Connect spiritual principles to practical service.</p>
-                        
-                        <p><strong>Feasts 10-12 (Community Development):</strong> Focus on cluster movement, racial unity, and creating spaces of spiritual refuge in neighborhoods.</p>
-                        
-                        <p><strong>Feasts 13-15 (Institutional Strength):</strong> Build understanding of the role of institutions and the importance of administrative capacity.</p>
-                        
-                        <p><strong>Feasts 16-19 (Vision Forward):</strong> Inspire with the vision of divine civilization, renew commitment to living sacrifice, and cultivate hope amid crisis.</p>
-                    </div>
-
-                    <p class="mt-6 font-semibold">Facilitation Tips:</p>
-                    <ul class="ml-8 list-disc space-y-2">
-                        <li>Allow time for silent reflection before discussion</li>
-                        <li>Encourage all voices to be heard</li>
-                        <li>Connect themes to local cluster activities</li>
-                        <li>Consider breaking into smaller groups after every 3 Feasts for deeper discussion</li>
-                        <li>Document insights and action points for follow-up</li>
-                    </ul>
+                    <div class="font-semibold text-lg mb-3 mt-6 bahai-blue">UHJ Study Guides</div>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('uhj-study-1'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">Learning and Third Milestone</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('uhj-study-2'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">Community Spirit</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('uhj-study-3'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">Community-Based Initiatives</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('uhj-study-4'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">Relationship with Society</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('uhj-study-5'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">Enkindled Souls</a>
+                    
+                    <div class="font-semibold text-lg mb-3 mt-6 bahai-blue">Administrative Studies</div>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('elections-study'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">Bahá'í Elections</a>
+                    <a href="javascript:void(0)" onclick="selectAndNavigate('funds-study'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">Bahá'í Funds</a>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="text-center mb-12">
-            <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-6">
-                Feast Consultation Guide
-            </h1>
-            <p class="text-2xl text-gray-600 font-light">
-                A Resource for Deepening and Community Mobilization
-            </p>
-        </div>
-
-        <!-- Introduction -->
-        <div class="theme-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-6">The Power of Feast Consultation</h2>
-            
-            <div class="space-y-4 text-lg text-gray-700">
-                <p>
-                    The Nineteen Day Feast serves as a vital catalyst for mobilizing the Bahá'í community toward the fulfillment of its sacred mission. Through meaningful consultation, we unite our vision, deepen our understanding, and align our efforts with the guidance of the Universal House of Justice.
-                </p>
+    <div id="progress-modal" class="modal no-print hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-2xl font-bold bahai-blue">Your Progress</h2>
+                <button onclick="hideProgress()" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold">Overall Completion</span>
+                        <span id="progress-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2" id="progress-text">0 of 26 guides completed</p>
+                </div>
                 
-                <p>
-                    This guide provides thematic content for each of the 19 Feasts throughout the year, drawing from authoritative guidance on the Nine Year Plan and America's destiny. Each Feast builds upon the previous ones, creating a progressive journey of learning and action.
-                </p>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-semibold mb-2 bahai-blue">Actions</h3>
+                        <button onclick="exportData()" class="action-button w-full mb-2">📥 Export Notes</button>
+                        <label class="action-button w-full text-center cursor-pointer block">
+                            📤 Import Notes
+                            <input type="file" accept=".json" onchange="importData(event)" class="hidden">
+                        </label>
+                        <button onclick="clearAllData()" class="action-button w-full" style="background: #dc2626;">🗑️ Clear All Data</button>
+                    </div>
+                </div>
             </div>
-
-            <div class="quote-box mt-8">
-                <p class="text-lg italic text-gray-800">
-                    "We consult with each other in a loving and sincere spirit of search for truth. In sum, we rely on proven experience in applying the teachings to show us the way forward. And all the while, we remain true to the guidance of the House of Justice in illuminating our path."
-                </p>
-                <p class="text-right mt-4 font-semibold text-gray-700">
-                    — National Spiritual Assembly, September 30, 2024
-                </p>
-            </div>
-
-            <div class="quote-box">
-                <p class="text-lg italic text-gray-800">
-                    "The methods and instruments of the Plan are now well known to us all, as is the evolving framework in which they operate. This framework encompasses a wide range of activities—distinct, yet closely related—for the expansion and consolidation of the Bahá'í community, social action, and engagement in the discourses of society. In cluster after cluster, these dimensions must be nurtured in a systematic and coherent manner so that they come to include steadily increasing numbers of people and exert ever-greater impact on the life of society."
-                </p>
-                <p class="text-right mt-4 font-semibold text-gray-700">
-                    — National Spiritual Assembly, September 30, 2024
-                </p>
-            </div>
-        </div>
-
-        <!-- Feast Selection -->
-        <div class="theme-section no-print">
-            <h2 class="text-3xl font-bold bahai-blue mb-6">Select a Feast or Study Guide</h2>
-            
-            <div class="mb-6">
-                <label class="block text-gray-700 font-semibold mb-3 text-lg">Choose the Feast or Study Guide for consultation:</label>
-                <select id="feast-selector" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg">
-                    <option value="">-- Select Feast or Study Guide --</option>
-                    <optgroup label="19 Day Feasts">
-                        <option value="feast-1">1. Bahá (Splendor) - March 2-20</option>
-                        <option value="feast-2">2. Jalál (Glory) - March 21-April 8</option>
-                        <option value="feast-3">3. Jamál (Beauty) - April 9-27</option>
-                        <option value="feast-4">4. 'Aẓamat (Grandeur) - April 28-May 16</option>
-                        <option value="feast-5">5. Núr (Light) - May 17-June 4</option>
-                        <option value="feast-6">6. Raḥmat (Mercy) - June 5-23</option>
-                        <option value="feast-7">7. Kalimát (Words) - June 24-July 12</option>
-                        <option value="feast-8">8. Kamál (Perfection) - July 13-31</option>
-                        <option value="feast-9">9. Asmá' (Names) - August 1-19</option>
-                        <option value="feast-10">10. 'Izzat (Might) - August 20-September 7</option>
-                        <option value="feast-11">11. Mashíyyat (Will) - September 8-26</option>
-                        <option value="feast-12">12. 'Ilm (Knowledge) - September 27-October 15</option>
-                        <option value="feast-13">13. Qudrat (Power) - October 16-November 3</option>
-                        <option value="feast-14">14. Qawl (Speech) - November 4-22</option>
-                        <option value="feast-15">15. Masá'il (Questions) - November 23-December 11</option>
-                        <option value="feast-16">16. Sharaf (Honor) - December 12-30</option>
-                        <option value="feast-17">17. Sulṭán (Sovereignty) - December 31-January 18</option>
-                        <option value="feast-18">18. Mulk (Dominion) - January 19-February 6</option>
-                        <option value="feast-19">19. 'Alá' (Loftiness) - February 7-March 1</option>
-                    </optgroup>
-                    <optgroup label="Study Guides - UHJ December 31, 2025 Message">
-                        <option value="uhj-study-1">Learning and the Third Milestone</option>
-                        <option value="uhj-study-2">Community Spirit and Collaborative Arrangements</option>
-                        <option value="uhj-study-3">Community-Based Initiatives and Social Action</option>
-                        <option value="uhj-study-4">Relationship with Society and Local Government</option>
-                        <option value="uhj-study-5">Enkindled Souls and Individual Transformation</option>
-                    </optgroup>
-                    <optgroup label="Administrative Study Guides">
-                        <option value="elections-study">Bahá'í Elections</option>
-                        <option value="funds-study">Contributing to the Bahá'í Funds</option>
-                    </optgroup>
-                </select>
-            </div>
-
-            <button onclick="printSelectedFeast()" id="print-btn" class="print-button w-full md:w-auto" disabled>
-                Print Selected Guide
-            </button>
-            <p id="print-message" class="text-sm text-gray-500 mt-2">Please select a Feast or Study Guide to enable printing</p>
         </div>
     </div>
+
+    <div id="cover-page" class="max-w-5xl mx-auto px-4 py-12">
+        <main id="main-content">
+            <div class="top-button no-print">
+                <button onclick="toggleNotes()" class="toggle-button w-full md:w-auto">
+                    <span>📋 View Facilitator Notes</span>
+                    <svg class="toggle-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="facilitator-notes" class="collapsible-content no-print">
+                <div class="facilitator-note">
+                    <h3 class="text-2xl font-bold bahai-blue mb-4">Notes to the Feast Facilitator</h3>
+                    
+                    <div class="space-y-4 text-gray-700">
+                        <p class="font-semibold">Progressive Themes Throughout the Year:</p>
+                        
+                        <div class="ml-4 space-y-3">
+                            <p><strong>Feasts 1-3 (Foundation):</strong> Establish understanding of America's destiny and the society-building power of the Faith.</p>
+                            <p><strong>Feasts 4-6 (Capacity Building):</strong> Deepen appreciation for the institute process and youth empowerment.</p>
+                            <p><strong>Feasts 7-9 (Action & Service):</strong> Explore core activities and social action.</p>
+                            <p><strong>Feasts 10-12 (Community Development):</strong> Focus on cluster movement and racial unity.</p>
+                            <p><strong>Feasts 13-15 (Institutional Strength):</strong> Build understanding of institutions.</p>
+                            <p><strong>Feasts 16-19 (Vision Forward):</strong> Inspire with divine civilization vision.</p>
+                        </div>
+
+                        <p class="mt-6 font-semibold">Facilitation Tips:</p>
+                        <ul class="ml-8 list-disc space-y-2">
+                            <li>Allow time for silent reflection</li>
+                            <li>Encourage all voices</li>
+                            <li>Connect themes to local activities</li>
+                            <li>Document insights for follow-up</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mb-12">
+                <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-6">Feast Consultation Guide</h1>
+                <p class="text-2xl text-gray-600 font-light">A Resource for Deepening and Community Mobilization</p>
+            </div>
+
+            <div class="theme-section">
+                <h2 class="text-3xl font-bold bahai-blue mb-6">The Power of Feast Consultation</h2>
+                
+                <div class="space-y-4 text-lg text-gray-700">
+                    <p>The Nineteen Day Feast serves as a vital catalyst for mobilizing the Bahá'í community toward the fulfillment of its sacred mission.</p>
+                    <p>This guide provides thematic content for each of the 19 Feasts throughout the year, drawing from authoritative guidance on the Nine Year Plan.</p>
+                </div>
+
+                <div class="quote-box mt-8">
+                    <p class="text-lg italic text-gray-800">"We consult with each other in a loving and sincere spirit of search for truth."</p>
+                    <p class="text-right mt-4 font-semibold text-gray-700">— National Spiritual Assembly, September 30, 2024</p>
+                </div>
+            </div>
+
+            <div class="theme-section no-print">
+                <h2 class="text-3xl font-bold bahai-blue mb-6">Search Content</h2>
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    placeholder="Search themes, quotes, or questions..."
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg"
+                    oninput="searchContent()"
+                >
+                <div id="search-results" class="mt-4 hidden">
+                    <p class="text-sm text-gray-600 mb-2" id="results-count"></p>
+                    <div id="results-list" class="space-y-2 max-h-96 overflow-y-auto"></div>
+                </div>
+            </div>
+
+            <div class="theme-section no-print">
+                <h2 class="text-3xl font-bold bahai-blue mb-6">Select a Feast or Study Guide</h2>
+                
+                <div class="mb-6">
+                    <label for="feast-selector" class="block text-gray-700 font-semibold mb-3 text-lg">Choose the Feast or Study Guide:</label>
+                    <select id="feast-selector" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg">
+                        <option value="">-- Select --</option>
+                        <optgroup label="19 Day Feasts">
+                            <option value="feast-1">1. Bahá (Splendor)</option>
+                            <option value="feast-2">2. Jalál (Glory)</option>
+                            <option value="feast-3">3. Jamál (Beauty)</option>
+                            <option value="feast-4">4. 'Aẓamat (Grandeur)</option>
+                            <option value="feast-5">5. Núr (Light)</option>
+                            <option value="feast-6">6. Raḥmat (Mercy)</option>
+                            <option value="feast-7">7. Kalimát (Words)</option>
+                            <option value="feast-8">8. Kamál (Perfection)</option>
+                            <option value="feast-9">9. Asmá' (Names)</option>
+                            <option value="feast-10">10. 'Izzat (Might)</option>
+                            <option value="feast-11">11. Mashíyyat (Will)</option>
+                            <option value="feast-12">12. 'Ilm (Knowledge)</option>
+                            <option value="feast-13">13. Qudrat (Power)</option>
+                            <option value="feast-14">14. Qawl (Speech)</option>
+                            <option value="feast-15">15. Masá'il (Questions)</option>
+                            <option value="feast-16">16. Sharaf (Honor)</option>
+                            <option value="feast-17">17. Sulṭán (Sovereignty)</option>
+                            <option value="feast-18">18. Mulk (Dominion)</option>
+                            <option value="feast-19">19. 'Alá' (Loftiness)</option>
+                        </optgroup>
+                        <optgroup label="UHJ Study Guides">
+                            <option value="uhj-study-1">Learning and Third Milestone</option>
+                            <option value="uhj-study-2">Community Spirit</option>
+                            <option value="uhj-study-3">Community-Based Initiatives</option>
+                            <option value="uhj-study-4">Relationship with Society</option>
+                            <option value="uhj-study-5">Enkindled Souls</option>
+                        </optgroup>
+                        <optgroup label="Administrative Studies">
+                            <option value="elections-study">Bahá'í Elections</option>
+                            <option value="funds-study">Bahá'í Funds</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="printSelectedFeast()" id="print-btn" class="print-button" disabled>🖨️ Print</button>
+                    <button onclick="shareContent()" class="action-button" style="background: #FDB515; color: #003262;">📧 Share</button>
+                </div>
+                <p id="print-message" class="text-sm text-gray-500 mt-2">Please select a guide to enable printing</p>
+            </div>
+        </main>
+    </div>
+
+<!-- FEASTS START HERE -->
 
 
     <!-- Feast 1: Bahá (Splendor) -->
