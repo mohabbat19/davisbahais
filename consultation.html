@@ -578,159 +578,154 @@
     <div id="feast-content-container">
         </div>
 
-    <script>
-        // Data Structure
-        let userData = JSON.parse(localStorage.getItem('bahai_consult_data')) || {
-            notes: {},
-            completed: []
-        };
+<script>
+    // Data Persistence Logic
+    let userData = JSON.parse(localStorage.getItem('bahai_consult_data')) || {
+        notes: {},
+        completed: []
+    };
 
-        // Navigation
-        function selectAndNavigate(id) {
-            // Hide all content
-            document.querySelectorAll('.feast-content').forEach(el => el.classList.remove('active'));
-            
-            if (id) {
-                const target = document.getElementById(id);
-                if (target) {
-                    target.classList.add('active');
-                    document.getElementById('print-btn').disabled = false;
-                    document.getElementById('print-message').textContent = 'Ready to print guide';
-                    
-                    // Smooth Scroll
-                    setTimeout(() => {
-                        window.scrollTo({
-                            top: target.offsetTop - 50,
-                            behavior: 'smooth'
-                        });
-                    }, 50);
-                } else {
-                    console.error("ID not found:", id);
-                }
-            } else {
-                document.getElementById('print-btn').disabled = true;
-                document.getElementById('print-message').textContent = 'Please select a guide to enable printing';
+    // Navigation and Content Display Logic
+    function selectAndNavigate(id) {
+        // 1. Hide every single content section
+        document.querySelectorAll('.feast-content').forEach(el => {
+            el.classList.remove('active');
+        });
+
+        if (id) {
+            const target = document.getElementById(id);
+            if (target) {
+                // 2. Activate the selected guide (including the 7 study guides)
+                target.classList.add('active');
+
+                // 3. Update UI states
+                document.getElementById('print-btn').disabled = false;
+                document.getElementById('print-message').textContent = 'Ready to print guide';
+                document.getElementById('feast-selector').value = id;
+
+                // 4. Scroll to view
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
             }
+        } else {
+            document.getElementById('print-btn').disabled = true;
+            document.getElementById('print-message').textContent = 'Please select a guide to enable printing';
+        }
+    }
+
+    // IMPROVED SEARCH ENGINE
+    function searchContent() {
+        const query = document.getElementById('search-input').value.toLowerCase().trim();
+        const resultsBox = document.getElementById('search-results');
+        const list = document.getElementById('results-list');
+        const countLabel = document.getElementById('results-count');
+
+        // Reset if query is too short
+        if (query.length < 2) {
+            resultsBox.classList.add('hidden');
+            return;
         }
 
-        // Notes & Progress
-        function saveNotes(id) {
-            const input = document.getElementById(`notes-${id}`);
-            if (input) {
-                userData.notes[id] = input.value;
-                localStorage.setItem('bahai_consult_data', JSON.stringify(userData));
-            }
-        }
+        list.innerHTML = '';
+        let count = 0;
 
-        function markCompleted(id) {
-            const checkbox = document.getElementById(`completed-${id}`);
-            if (checkbox.checked) {
-                if (!userData.completed.includes(id)) userData.completed.push(id);
-            } else {
-                userData.completed = userData.completed.filter(item => item !== id);
-            }
-            localStorage.setItem('bahai_consult_data', JSON.stringify(userData));
-            updateProgressBar();
-        }
-
-        function updateProgressBar() {
-            const total = 26; // 19 Feasts + 7 Study Guides
-            const count = userData.completed.length;
-            const percent = Math.round((count / total) * 100);
+        // Scans ALL elements with class 'feast-content' (all 26 sections)
+        document.querySelectorAll('.feast-content').forEach(section => {
+            const textContent = section.innerText.toLowerCase();
             
-            const fill = document.getElementById('progress-fill');
-            const percText = document.getElementById('progress-percentage');
-            const label = document.getElementById('progress-text');
-            
-            if(fill) fill.style.width = percent + '%';
-            if(percText) percText.innerText = percent + '%';
-            if(label) label.innerText = `${count} of ${total} guides completed`;
-        }
+            if (textContent.includes(query)) {
+                count++;
+                
+                // Create result item
+                const item = document.createElement('div');
+                item.className = 'search-result p-3 border-b hover:bg-gray-50 cursor-pointer transition-colors';
+                
+                // Get the title from the h1 or h2 of that section
+                const title = section.querySelector('h1, h2')?.innerText || "Study Guide Section";
+                
+                item.innerHTML = `
+                    <div class="font-bold text-blue-900">${title}</div>
+                    <div class="text-xs text-gray-500 truncate">${section.innerText.substring(0, 120)}...</div>
+                `;
 
-        // Modals & UI
-        function toggleNotes() {
-            const notes = document.getElementById('facilitator-notes');
-            const arrow = document.querySelector('.toggle-arrow');
-            const btnText = document.getElementById('notes-btn-text');
-            notes.classList.toggle('open');
-            arrow.classList.toggle('open');
-            btnText.innerText = notes.classList.contains('open') ? '📋 Hide Facilitator Notes' : '📋 View Facilitator Notes';
-        }
+                // Set click action to navigate to that guide
+                item.onclick = () => {
+                    selectAndNavigate(section.id);
+                    resultsBox.classList.add('hidden');
+                    document.getElementById('search-input').value = ''; // clear search after click
+                };
 
-        function toggleTOC() { document.getElementById('toc-modal').classList.toggle('hidden'); }
-        function showProgress() { updateProgressBar(); document.getElementById('progress-modal').classList.remove('hidden'); }
-        function hideProgress() { document.getElementById('progress-modal').classList.add('hidden'); }
-        function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        function printSelectedFeast() { window.print(); }
+                list.appendChild(item);
+            }
+        });
 
-        // Search
-        function searchContent() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const resultsBox = document.getElementById('search-results');
-            const list = document.getElementById('results-list');
-            const countLabel = document.getElementById('results-count');
-
-            if (query.length < 2) { resultsBox.classList.add('hidden'); return; }
-
-            list.innerHTML = '';
-            let count = 0;
-            document.querySelectorAll('.feast-content').forEach(feast => {
-                if (feast.innerText.toLowerCase().includes(query)) {
-                    count++;
-                    const item = document.createElement('div');
-                    item.className = 'search-result';
-                    const title = feast.querySelector('h1') ? feast.querySelector('h1').innerText : "Guide Section";
-                    item.innerHTML = `<strong>${title}</strong><p class="text-xs opacity-70">${feast.innerText.substring(0, 80)}...</p>`;
-                    item.onclick = () => {
-                        selectAndNavigate(feast.id);
-                        document.getElementById('feast-selector').value = feast.id;
-                        resultsBox.classList.add('hidden');
-                    };
-                    list.appendChild(item);
-                }
-            });
-            countLabel.innerText = `Found ${count} results`;
+        // Show/Hide results based on count
+        if (count > 0) {
+            countLabel.innerText = `Found ${count} results across all guides`;
+            resultsBox.classList.remove('hidden');
+        } else {
+            countLabel.innerText = "No results found in any guide.";
             resultsBox.classList.remove('hidden');
         }
+    }
 
-        // Floating Nav visibility
-        window.onscroll = function() {
-            const nav = document.getElementById('floating-nav');
-            if (window.pageYOffset > 300) nav.classList.remove('hidden');
-            else nav.classList.add('hidden');
-        };
-
-        // On Load
-        window.onload = function() {
-            // Restore saved values if elements exist
-            Object.keys(userData.notes).forEach(id => {
-                const el = document.getElementById(`notes-${id}`);
-                if (el) el.value = userData.notes[id];
-            });
-            userData.completed.forEach(id => {
-                const el = document.getElementById(`completed-${id}`);
-                if (el) el.checked = true;
-            });
-            updateProgressBar();
-        };
-
-        // Storage Utils
-        function exportData() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userData));
-            const dl = document.createElement('a');
-            dl.setAttribute("href", dataStr);
-            dl.setAttribute("download", "bahai_notes.json");
-            dl.click();
+    // Progress and UI Management
+    function markCompleted(id) {
+        const checkbox = document.getElementById(`completed-${id}`);
+        if (checkbox.checked) {
+            if (!userData.completed.includes(id)) userData.completed.push(id);
+        } else {
+            userData.completed = userData.completed.filter(item => item !== id);
         }
+        localStorage.setItem('bahai_consult_data', JSON.stringify(userData));
+        updateProgressBar();
+    }
 
-        function clearAllData() {
-            if(confirm("Erase all progress and notes?")) {
-                localStorage.removeItem('bahai_consult_data');
-                location.reload();
-            }
-        }
-    </script>
+    function updateProgressBar() {
+        const total = 26; // 19 Feasts + 7 Study Guides
+        const count = userData.completed.length;
+        const percent = Math.round((count / total) * 100);
+        
+        const fill = document.getElementById('progress-fill');
+        const percText = document.getElementById('progress-percentage');
+        const label = document.getElementById('progress-text');
+        
+        if(fill) fill.style.width = percent + '%';
+        if(percText) percText.innerText = percent + '%';
+        if(label) label.innerText = `${count} of ${total} guides completed`;
+    }
+
+    // Helper UI Functions
+    function toggleTOC() { document.getElementById('toc-modal').classList.toggle('hidden'); }
+    function showProgress() { updateProgressBar(); document.getElementById('progress-modal').classList.remove('hidden'); }
+    function hideProgress() { document.getElementById('progress-modal').classList.add('hidden'); }
+    function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function printSelectedFeast() { window.print(); }
+
+    function toggleNotes() {
+        const notes = document.getElementById('facilitator-notes');
+        const btnText = document.getElementById('notes-btn-text');
+        const arrow = document.querySelector('.toggle-arrow');
+        notes.classList.toggle('open');
+        arrow.classList.toggle('open');
+        btnText.innerText = notes.classList.contains('open') ? '📋 Hide Facilitator Notes' : '📋 View Facilitator Notes';
+    }
+
+    // Initialize on page load
+    window.onload = function() {
+        Object.keys(userData.notes).forEach(id => {
+            const el = document.getElementById(`notes-${id}`);
+            if (el) el.value = userData.notes[id];
+        });
+        userData.completed.forEach(id => {
+            const el = document.getElementById(`completed-${id}`);
+            if (el) el.checked = true;
+        });
+        updateProgressBar();
+    };
+</script>
 </body>
 </html>
 
