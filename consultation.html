@@ -325,6 +325,10 @@
             justify-content: center;
             padding: 1rem;
         }
+
+        .modal.hidden {
+            display: none;
+        }
         
         .modal-content {
             background: white;
@@ -389,26 +393,14 @@
             .feast-content { display: none !important; page-break-after: always; }
             .feast-content.active { display: block !important; }
             body { background: white; color: black; }
-            .facilitator-note { page-break-inside: avoid; }
-            .theme-section { page-break-inside: avoid; }
-            .quote-box { page-break-inside: avoid; }
+            .facilitator-note, .theme-section, .quote-box { page-break-inside: avoid; }
             
-            @page {
-                margin: 1in;
-            }
-            
-            body { 
-                font-size: 12pt; 
-                line-height: 1.5;
-            }
-            
+            @page { margin: 1in; }
+            body { font-size: 12pt; line-height: 1.5; }
             h1 { font-size: 24pt; }
             h2 { font-size: 18pt; }
             h3 { font-size: 14pt; }
-            
-            .quote-box,
-            .reflection-question,
-            .facilitator-note {
+            .quote-box, .reflection-question, .facilitator-note {
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
             }
@@ -418,52 +410,14 @@
             h1 { font-size: 1.75rem !important; }
             h2 { font-size: 1.5rem !important; }
             h3 { font-size: 1.25rem !important; }
-            
-            .theme-section, .quote-box, .facilitator-note { 
-                padding: 1.5rem; 
-            }
-            
-            select, button, .toggle-button {
-                min-height: 44px;
-                font-size: 16px;
-            }
-            
-            .toggle-button,
-            .print-button,
-            .action-button {
-                width: 100%;
-                justify-content: center;
-                margin-bottom: 0.5rem;
-            }
-            
-            #floating-nav {
-                right: 0.5rem;
-                padding: 0.25rem;
-            }
-            
-            #floating-nav button {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-            
-            .top-button {
-                position: sticky;
-                top: 0;
-                background: white;
-                padding: 1rem 0;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            
-            body.dark-mode .top-button {
-                background: #1a1a1a;
-            }
-            
-            .modal-content {
-                margin: 0;
-                max-height: 100vh;
-                border-radius: 0;
-            }
+            .theme-section, .quote-box, .facilitator-note { padding: 1.5rem; }
+            select, button, .toggle-button { min-height: 44px; font-size: 16px; }
+            .toggle-button, .print-button, .action-button { width: 100%; justify-content: center; margin-bottom: 0.5rem; }
+            #floating-nav { right: 0.5rem; padding: 0.25rem; }
+            #floating-nav button { width: 40px; height: 40px; font-size: 1rem; }
+            .top-button { position: sticky; top: 0; background: white; padding: 1rem 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+            body.dark-mode .top-button { background: #1a1a1a; }
+            .modal-content { margin: 0; max-height: 100vh; border-radius: 0; }
         }
     </style>
 </head>
@@ -486,25 +440,10 @@
             <div class="modal-body">
                 <div class="space-y-2">
                     <div class="font-semibold text-lg mb-3 bahai-blue">19 Day Feasts</div>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-1'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">1. Bahá (Splendor)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-2'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">2. Jalál (Glory)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-3'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">3. Jamál (Beauty)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-4'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">4. 'Aẓamat (Grandeur)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-5'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">5. Núr (Light)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-6'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">6. Raḥmat (Mercy)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-7'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">7. Kalimát (Words)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-8'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">8. Kamál (Perfection)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-9'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">9. Asmá' (Names)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-10'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">10. 'Izzat (Might)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-11'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">11. Mashíyyat (Will)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-12'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">12. 'Ilm (Knowledge)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-13'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">13. Qudrat (Power)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-14'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">14. Qawl (Speech)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-15'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">15. Masá'il (Questions)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-16'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">16. Sharaf (Honor)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-17'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">17. Sulṭán (Sovereignty)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-18'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">18. Mulk (Dominion)</a>
-                    <a href="javascript:void(0)" onclick="selectAndNavigate('feast-19'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">19. 'Alá' (Loftiness)</a>
+                    <div id="toc-feasts" class="grid grid-cols-1 gap-1">
+                        <a href="javascript:void(0)" onclick="selectAndNavigate('feast-1'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">1. Bahá (Splendor)</a>
+                        <a href="javascript:void(0)" onclick="selectAndNavigate('feast-2'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">2. Jalál (Glory)</a>
+                        </div>
                     
                     <div class="font-semibold text-lg mb-3 mt-6 bahai-blue">UHJ Study Guides</div>
                     <a href="javascript:void(0)" onclick="selectAndNavigate('uhj-study-1'); toggleTOC();" class="block py-2 px-4 hover:bg-gray-100 rounded">Learning and Third Milestone</a>
@@ -540,15 +479,12 @@
                 </div>
                 
                 <div class="space-y-4">
-                    <div>
-                        <h3 class="font-semibold mb-2 bahai-blue">Actions</h3>
-                        <button onclick="exportData()" class="action-button w-full mb-2">📥 Export Notes</button>
-                        <label class="action-button w-full text-center cursor-pointer block">
-                            📤 Import Notes
-                            <input type="file" accept=".json" onchange="importData(event)" class="hidden">
-                        </label>
-                        <button onclick="clearAllData()" class="action-button w-full" style="background: #dc2626;">🗑️ Clear All Data</button>
-                    </div>
+                    <button onclick="exportData()" class="action-button w-full mb-2">📥 Export Notes</button>
+                    <label class="action-button w-full text-center cursor-pointer block">
+                        📤 Import Notes
+                        <input type="file" accept=".json" onchange="importData(event)" class="hidden">
+                    </label>
+                    <button onclick="clearAllData()" class="action-button w-full" style="background: #dc2626;">🗑️ Clear All Data</button>
                 </div>
             </div>
         </div>
@@ -558,7 +494,7 @@
         <main id="main-content">
             <div class="top-button no-print">
                 <button onclick="toggleNotes()" class="toggle-button w-full md:w-auto">
-                    <span>📋 View Facilitator Notes</span>
+                    <span id="notes-btn-text">📋 View Facilitator Notes</span>
                     <svg class="toggle-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
@@ -568,26 +504,9 @@
             <div id="facilitator-notes" class="collapsible-content no-print">
                 <div class="facilitator-note">
                     <h3 class="text-2xl font-bold bahai-blue mb-4">Notes to the Feast Facilitator</h3>
-                    
                     <div class="space-y-4 text-gray-700">
-                        <p class="font-semibold">Progressive Themes Throughout the Year:</p>
-                        
-                        <div class="ml-4 space-y-3">
-                            <p><strong>Feasts 1-3 (Foundation):</strong> Establish understanding of America's destiny and the society-building power of the Faith.</p>
-                            <p><strong>Feasts 4-6 (Capacity Building):</strong> Deepen appreciation for the institute process and youth empowerment.</p>
-                            <p><strong>Feasts 7-9 (Action & Service):</strong> Explore core activities and social action.</p>
-                            <p><strong>Feasts 10-12 (Community Development):</strong> Focus on cluster movement and racial unity.</p>
-                            <p><strong>Feasts 13-15 (Institutional Strength):</strong> Build understanding of institutions.</p>
-                            <p><strong>Feasts 16-19 (Vision Forward):</strong> Inspire with divine civilization vision.</p>
-                        </div>
-
-                        <p class="mt-6 font-semibold">Facilitation Tips:</p>
-                        <ul class="ml-8 list-disc space-y-2">
-                            <li>Allow time for silent reflection</li>
-                            <li>Encourage all voices</li>
-                            <li>Connect themes to local activities</li>
-                            <li>Document insights for follow-up</li>
-                        </ul>
+                        <p class="font-semibold">Progressive Themes:</p>
+                        <p>Feasts 1-3: Foundation | 4-6: Capacity | 7-9: Action | 10-12: Community | 13-15: Institutional | 16-19: Vision Forward</p>
                     </div>
                 </div>
             </div>
@@ -597,29 +516,9 @@
                 <p class="text-2xl text-gray-600 font-light">A Resource for Deepening and Community Mobilization</p>
             </div>
 
-            <div class="theme-section">
-                <h2 class="text-3xl font-bold bahai-blue mb-6">The Power of Feast Consultation</h2>
-                
-                <div class="space-y-4 text-lg text-gray-700">
-                    <p>The Nineteen Day Feast serves as a vital catalyst for mobilizing the Bahá'í community toward the fulfillment of its sacred mission.</p>
-                    <p>This guide provides thematic content for each of the 19 Feasts throughout the year, drawing from authoritative guidance on the Nine Year Plan.</p>
-                </div>
-
-                <div class="quote-box mt-8">
-                    <p class="text-lg italic text-gray-800">"We consult with each other in a loving and sincere spirit of search for truth."</p>
-                    <p class="text-right mt-4 font-semibold text-gray-700">— National Spiritual Assembly, September 30, 2024</p>
-                </div>
-            </div>
-
             <div class="theme-section no-print">
                 <h2 class="text-3xl font-bold bahai-blue mb-6">Search Content</h2>
-                <input 
-                    type="text" 
-                    id="search-input" 
-                    placeholder="Search themes, quotes, or questions..."
-                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg"
-                    oninput="searchContent()"
-                >
+                <input type="text" id="search-input" placeholder="Search themes, quotes, or questions..." class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg" oninput="searchContent()">
                 <div id="search-results" class="mt-4 hidden">
                     <p class="text-sm text-gray-600 mb-2" id="results-count"></p>
                     <div id="results-list" class="space-y-2 max-h-96 overflow-y-auto"></div>
@@ -628,10 +527,9 @@
 
             <div class="theme-section no-print">
                 <h2 class="text-3xl font-bold bahai-blue mb-6">Select a Feast or Study Guide</h2>
-                
                 <div class="mb-6">
                     <label for="feast-selector" class="block text-gray-700 font-semibold mb-3 text-lg">Choose the Feast or Study Guide:</label>
-                    <select id="feast-selector" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg">
+                    <select id="feast-selector" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg" onchange="selectAndNavigate(this.value)">
                         <option value="">-- Select --</option>
                         <optgroup label="19 Day Feasts">
                             <option value="feast-1">1. Bahá (Splendor)</option>
@@ -676,6 +574,165 @@
             </div>
         </main>
     </div>
+
+    <div id="feast-content-container">
+        </div>
+
+    <script>
+        // Data Structure
+        let userData = JSON.parse(localStorage.getItem('bahai_consult_data')) || {
+            notes: {},
+            completed: []
+        };
+
+        // Navigation
+        function selectAndNavigate(id) {
+            // Hide all content
+            document.querySelectorAll('.feast-content').forEach(el => el.classList.remove('active'));
+            
+            if (id) {
+                const target = document.getElementById(id);
+                if (target) {
+                    target.classList.add('active');
+                    document.getElementById('print-btn').disabled = false;
+                    document.getElementById('print-message').textContent = 'Ready to print guide';
+                    
+                    // Smooth Scroll
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: target.offsetTop - 50,
+                            behavior: 'smooth'
+                        });
+                    }, 50);
+                } else {
+                    console.error("ID not found:", id);
+                }
+            } else {
+                document.getElementById('print-btn').disabled = true;
+                document.getElementById('print-message').textContent = 'Please select a guide to enable printing';
+            }
+        }
+
+        // Notes & Progress
+        function saveNotes(id) {
+            const input = document.getElementById(`notes-${id}`);
+            if (input) {
+                userData.notes[id] = input.value;
+                localStorage.setItem('bahai_consult_data', JSON.stringify(userData));
+            }
+        }
+
+        function markCompleted(id) {
+            const checkbox = document.getElementById(`completed-${id}`);
+            if (checkbox.checked) {
+                if (!userData.completed.includes(id)) userData.completed.push(id);
+            } else {
+                userData.completed = userData.completed.filter(item => item !== id);
+            }
+            localStorage.setItem('bahai_consult_data', JSON.stringify(userData));
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const total = 26; // 19 Feasts + 7 Study Guides
+            const count = userData.completed.length;
+            const percent = Math.round((count / total) * 100);
+            
+            const fill = document.getElementById('progress-fill');
+            const percText = document.getElementById('progress-percentage');
+            const label = document.getElementById('progress-text');
+            
+            if(fill) fill.style.width = percent + '%';
+            if(percText) percText.innerText = percent + '%';
+            if(label) label.innerText = `${count} of ${total} guides completed`;
+        }
+
+        // Modals & UI
+        function toggleNotes() {
+            const notes = document.getElementById('facilitator-notes');
+            const arrow = document.querySelector('.toggle-arrow');
+            const btnText = document.getElementById('notes-btn-text');
+            notes.classList.toggle('open');
+            arrow.classList.toggle('open');
+            btnText.innerText = notes.classList.contains('open') ? '📋 Hide Facilitator Notes' : '📋 View Facilitator Notes';
+        }
+
+        function toggleTOC() { document.getElementById('toc-modal').classList.toggle('hidden'); }
+        function showProgress() { updateProgressBar(); document.getElementById('progress-modal').classList.remove('hidden'); }
+        function hideProgress() { document.getElementById('progress-modal').classList.add('hidden'); }
+        function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function printSelectedFeast() { window.print(); }
+
+        // Search
+        function searchContent() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const resultsBox = document.getElementById('search-results');
+            const list = document.getElementById('results-list');
+            const countLabel = document.getElementById('results-count');
+
+            if (query.length < 2) { resultsBox.classList.add('hidden'); return; }
+
+            list.innerHTML = '';
+            let count = 0;
+            document.querySelectorAll('.feast-content').forEach(feast => {
+                if (feast.innerText.toLowerCase().includes(query)) {
+                    count++;
+                    const item = document.createElement('div');
+                    item.className = 'search-result';
+                    const title = feast.querySelector('h1') ? feast.querySelector('h1').innerText : "Guide Section";
+                    item.innerHTML = `<strong>${title}</strong><p class="text-xs opacity-70">${feast.innerText.substring(0, 80)}...</p>`;
+                    item.onclick = () => {
+                        selectAndNavigate(feast.id);
+                        document.getElementById('feast-selector').value = feast.id;
+                        resultsBox.classList.add('hidden');
+                    };
+                    list.appendChild(item);
+                }
+            });
+            countLabel.innerText = `Found ${count} results`;
+            resultsBox.classList.remove('hidden');
+        }
+
+        // Floating Nav visibility
+        window.onscroll = function() {
+            const nav = document.getElementById('floating-nav');
+            if (window.pageYOffset > 300) nav.classList.remove('hidden');
+            else nav.classList.add('hidden');
+        };
+
+        // On Load
+        window.onload = function() {
+            // Restore saved values if elements exist
+            Object.keys(userData.notes).forEach(id => {
+                const el = document.getElementById(`notes-${id}`);
+                if (el) el.value = userData.notes[id];
+            });
+            userData.completed.forEach(id => {
+                const el = document.getElementById(`completed-${id}`);
+                if (el) el.checked = true;
+            });
+            updateProgressBar();
+        };
+
+        // Storage Utils
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userData));
+            const dl = document.createElement('a');
+            dl.setAttribute("href", dataStr);
+            dl.setAttribute("download", "bahai_notes.json");
+            dl.click();
+        }
+
+        function clearAllData() {
+            if(confirm("Erase all progress and notes?")) {
+                localStorage.removeItem('bahai_consult_data');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
 
 <!-- FEASTS START HERE -->
 
