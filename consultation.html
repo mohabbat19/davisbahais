@@ -579,100 +579,24 @@
         </div>
 
 <script>
-    // Data Persistence Logic
+    // ===== DATA PERSISTENCE =====
     let userData = JSON.parse(localStorage.getItem('bahai_consult_data')) || {
         notes: {},
         completed: []
     };
 
-    // Navigation and Content Display Logic
-    function selectAndNavigate(id) {
-        // 1. Hide every single content section
-        document.querySelectorAll('.feast-content').forEach(el => {
-            el.classList.remove('active');
-        });
-
-        if (id) {
-            const target = document.getElementById(id);
-            if (target) {
-                // 2. Activate the selected guide (including the 7 study guides)
-                target.classList.add('active');
-
-                // 3. Update UI states
-                document.getElementById('print-btn').disabled = false;
-                document.getElementById('print-message').textContent = 'Ready to print guide';
-                document.getElementById('feast-selector').value = id;
-
-                // 4. Scroll to view
-                setTimeout(() => {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
-            }
-        } else {
-            document.getElementById('print-btn').disabled = true;
-            document.getElementById('print-message').textContent = 'Please select a guide to enable printing';
+    function saveNotes(id) {
+        const noteText = document.getElementById(`notes-${id}`)?.value;
+        if (noteText !== undefined) {
+            userData.notes[id] = noteText;
+            localStorage.setItem('bahai_consult_data', JSON.stringify(userData));
         }
     }
 
-    // IMPROVED SEARCH ENGINE
-    function searchContent() {
-        const query = document.getElementById('search-input').value.toLowerCase().trim();
-        const resultsBox = document.getElementById('search-results');
-        const list = document.getElementById('results-list');
-        const countLabel = document.getElementById('results-count');
-
-        // Reset if query is too short
-        if (query.length < 2) {
-            resultsBox.classList.add('hidden');
-            return;
-        }
-
-        list.innerHTML = '';
-        let count = 0;
-
-        // Scans ALL elements with class 'feast-content' (all 26 sections)
-        document.querySelectorAll('.feast-content').forEach(section => {
-            const textContent = section.innerText.toLowerCase();
-            
-            if (textContent.includes(query)) {
-                count++;
-                
-                // Create result item
-                const item = document.createElement('div');
-                item.className = 'search-result p-3 border-b hover:bg-gray-50 cursor-pointer transition-colors';
-                
-                // Get the title from the h1 or h2 of that section
-                const title = section.querySelector('h1, h2')?.innerText || "Study Guide Section";
-                
-                item.innerHTML = `
-                    <div class="font-bold text-blue-900">${title}</div>
-                    <div class="text-xs text-gray-500 truncate">${section.innerText.substring(0, 120)}...</div>
-                `;
-
-                // Set click action to navigate to that guide
-                item.onclick = () => {
-                    selectAndNavigate(section.id);
-                    resultsBox.classList.add('hidden');
-                    document.getElementById('search-input').value = ''; // clear search after click
-                };
-
-                list.appendChild(item);
-            }
-        });
-
-        // Show/Hide results based on count
-        if (count > 0) {
-            countLabel.innerText = `Found ${count} results across all guides`;
-            resultsBox.classList.remove('hidden');
-        } else {
-            countLabel.innerText = "No results found in any guide.";
-            resultsBox.classList.remove('hidden');
-        }
-    }
-
-    // Progress and UI Management
     function markCompleted(id) {
         const checkbox = document.getElementById(`completed-${id}`);
+        if (!checkbox) return;
+        
         if (checkbox.checked) {
             if (!userData.completed.includes(id)) userData.completed.push(id);
         } else {
@@ -683,7 +607,7 @@
     }
 
     function updateProgressBar() {
-        const total = 26; // 19 Feasts + 7 Study Guides
+        const total = 26; // 19 Feasts + 5 UHJ + 2 Admin = 26 total
         const count = userData.completed.length;
         const percent = Math.round((count / total) * 100);
         
@@ -696,33 +620,206 @@
         if(label) label.innerText = `${count} of ${total} guides completed`;
     }
 
-    // Helper UI Functions
-    function toggleTOC() { document.getElementById('toc-modal').classList.toggle('hidden'); }
-    function showProgress() { updateProgressBar(); document.getElementById('progress-modal').classList.remove('hidden'); }
-    function hideProgress() { document.getElementById('progress-modal').classList.add('hidden'); }
-    function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
-    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    function printSelectedFeast() { window.print(); }
+    // ===== NAVIGATION AND SELECTION =====
+    function selectAndNavigate(id) {
+        console.log('Selecting:', id); // Debug log
+        
+        // Hide all content sections
+        document.querySelectorAll('.feast-content').forEach(el => {
+            el.classList.remove('active');
+        });
 
+        if (id) {
+            const target = document.getElementById(id);
+            if (target) {
+                // Show selected section
+                target.classList.add('active');
+                
+                // Update UI
+                document.getElementById('print-btn').disabled = false;
+                document.getElementById('print-message').textContent = 'Ready to print guide';
+                document.getElementById('feast-selector').value = id;
+
+                // Scroll to view
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+                
+                console.log('Successfully activated:', id); // Debug log
+            } else {
+                console.error('Could not find element with ID:', id); // Debug log
+            }
+        } else {
+            document.getElementById('print-btn').disabled = true;
+            document.getElementById('print-message').textContent = 'Please select a guide to enable printing';
+        }
+    }
+
+    // ===== SEARCH FUNCTIONALITY =====
+    function searchContent() {
+        const query = document.getElementById('search-input').value.toLowerCase().trim();
+        const resultsBox = document.getElementById('search-results');
+        const list = document.getElementById('results-list');
+        const countLabel = document.getElementById('results-count');
+
+        if (query.length < 2) {
+            resultsBox.classList.add('hidden');
+            return;
+        }
+
+        list.innerHTML = '';
+        let count = 0;
+
+        // Search ALL feast-content sections (19 feasts + 7 study guides)
+        document.querySelectorAll('.feast-content').forEach(section => {
+            const textContent = section.innerText.toLowerCase();
+            
+            if (textContent.includes(query)) {
+                count++;
+                
+                const item = document.createElement('div');
+                item.className = 'search-result';
+                
+                const title = section.querySelector('h1, h2')?.innerText || "Study Guide Section";
+                
+                item.innerHTML = `
+                    <div class="font-bold text-blue-900">${title}</div>
+                    <div class="text-xs text-gray-500 truncate">${textContent.substring(0, 120)}...</div>
+                `;
+
+                item.onclick = () => {
+                    selectAndNavigate(section.id);
+                    resultsBox.classList.add('hidden');
+                    document.getElementById('search-input').value = '';
+                };
+
+                list.appendChild(item);
+            }
+        });
+
+        if (count > 0) {
+            countLabel.innerText = `Found ${count} results across all guides`;
+            resultsBox.classList.remove('hidden');
+        } else {
+            countLabel.innerText = "No results found";
+            resultsBox.classList.remove('hidden');
+        }
+    }
+
+    // ===== UI HELPERS =====
     function toggleNotes() {
         const notes = document.getElementById('facilitator-notes');
         const btnText = document.getElementById('notes-btn-text');
         const arrow = document.querySelector('.toggle-arrow');
+        
         notes.classList.toggle('open');
         arrow.classList.toggle('open');
-        btnText.innerText = notes.classList.contains('open') ? '📋 Hide Facilitator Notes' : '📋 View Facilitator Notes';
+        btnText.innerText = notes.classList.contains('open') 
+            ? '📋 Hide Facilitator Notes' 
+            : '📋 View Facilitator Notes';
     }
 
-    // Initialize on page load
+    function toggleTOC() { 
+        document.getElementById('toc-modal').classList.toggle('hidden'); 
+    }
+
+    function showProgress() { 
+        updateProgressBar(); 
+        document.getElementById('progress-modal').classList.remove('hidden'); 
+    }
+
+    function hideProgress() { 
+        document.getElementById('progress-modal').classList.add('hidden'); 
+    }
+
+    function toggleDarkMode() { 
+        document.body.classList.toggle('dark-mode'); 
+    }
+
+    function scrollToTop() { 
+        window.scrollTo({ top: 0, behavior: 'smooth' }); 
+    }
+
+    function printSelectedFeast() { 
+        window.print(); 
+    }
+
+    function shareContent() {
+        const activeSection = document.querySelector('.feast-content.active');
+        if (activeSection) {
+            const title = activeSection.querySelector('h1')?.innerText || 'Feast Guide';
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({ title, url });
+            } else {
+                alert(`Share this link:\n${url}`);
+            }
+        } else {
+            alert('Please select a guide first');
+        }
+    }
+
+    function exportData() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userData));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "bahai_consultation_notes.json");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    }
+
+    function importData(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    userData = imported;
+                    localStorage.setItem('bahai_consult_data', JSON.stringify(userData));
+                    location.reload();
+                } catch (err) {
+                    alert('Error importing data');
+                }
+            };
+            reader.readAsText(file);
+        }
+    }
+
+    function clearAllData() {
+        if (confirm('Are you sure you want to clear all notes and progress? This cannot be undone.')) {
+            localStorage.removeItem('bahai_consult_data');
+            location.reload();
+        }
+    }
+
+    // ===== FLOATING NAV VISIBILITY =====
+    window.onscroll = function() {
+        const nav = document.getElementById('floating-nav');
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            nav.classList.remove('hidden');
+        } else {
+            nav.classList.add('hidden');
+        }
+    };
+
+    // ===== INITIALIZE ON LOAD =====
     window.onload = function() {
+        console.log('Page loaded, checking for', document.querySelectorAll('.feast-content').length, 'guides'); // Debug
+        
+        // Restore notes
         Object.keys(userData.notes).forEach(id => {
             const el = document.getElementById(`notes-${id}`);
             if (el) el.value = userData.notes[id];
         });
+        
+        // Restore completed checkboxes
         userData.completed.forEach(id => {
             const el = document.getElementById(`completed-${id}`);
             if (el) el.checked = true;
         });
+        
         updateProgressBar();
     };
 </script>
