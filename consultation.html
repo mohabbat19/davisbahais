@@ -3585,6 +3585,20 @@
         updateProgressBar();
     }
 
+
+    function toggleFacilitatorNotes() {
+    const content = document.getElementById('facilitator-notes-content');
+    const btnText = document.getElementById('facilitator-btn-text');
+    
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        btnText.innerText = '📋 Hide Facilitator Notes';
+    } else {
+        content.style.display = 'none';
+        btnText.innerText = '📋 View Facilitator Notes';
+    }
+}
+    
     function updateProgressBar() {
         const total = 26; // 19 Feasts + 5 UHJ + 2 Admin = 26 total
         const count = userData.completed.length;
