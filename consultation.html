@@ -3550,10 +3550,7 @@
 
 <script>
     // ===== DATA PERSISTENCE =====
-    let userData = JSON.parse(localStorage.getItem('bahai_consult_data')) || {
-        notes: {},
-        completed: []
-    };
+
 
     function saveNotes(id) {
         const noteText = document.getElementById(`notes-${id}`)?.value;
