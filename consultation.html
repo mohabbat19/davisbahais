@@ -519,8 +519,10 @@
 </div>
 
 <!-- Facilitator Notes Content -->
-<div id="facilitator-notes-content" style="display: none;" class="mb-6">
+<div id="facilitator-notes-content" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; overflow-y: auto; padding: 50px 20px;">
     <div class="facilitator-note">
+        <div style="max-width: 900px; margin: 0 auto; background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); position: relative;">
+        <button onclick="toggleFacilitatorNotes()" style="position: absolute; top: 1.5rem; right: 1.5rem; background: #003262; color: white; padding: 0.5rem 1rem; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; z-index: 10;">✕ Close</button>
         <h3 class="text-2xl font-bold bahai-blue mb-4">Notes to the Feast Facilitator</h3>
         
         <div class="space-y-4 text-gray-700">
@@ -551,7 +553,8 @@
         </div>
     </div>
 </div>
-
+</div>
+        
         <div class="text-center mb-12">
             <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-6">Feast Consultation Guide</h1>
             <p class="text-2xl text-gray-600 font-light">A Resource for Deepening and Community Mobilization</p>
