@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holy Days Observance Guidelines | Davis Bahá'í Community</title>
+    <meta name="description" content="Comprehensive guide for planning and hosting Bahá'í Holy Day celebrations in the Davis community">
+    
+    <link rel="icon" type="image/png" href="nine-pointed-star.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .bahai-blue { color: #003262; }
+        .bahai-gold { color: #FDB515; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #003262 0%, #0055a5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #003262;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #003262;
+            border-radius: 8px;
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+        }
+        
+        .back-button:hover {
+            background: #003262;
+            color: white;
+        }
+        
+        .content-section {
+            background: white;
+            border: 1px solid rgba(0, 50, 98, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .quote-box {
+            background: linear-gradient(135deg, #fafbfc 0%, #f5f7fa 100%);
+            border-left: 4px solid #FDB515;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            position: relative;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 60px;
+            color: rgba(0, 50, 98, 0.1);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .info-box {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border-left: 4px solid #003262;
+        }
+        
+        .tip-box {
+            background: #fff9e6;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border-left: 4px solid #FDB515;
+        }
+        
+        .holy-day-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            transition: all 0.3s;
+        }
+        
+        .holy-day-card:hover {
+            border-color: #003262;
+            box-shadow: 0 4px 12px rgba(0, 50, 98, 0.1);
+        }
+        
+        .holy-day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .holy-day-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #003262;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .holy-day-date {
+            background: #003262;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .work-suspension {
+            display: inline-block;
+            background: #FDB515;
+            color: #003262;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+        
+        .character-tag {
+            display: inline-block;
+            background: #f0f7ff;
+            color: #003262;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: #003262;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+        
+        .venue-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .venue-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #003262;
+            margin-bottom: 0.5rem;
+        }
+        
+        .print-button {
+            background: white;
+            border: 2px solid #003262;
+            color: #003262;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .print-button:hover {
+            background: #003262;
+            color: white;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            background: #dc2626;
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+        
+        .challenge-badge {
+            display: inline-block;
+            background: #f59e0b;
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+        }
+        
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; }
+            .holy-day-card { page-break-inside: avoid; }
+            @page { margin: 1in; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem !important; }
+            h2 { font-size: 1.5rem !important; }
+            .content-section { padding: 1.5rem; }
+            .holy-day-header { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <!-- Back Button -->
+        <a href="guides-index.html" class="back-button no-print">
+            ← Back to Guides
+        </a>
+        
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-4">Holy Days Observance Guidelines</h1>
+            <p class="text-xl text-gray-600">A Guide for Task Forces Planning Holy Day Celebrations</p>
+            <p class="text-sm text-gray-500 mt-2">Local Spiritual Assembly of the Bahá'ís of Davis</p>
+        </div>
+
+        <!-- Print Button -->
+        <div class="no-print text-center mb-8">
+            <button onclick="window.print()" class="print-button">
+                🖨️ Print This Guide
+            </button>
+        </div>
+
+        <!-- Purpose -->
+        <div class="content-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">Purpose of This Document</h2>
+            <p class="text-gray-700">
+                This document provides comprehensive guidance for task forces responsible for planning and hosting Bahá'í Holy Day observances in the Davis community. It establishes shared expectations, ensures spiritual quality, and facilitates effective preparation for these sacred occasions.
+            </p>
+            <p class="text-gray-700 mt-4">
+                The Local Spiritual Assembly entrusts task forces with creating meaningful gatherings that deepen our spiritual understanding, strengthen community bonds, and welcome seekers and friends of the Faith to participate in these sacred celebrations.
+            </p>
+        </div>
+
+        <!-- Message from LSA -->
+        <div class="quote-box">
+            <h3 class="text-xl font-bold bahai-blue mb-3">Message to the Task Forces</h3>
+            <p class="text-gray-800 mb-3">
+                Your service in planning Holy Day observances is essential to our community. These celebrations are opportunities to:
+            </p>
+            <ul class="list-disc ml-6 space-y-1 text-gray-800 mb-4">
+                <li>Deepen our understanding of the Faith through reverent reflection for some Holy Days and joyous celebration for others</li>
+                <li>Strengthen bonds across generations and backgrounds</li>
+                <li>Welcome seekers and share the beauty of the Teachings</li>
+                <li>Demonstrate the spiritual power of Bahá'í community life</li>
+            </ul>
+            <p class="text-gray-800 mb-3">
+                The LSA supports your efforts with resources, guidance, and appreciation. Your thoughtful planning creates experiences that touch hearts and inspire action.
+            </p>
+            <p class="text-gray-800 mb-3">
+                May your preparations be blessed and may each gathering radiate unity, joy, and reverence.
+            </p>
+            <p class="text-gray-800 font-semibold">
+                With gratitude,<br>
+                The Local Spiritual Assembly of the Bahá'ís of Davis
+            </p>
+        </div>
+
+        <!-- General Principles -->
+        <div class="content-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-6">General Principles for Holy Day Observances</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold bahai-blue mb-2">Spiritual Focus</h3>
+                <p class="text-gray-700">
+                    The primary purpose is spiritual celebration and commemoration. Programs should create a reverent atmosphere conducive to prayer, reflection, and connection with the significance of the Holy Day.
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold bahai-blue mb-2">Community Building</h3>
+                <p class="text-gray-700">
+                    Holy Days unite the community across generations. Provide meaningful roles for children, youth, and adults. Create opportunities for all community members to contribute their wisdom and experience.
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold bahai-blue mb-2">Welcoming Environment</h3>
+                <p class="text-gray-700">
+                    These gatherings should warmly welcome both Bahá'ís and friends of the Faith. Create an inclusive atmosphere where newcomers feel comfortable and can understand the significance of the occasion.
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold bahai-blue mb-2">Thorough Preparation</h3>
+                <p class="text-gray-700">
+                    Begin planning at least 6 weeks in advance. Conduct regular consultations, delegate responsibilities clearly, and confirm all arrangements well before the event.
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold bahai-blue mb-2">Effective Communication</h3>
+                <p class="text-gray-700">
+                    Announce Holy Days at least 3 to 6 weeks in advance through multiple channels: email, social media, community gatherings, and personal invitations. Coordinate with Children's classes and Junior Youth groups to present, perform, or contribute to the program. Build anticipation through reminder messages.
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold bahai-blue mb-2">Cultural Sensitivity</h3>
+                <p class="text-gray-700">
+                    Davis's diverse community enriches our celebrations. Welcome artistic expressions and cultural traditions that align with the spirit of the Faith and the Holy Day being commemorated.
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold bahai-blue mb-2">Feedback and Continuous Improvement</h3>
+                <p class="text-gray-700">
+                    Build feedback mechanisms into all event preparations. After each Holy Day, gather input from participants and the task force. Share lessons learned with the LSA and future task forces to continuously improve our celebrations.
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold bahai-blue mb-2">Financial Support</h3>
+                <p class="text-gray-700">
+                    The LSA can make funds available for these important gatherings. Submit budget requests to the LSA at least 2 to 4 weeks in advance. Depending on the occasion, light refreshments may suffice, other times a potluck is more reasonable, and yet other times, such as the Birth of Bahá'u'lláh, a catered meal may be appropriate.
+                </p>
+            </div>
+        </div>
+
+        <!-- Specific Holy Days -->
+        <div class="content-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-6">Specific Holy Day Guidelines</h2>
+            <p class="text-gray-700 mb-6">
+                The following section provides specific considerations for each Holy Day in the Bahá'í calendar, organized chronologically throughout the year.
+            </p>
+
+            <!-- Ayyam-i-Ha -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Ayyam-i-Ha (Intercalary Days)</h3>
+                        <div class="mt-2">
+                            <span class="character-tag">Joyful</span>
+                            <span class="character-tag">Festive</span>
+                            <span class="character-tag">Service-Oriented</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">February 25 - March 1</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Days dedicated to hospitality, charity, gift-giving, and preparation for the Fast
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li><strong>Daily Activities:</strong> Plan something for each day of Ayyam-i-Ha. Activities can include: walking downtown for ice cream, organized walking hour, community run day, gardening, baking, service projects great or small, art projects, cultural dance, and more. Be creative and engage the community in daily celebration.</li>
+                    <li>Emphasize joy, hospitality, and service</li>
+                    <li>Consider organizing service projects benefiting the wider community</li>
+                    <li>Host festive gatherings with food, music, and celebration</li>
+                    <li>Include activities for children and families</li>
+                    <li>Create opportunities for gift exchange or acts of kindness</li>
+                </ul>
+
+                <div class="info-box">
+                    <p class="font-semibold bahai-blue mb-1">Davis Context:</p>
+                    <p class="text-gray-700">UC Davis students are on campus during this period. Consider intergenerational service projects and activities that engage students and families.</p>
+                </div>
+            </div>
+
+            <!-- Naw-Rúz -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Naw-Rúz (Bahá'í New Year)</h3>
+                        <div class="mt-2">
+                            <span class="work-suspension">Work Suspension</span>
+                            <span class="character-tag">Joyful</span>
+                            <span class="character-tag">Festive</span>
+                            <span class="character-tag">Renewal</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">March 20 or 21</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Celebration of the new year, spiritual renewal, and the end of the 19-day Fast
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Emphasize themes of renewal, new beginnings, and spiritual growth</li>
+                    <li>Include Persian cultural elements if appropriate (given the holiday's roots)</li>
+                    <li>Provide festive food and refreshments</li>
+                    <li>Consider music and artistic performances</li>
+                    <li>Create activities celebrating nature and spring</li>
+                </ul>
+
+                <div class="info-box">
+                    <p class="font-semibold bahai-blue mb-1">Davis Context:</p>
+                    <p class="text-gray-700">UC Davis Winter Quarter finals may coincide with Naw-Rúz; consider student schedules when planning. Excellent opportunity for outreach to friends and seekers as it's a festive, accessible celebration.</p>
+                </div>
+            </div>
+
+            <!-- First Day of Ridván -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">First Day of Ridván</h3>
+                        <div class="mt-2">
+                            <span class="work-suspension">Work Suspension</span>
+                            <span class="character-tag">Most Sacred</span>
+                            <span class="character-tag">Joyful</span>
+                            <span class="character-tag">Celebratory</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">April 21</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Declaration of Bahá'u'lláh's mission in the Garden of Ridván; the holiest and most significant Bahá'í Holy Day. Generally the day of elections for the Local Spiritual Assembly.
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Emphasize the station of Bahá'u'lláh and His declaration</li>
+                    <li>Read selections from the Súriy-i-Haykal or Tablets of Ridván</li>
+                    <li>Include prayers and music that create a reverent, celebratory atmosphere</li>
+                    <li>Consider presentations on the historical significance of the Garden of Ridván</li>
+                    <li>Incorporate imagery of gardens, roses, and springtime</li>
+                    <li>Coordinate election process with the Spiritual Assembly</li>
+                </ul>
+
+                <div class="info-box">
+                    <p class="font-semibold bahai-blue mb-1">Davis Context:</p>
+                    <p class="text-gray-700">UC Davis students are on campus; encourage youth involvement. As the most sacred Holy Day, plan extensively and invite the wider community. Celebrate in the afternoon, if possible.</p>
+                </div>
+            </div>
+
+            <!-- Ninth Day of Ridván -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Ninth Day of Ridván</h3>
+                        <div class="mt-2">
+                            <span class="work-suspension">Work Suspension</span>
+                            <span class="character-tag">Joyful</span>
+                            <span class="character-tag">Contemplative</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">April 29</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Arrival of Bahá'u'lláh's family to the Garden of Ridván
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Focus on themes of family unity and reunion</li>
+                    <li>Read from the Tablets of Ridván and related passages</li>
+                    <li>Consider a community picnic or outdoor celebration if weather permits</li>
+                    <li>Good opportunity for inviting friends and seekers, especially if it falls on a weekend</li>
+                </ul>
+
+                <div class="info-box">
+                    <p class="font-semibold bahai-blue mb-1">Davis Context:</p>
+                    <p class="text-gray-700">UC Davis students are on campus. Good time for outdoor activities and broader community engagement.</p>
+                </div>
+            </div>
+
+            <!-- Twelfth Day of Ridván -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Twelfth Day of Ridván</h3>
+                        <div class="mt-2">
+                            <span class="work-suspension">Work Suspension</span>
+                            <span class="character-tag">Joyful</span>
+                            <span class="character-tag">Bittersweet</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">May 2</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Departure of Bahá'u'lláh from the Garden of Ridván, concluding the 12-day festival
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Reflect on the conclusion of the Ridván Festival</li>
+                    <li>Emphasize carrying forward the spirit of Ridván into daily life</li>
+                    <li>Consider a community picnic or outdoor celebration if weather permits</li>
+                    <li>Good opportunity for inviting friends and seekers, especially if it falls on a weekend</li>
+                </ul>
+
+                <div class="info-box">
+                    <p class="font-semibold bahai-blue mb-1">Davis Context:</p>
+                    <p class="text-gray-700">UC Davis students are on campus.</p>
+                </div>
+            </div>
+
+            <!-- Declaration of the Báb -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Declaration of the Báb</h3>
+                        <div class="mt-2">
+                            <span class="work-suspension">Work Suspension</span>
+                            <span class="character-tag">Joyful</span>
+                            <span class="character-tag">Reverent</span>
+                            <span class="character-tag">Celebratory</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">May 23</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Time:</strong> Commemoration begins two hours after sunset on May 22 (or earlier for greater participation)
+                </p>
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Declaration of the Báb's mission to Mullá Ḥusayn in Shiraz, marking the beginning of the Bahá'í Era
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Focus on the station of the Báb as Herald and Gate to Bahá'u'lláh</li>
+                    <li>Read from the Writings of the Báb or accounts of His declaration</li>
+                    <li>Include Persian music or chanting if available</li>
+                    <li>Consider dramatizations or storytelling about the declaration night</li>
+                </ul>
+
+                <div class="info-box">
+                    <p class="font-semibold bahai-blue mb-1">Davis Context:</p>
+                    <p class="text-gray-700">UC Davis students still on campus. Plan early and confirm attendance.</p>
+                </div>
+            </div>
+
+            <!-- Ascension of Bahá'u'lláh -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Ascension of Bahá'u'lláh</h3>
+                        <div class="mt-2">
+                            <span class="work-suspension">Work Suspension</span>
+                            <span class="character-tag">Solemn</span>
+                            <span class="character-tag">Reverent</span>
+                            <span class="character-tag">Contemplative</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">May 29</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Time:</strong> Commemoration at 3:00 AM (or earlier for greater participation). When daylight saving time is in effect, the times for Holy Day commemorations are held one hour later.
+                </p>
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Passing of Bahá'u'lláh, the Manifestation of God for this age
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Gather at 3:00 AM for readings and prayers, or hold at an earlier time for greater participation</li>
+                    <li>Read the Tablet of Visitation of Bahá'u'lláh</li>
+                    <li>Maintain a reverent, contemplative atmosphere and include appropriate music where possible</li>
+                    <li>Consider periods of silence for reflection</li>
+                    <li>May include light refreshments after the commemoration</li>
+                </ul>
+
+                <div class="info-box">
+                    <p class="font-semibold bahai-blue mb-1">Davis Context:</p>
+                    <p class="text-gray-700">UC Davis students still on campus (summer break begins around June 15th). Consider holding at an earlier time if it increases participation. Inform students in advance to accommodate their schedules.</p>
+                </div>
+            </div>
+
+            <!-- Martyrdom of the Báb -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Martyrdom of the Báb</h3>
+                        <div class="mt-2">
+                            <span class="work-suspension">Work Suspension</span>
+                            <span class="character-tag">Solemn</span>
+                            <span class="character-tag">Reverent</span>
+                            <span class="character-tag">Commemorative</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">July 9</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Time:</strong> Commemoration at noon. When daylight saving time is in effect, the times for Holy Day commemorations are held one hour later.
+                </p>
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Martyrdom of the Báb in Tabriz, Iran
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Gather at noon for readings and prayers</li>
+                    <li>Read the Tablet of Visitation of the Báb</li>
+                    <li>Share accounts of the Báb's martyrdom</li>
+                    <li>Reflect on themes of sacrifice, courage, and faithfulness</li>
+                    <li>Maintain a solemn, respectful atmosphere</li>
+                </ul>
+
+                <div class="info-box">
+                    <p class="font-semibold bahai-blue mb-1">Davis Context:</p>
+                    <p class="text-gray-700">Summer period; most UC Davis students engaged in Summer of Service or away. Youth engaged in Summer of Service may participate; coordinate in advance.</p>
+                </div>
+            </div>
+
+            <!-- Birth of the Báb -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Birth of the Báb <span class="priority-badge">HIGH PRIORITY</span></h3>
+                        <div class="mt-2">
+                            <span class="work-suspension">Work Suspension</span>
+                            <span class="character-tag">Joyful</span>
+                            <span class="character-tag">Celebratory</span>
+                            <span class="character-tag">Festive</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">Nov 9/10, 2026</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Birth of the Báb, twin with Bahá'u'lláh's birth occurring one day later in the lunar calendar (first day of twin Holy Days)
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Emphasize joy and celebration</li>
+                    <li>Focus on the station of the Báb and His relationship to Bahá'u'lláh</li>
+                    <li>Include festive music, food, and decorations</li>
+                    <li>Consider artistic performances or presentations</li>
+                    <li>Make it family-friendly with activities for children</li>
+                </ul>
+
+                <div class="tip-box">
+                    <p class="font-semibold bahai-gold mb-2">⭐ HIGH PRIORITY - Davis Context:</p>
+                    <p class="text-gray-700">
+                        UC Davis students are on campus; excellent opportunity for outreach. Begin extensive outreach 4 to 6 weeks in advance. Invite friends, seekers, and contacts from study circles and devotionals. Plan a large, welcoming celebration that showcases the community's warmth.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Birth of Bahá'u'lláh -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Birth of Bahá'u'lláh <span class="priority-badge">HIGH PRIORITY</span></h3>
+                        <div class="mt-2">
+                            <span class="work-suspension">Work Suspension</span>
+                            <span class="character-tag">Most Sacred Birthday</span>
+                            <span class="character-tag">Joyful</span>
+                            <span class="character-tag">Festive</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">Nov 10/11, 2026</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Birth of Bahá'u'lláh, the Manifestation of God for this age (second day of twin Holy Days)
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Emphasize joy and reverence</li>
+                    <li>Focus on the station and mission of Bahá'u'lláh</li>
+                    <li>Include festive music, food, and decorations</li>
+                    <li>Consider presentations on Bahá'u'lláh's life and teachings</li>
+                    <li>Make it welcoming for newcomers and families</li>
+                </ul>
+
+                <div class="tip-box">
+                    <p class="font-semibold bahai-gold mb-2">⭐ HIGH PRIORITY - Davis Context:</p>
+                    <p class="text-gray-700">
+                        UC Davis students are on campus; maximum outreach opportunity. Begin extensive outreach 4 to 6 weeks in advance. Plan the largest celebration of the year that warmly welcomes the wider community.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Day of the Covenant -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Day of the Covenant <span class="challenge-badge">CHALLENGE</span></h3>
+                        <div class="mt-2">
+                            <span class="character-tag">Joyful</span>
+                            <span class="character-tag">Unifying</span>
+                            <span class="character-tag">Covenant-Focused</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">November 26</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Note:</strong> Not one of the nine Holy Days (no work suspension)
+                </p>
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Celebration of the Covenant of Bahá'u'lláh and the appointment of 'Abdu'l-Bahá as the Center of the Covenant
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Focus on unity and the Covenant's role in preserving the Faith</li>
+                    <li>Read from the Will and Testament of Bahá'u'lláh</li>
+                    <li>Emphasize the station of 'Abdu'l-Bahá as the perfect exemplar</li>
+                    <li>Include stories demonstrating unity and the power of the Covenant</li>
+                    <li>Create a joyful, unifying atmosphere</li>
+                </ul>
+
+                <div class="info-box">
+                    <p class="font-semibold bahai-blue mb-1">⚠️ CHALLENGE - Davis Context:</p>
+                    <p class="text-gray-700">Coincides with Thanksgiving break; many UC Davis students away.</p>
+                </div>
+            </div>
+
+            <!-- Ascension of 'Abdu'l-Bahá -->
+            <div class="holy-day-card">
+                <div class="holy-day-header">
+                    <div>
+                        <h3 class="holy-day-title">Ascension of 'Abdu'l-Bahá <span class="challenge-badge">CHALLENGE</span></h3>
+                        <div class="mt-2">
+                            <span class="character-tag">Solemn</span>
+                            <span class="character-tag">Reverent</span>
+                            <span class="character-tag">Commemorative</span>
+                        </div>
+                    </div>
+                    <div class="holy-day-date">November 28</div>
+                </div>
+                
+                <p class="text-gray-700 mb-3">
+                    <strong>Note:</strong> Not one of the nine Holy Days (no work suspension)
+                </p>
+                <p class="text-gray-700 mb-3">
+                    <strong>Time:</strong> Commemoration at 1:00 AM (or earlier for greater participation)
+                </p>
+                <p class="text-gray-700 mb-3">
+                    <strong>Significance:</strong> Passing of 'Abdu'l-Bahá, the Center of the Covenant and perfect exemplar
+                </p>
+
+                <h4 class="font-bold bahai-blue mt-4 mb-2">Program Suggestions</h4>
+                <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
+                    <li>Gather at 1:00 AM for readings and prayers, or hold at an earlier time for greater participation</li>
+                    <li>Read the Tablet of Visitation of 'Abdu'l-Bahá</li>
+                    <li>Share stories of 'Abdu'l-Bahá's life and example</li>
+                    <li>Maintain a reverent, contemplative atmosphere and include appropriate music where possible</li>
+                    <li>Consider periods of silence for reflection</li>
+                </ul>
+
+                <div class="info-box">
+                    <p class="font-semibold bahai-blue mb-1">⚠️ CHALLENGE - Davis Context:</p>
+                    <p class="text-gray-700">Coincides with Thanksgiving break; many UC Davis students away. Consider holding at an earlier time if it increases participation.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Force Planning Template -->
+        <div class="content-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-6">Task Force Planning Template</h2>
+            <p class="text-gray-700 mb-6">
+                This comprehensive checklist guides task forces through all phases of Holy Day preparation. Adapt as needed for the specific Holy Day and circumstances.
+            </p>
+
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Phase 1: Initial Planning (6-8 Weeks Before)</h3>
+            <ul class="checklist text-gray-700 mb-6">
+                <li>Receive assignment from LSA and review this guidelines document</li>
+                <li>Schedule first task force meeting within one week</li>
+                <li>Consult on the vision and goals for the celebration</li>
+                <li>Review Davis-specific considerations for this Holy Day</li>
+                <li>Identify who should be invited (Bahá'ís, friends, specific groups)</li>
+                <li>Plan appropriate refreshments (light refreshments, potluck, or catered meal)</li>
+                <li>Prepare budget estimate and submit request to LSA at least 2 to 4 weeks before event</li>
+            </ul>
+
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Phase 2: Program Development (5-6 Weeks Before)</h3>
+            <ul class="checklist text-gray-700 mb-6">
+                <li>Design the program structure (devotional, educational, social components)</li>
+                <li>Select readings, prayers, and music appropriate to the Holy Day</li>
+                <li>Identify and invite speakers or presenters</li>
+                <li>Coordinate with Children's classes and Junior Youth groups for presentations or contributions</li>
+                <li>Plan activities for children if families will attend</li>
+                <li>Determine roles for community members (youth, families, elders)</li>
+                <li>Establish feedback mechanism for gathering input during and after the event</li>
+                <li>Create a detailed timeline for the event</li>
+            </ul>
+
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Phase 3: Logistics (4-5 Weeks Before)</h3>
+            <ul class="checklist text-gray-700 mb-6">
+                <li>Reserve venue (see Davis Community Venue Guide below)</li>
+                <li>Confirm venue has needed equipment (sound system, seating, tables)</li>
+                <li>Plan refreshments and coordinate food contributions or catering</li>
+                <li>Finalize budget and confirm LSA approval</li>
+                <li>Assign specific responsibilities to task force members</li>
+                <li>Create an invitation list with contact information</li>
+                <li>Arrange for setup and cleanup volunteers</li>
+            </ul>
+
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Phase 4: Communication (3-6 Weeks Before)</h3>
+            <ul class="checklist text-gray-700 mb-6">
+                <li>Send initial invitation via email to community (3 to 6 weeks in advance)</li>
+                <li>Post announcement on community social media platforms</li>
+                <li>Make personal invitations to friends and seekers</li>
+                <li>Announce at devotional gatherings and study circles</li>
+                <li>Coordinate with Children's classes and Junior Youth groups for their involvement</li>
+                <li>For Twin Holy Days: intensify outreach to UC Davis contacts and wider community</li>
+                <li>Create event flyers or digital graphics if appropriate</li>
+            </ul>
+
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Phase 5: Final Preparations (1-2 Weeks Before)</h3>
+            <ul class="checklist text-gray-700 mb-6">
+                <li>Send reminder messages to invited guests</li>
+                <li>Confirm all participants (readers, musicians, speakers, children's presenters)</li>
+                <li>Finalize program order and print copies if needed</li>
+                <li>Purchase or arrange for food and supplies</li>
+                <li>Prepare materials for children's activities</li>
+                <li>Create name tags or welcome materials for newcomers</li>
+                <li>Hold final task force meeting to review all details</li>
+            </ul>
+
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Phase 6: Event Day</h3>
+            <ul class="checklist text-gray-700 mb-6">
+                <li>Arrive early to set up venue (at least 30 minutes before, events with decorations and activity stations will require at least an hour)</li>
+                <li>Test sound equipment and arrange seating</li>
+                <li>Set up refreshment area and children's activity space</li>
+                <li>Brief all participants on their roles and timing</li>
+                <li>Assign greeters to welcome guests warmly</li>
+                <li>Ensure someone is designated to welcome and orient newcomers</li>
+                <li>Facilitate the program according to plan</li>
+                <li>Coordinate cleanup and venue restoration</li>
+            </ul>
+
+            <h3 class="text-2xl font-bold bahai-blue mb-4">Phase 7: Follow-Up (Within 1 Week After)</h3>
+            <ul class="checklist text-gray-700 mb-6">
+                <li>Send thank you messages to participants and volunteers</li>
+                <li>Follow up with newcomers who attended</li>
+                <li>Gather feedback from attendees (informal/anonymous survey)</li>
+                <li>Hold task force debrief to discuss what went well and areas for improvement</li>
+                <li>Submit budget report and receipts to LSA for reimbursement</li>
+                <li>Document lessons learned for future task forces</li>
+            </ul>
+        </div>
+
+        <!-- Davis Community Venue Guide -->
+        <div class="content-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-6">Davis Community Venue Guide</h2>
+            <p class="text-gray-700 mb-4">
+                The following venues are commonly used for Holy Day celebrations in Davis. Reserve well in advance, especially for major celebrations.
+            </p>
+
+            <div class="venue-card">
+                <div class="venue-name">Fireside Room</div>
+                <p class="text-gray-700 mb-2"><strong>Capacity:</strong> 30-40 people (intimate setting)</p>
+                <ul class="list-disc ml-6 space-y-1 text-gray-700 mb-2">
+                    <li>Best suited for smaller, contemplative gatherings such as solemn commemorations</li>
+                    <li>Available amenities: Basic seating, intimate atmosphere</li>
+                </ul>
+                <p class="text-sm text-gray-600"><strong>Reservation:</strong> Contact LSA Secretary</p>
+            </div>
+
+            <div class="venue-card">
+                <div class="venue-name">Fellowship Hall</div>
+                <p class="text-gray-700 mb-2"><strong>Capacity:</strong> 100+ people (large gatherings)</p>
+                <ul class="list-disc ml-6 space-y-1 text-gray-700 mb-2">
+                    <li>Best suited for major celebrations like Twin Holy Days, First Day of Ridván, and large outreach events</li>
+                    <li>Available amenities: Large space, commercial kitchen, sound system, ample parking</li>
+                </ul>
+                <p class="text-sm text-gray-600"><strong>Reservation:</strong> Contact LSA Secretary at least 6-8 weeks in advance</p>
+            </div>
+
+            <div class="venue-card">
+                <div class="venue-name">Stonegate Hall Country Club</div>
+                <p class="text-gray-700 mb-2"><strong>Capacity:</strong> 60-80 people (medium gatherings)</p>
+                <ul class="list-disc ml-6 space-y-1 text-gray-700 mb-2">
+                    <li>Best suited for mid-sized celebrations, potlucks, and family-oriented events</li>
+                    <li>Available amenities: Kitchen facilities, tables, chairs, sound system</li>
+                </ul>
+                <p class="text-sm text-gray-600"><strong>Reservation:</strong> Contact LSA Secretary</p>
+            </div>
+        </div>
+
+        <!-- Budget Submission Process -->
+        <div class="content-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-6">Budget Submission Process</h2>
+            <p class="text-gray-700 mb-4">To request funds for Holy Day celebrations:</p>
+            
+            <ol class="list-decimal ml-6 space-y-3 text-gray-700">
+                <li>Submit budget request to LSA Secretary 2-4 weeks before the event</li>
+                <li>Include itemized list: venue costs, food/refreshments, materials, decorations</li>
+                <li>Note whether refreshments will be light, potluck, or catered</li>
+                <li>Wait for LSA approval before making purchases</li>
+                <li>Keep all receipts for submission after the event</li>
+            </ol>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 text-sm text-gray-500">
+            <p>Local Spiritual Assembly of the Bahá'ís of Davis</p>
+            <p class="mt-1">For questions or support with Holy Day planning, please contact the Assembly</p>
+        </div>
+    </div>
+</body>
+</html>
