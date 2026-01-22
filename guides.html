@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hosting Feasts Guide | Davis Bahá'í Community</title>
-    <meta name="description" content="A practical guide to hosting warm and welcoming Nineteen Day Feasts">
+    <title>Community Guides | Davis Bahá'í Community</title>
+    <meta name="description" content="Resources and guides for the Davis Bahá'í community including Holy Days celebrations and Feast hosting">
     
     <link rel="icon" type="image/png" href="nine-pointed-star.png">
     
@@ -20,14 +20,16 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #1a1a1a;
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
         }
         
-        h1, h2, h3, h4 {
+        h1, h2 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
             letter-spacing: -0.02em;
@@ -43,472 +45,126 @@
             background-clip: text;
         }
         
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #003262;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border: 2px solid #003262;
-            border-radius: 8px;
-            transition: all 0.3s;
-            margin-bottom: 2rem;
+        .container {
+            max-width: 900px;
+            width: 100%;
         }
         
-        .back-button:hover {
-            background: #003262;
-            color: white;
-        }
-        
-        .content-section {
+        .card {
             background: white;
-            border: 1px solid rgba(0, 50, 98, 0.08);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            text-align: center;
         }
         
-        .quote-box {
-            background: linear-gradient(135deg, #fafbfc 0%, #f5f7fa 100%);
-            border-left: 4px solid #FDB515;
-            padding: 2rem;
-            margin: 1.5rem 0;
-            border-radius: 12px;
-            position: relative;
-        }
-        
-        .quote-box::before {
-            content: '"';
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            font-size: 60px;
-            color: rgba(0, 50, 98, 0.1);
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .info-box {
-            background: #f0f7ff;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 12px;
-            border-left: 4px solid #003262;
-        }
-        
-        .tip-box {
-            background: #fff9e6;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 12px;
-            border-left: 4px solid #FDB515;
-        }
-        
-        .checklist {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .checklist li {
-            padding: 0.5rem 0;
-            padding-left: 2rem;
-            position: relative;
-        }
-        
-        .checklist li::before {
-            content: "☐";
-            position: absolute;
-            left: 0;
-            color: #003262;
-            font-weight: bold;
-            font-size: 1.25rem;
-        }
-        
-        .two-column {
+        .guide-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin: 1.5rem 0;
+            margin-top: 3rem;
         }
         
-        .column-box {
-            background: #f9fafb;
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 2px solid #e5e7eb;
-        }
-        
-        .print-button {
-            background: white;
+        .guide-card {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 100%);
             border: 2px solid #003262;
-            color: #003262;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
+            border-radius: 16px;
+            padding: 2.5rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
         }
         
-        .print-button:hover {
-            background: #003262;
-            color: white;
+        .guide-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 50, 98, 0.25);
+            border-color: #FDB515;
+            background: linear-gradient(135deg, #e6f2ff 0%, #dbeafe 100%);
         }
         
-        .faq-item {
-            margin: 1.5rem 0;
-            padding: 1.5rem;
-            background: #f9fafb;
-            border-radius: 8px;
+        .guide-icon {
+            font-size: 4rem;
+            line-height: 1;
         }
         
-        .faq-question {
+        .guide-title {
+            font-size: 1.75rem;
             font-weight: 700;
             color: #003262;
-            font-size: 1.1rem;
-            margin-bottom: 0.75rem;
+            font-family: 'Playfair Display', serif;
+            margin: 0;
         }
         
-        @media print {
-            .no-print { display: none !important; }
-            body { background: white; }
-            @page { margin: 1in; }
+        .guide-description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            line-height: 1.6;
         }
         
         @media (max-width: 768px) {
-            h1 { font-size: 2rem !important; }
-            h2 { font-size: 1.5rem !important; }
-            .content-section { padding: 1.5rem; }
-            .two-column { grid-template-columns: 1fr; }
+            body {
+                padding: 1rem;
+            }
+            
+            .card {
+                padding: 2rem;
+            }
+            
+            .guide-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem !important;
+            }
+            
+            .guide-title {
+                font-size: 1.5rem;
+            }
+            
+            .guide-icon {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="max-w-4xl mx-auto px-4 py-12">
-        <!-- Back Button -->
-        <a href="guides-index.html" class="back-button no-print">
-            ← Back to Guides
-        </a>
-        
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-4">Nineteen Day Feast Host Guide</h1>
-            <p class="text-xl text-gray-600">A Practical Guide for Davis Bahá'í Community</p>
-            <p class="text-sm text-gray-500 mt-2">Document Prepared: December 2025 • Valid Through: Ridván 2030</p>
-        </div>
-
-        <!-- Print Button -->
-        <div class="no-print text-center mb-8">
-            <button onclick="window.print()" class="print-button">
-                🖨️ Print This Guide
-            </button>
-        </div>
-
-        <!-- Message from LSA -->
-        <div class="quote-box">
-            <h3 class="text-xl font-bold bahai-blue mb-3">A Message from the Local Spiritual Assembly</h3>
-            <p class="text-gray-800 mb-3">Dear Friends,</p>
-            <p class="text-gray-800 mb-3">
-                On behalf of the Local Spiritual Assembly of Davis, we extend our deepest gratitude for your willingness to host the Nineteen Day Feast. Your service creates a spiritual haven where our community gathers to worship, consult, and strengthen the bonds of fellowship.
-            </p>
-            <p class="text-gray-800 mb-3">
-                The Feast is the very foundation of our community life. Through your loving service, you help create the uplifting atmosphere that allows hearts to connect with the Word of God and with one another.
-            </p>
-            <p class="text-gray-800 mb-3">
-                This guide is designed to support you in this sacred service. Please know that we are here to assist you in any way needed.
-            </p>
-            <p class="text-gray-800 font-semibold">
-                With loving appreciation,<br>
-                The Local Spiritual Assembly of the Bahá'ís of Davis
-            </p>
-        </div>
-
-        <!-- Your Role as Feast Host -->
-        <div class="content-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">Your Role as Feast Host</h2>
-            <p class="text-gray-700 mb-6">
-                As the Feast host, your primary responsibility is to prepare the devotional portion and provide hospitality during the social portion of Feast. The Local Spiritual Assembly handles all administrative matters during the administrative portion.
-            </p>
-
-            <div class="two-column">
-                <div class="column-box" style="border-color: #10b981; background: #f0fdf4;">
-                    <h4 class="font-bold text-green-800 mb-3 text-lg">✓ What You ARE Responsible For:</h4>
-                    <ul class="space-y-2 text-gray-700">
-                        <li><strong>Devotional Portion:</strong> Select and arrange prayers, readings, and music</li>
-                        <li><strong>Music and Arts:</strong> Coordinate musical or artistic elements (encouraged)</li>
-                        <li><strong>Children's Activities:</strong> Prepare engaging activities for children (optional but appreciated)</li>
-                        <li><strong>Refreshments:</strong> Provide refreshments for the social portion</li>
-                        <li><strong>Space Setup:</strong> Arrange the meeting space in a welcoming manner</li>
-                        <li><strong>Space Cleanup:</strong> Restore the space after Feast concludes</li>
-                    </ul>
-                </div>
-
-                <div class="column-box" style="border-color: #003262;">
-                    <h4 class="font-bold bahai-blue mb-3 text-lg">Assembly Handles:</h4>
-                    <ul class="space-y-2 text-gray-700">
-                        <li>All aspects of the Administrative Portion</li>
-                        <li>Assembly announcements and communications</li>
-                        <li>Financial report</li>
-                        <li>Reading the National Feast Letter</li>
-                        <li>Facilitating consultation</li>
-                        <li>Community coordination and follow-up</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="info-box mt-4">
-                <p class="font-semibold bahai-blue mb-2">Important:</p>
-                <p class="text-gray-700">
-                    You do not need to prepare anything for the administrative portion. Your focus is on creating a beautiful devotional experience and warm hospitality.
-                </p>
-            </div>
-        </div>
-
-        <!-- Quick Start Checklist -->
-        <div class="content-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-6">Quick Start Host Checklist</h2>
-            
-            <h3 class="text-2xl font-bold bahai-blue mb-4">One Week Before Feast:</h3>
-            <ul class="checklist text-gray-700 mb-6">
-                <li>Confirm date, time, and location with Local Spiritual Assembly</li>
-                <li>Note: The National Spiritual Assembly sends the Feast Letter directly to all Bahá'ís</li>
-                <li>Review the consultation theme (optional - LSA handles this)</li>
-                <li>Select prayers and readings for devotional portion</li>
-                <li>Arrange for music/arts if desired (coordinate with musicians ahead)</li>
-                <li>Plan children's activities if you choose to include them</li>
-                <li>Plan refreshments (can be as simple as water - spirit matters most!)</li>
-                <li>Recruit helpers if needed for setup, children, or cleanup</li>
-            </ul>
-
-            <h3 class="text-2xl font-bold bahai-blue mb-4">Day of Feast:</h3>
-            <ul class="checklist text-gray-700 mb-6">
-                <li>Arrive 30-45 minutes early for setup</li>
-                <li>Arrange seating in circle or semi-circle</li>
-                <li>Create devotional focal point (candle, flowers, prayer books)</li>
-                <li>Prepare refreshments and serving area</li>
-                <li>Set up children's area if applicable</li>
-                <li>Confirm music/readings are coordinated to minimize interruptions</li>
-                <li>Welcome participants warmly as they arrive</li>
-            </ul>
-
-            <h3 class="text-2xl font-bold bahai-blue mb-4">After Feast:</h3>
-            <ul class="checklist text-gray-700">
-                <li>Thank participants and volunteers</li>
-                <li>Clean up space completely</li>
-                <li>Wash dishes and store leftovers</li>
-                <li>Return space to original condition</li>
-                <li>Return any borrowed items</li>
-            </ul>
-        </div>
-
-        <!-- The Devotional Portion -->
-        <div class="content-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">The Devotional Portion: Creating Sacred Space</h2>
-            
-            <h3 class="text-xl font-bold bahai-blue mb-3">The Spiritual Purpose</h3>
-            <p class="text-gray-700 mb-4">
-                The devotional portion is the spiritual heart of the Feast. It is a time when the community gathers to immerse itself in the Word of God, allowing divine verses to wash over hearts and souls. This sacred time creates an uplifting atmosphere that:
+    <div class="container">
+        <div class="card">
+            <h1 class="text-5xl font-bold gradient-text mb-4">Community Guides</h1>
+            <p class="subtitle">
+                Resources to help you serve and celebrate together as a community
             </p>
             
-            <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-6">
-                <li>Connects individual hearts to the Word of God</li>
-                <li>Unifies the community in worship and praise</li>
-                <li>Prepares hearts for meaningful consultation</li>
-                <li>Renews spiritual commitment and vision</li>
-                <li>Creates a haven of peace and tranquility</li>
-                <li>Reminds us of our spiritual identity and purpose</li>
-            </ul>
-
-            <div class="tip-box">
-                <p class="font-semibold bahai-gold mb-2">💡 Creating the Atmosphere:</p>
-                <p class="text-gray-700">
-                    The devotional atmosphere should be reverent yet warm, uplifting yet intimate. Your role is to create conditions where hearts can open to the transformative power of sacred scripture. Every element—from the physical space to the selection of readings to the quality of music—contributes to this spiritual experience.
-                </p>
+            <div class="guide-grid">
+                <a href="holy-days.html" class="guide-card">
+                    <div class="guide-icon">🌟</div>
+                    <h2 class="guide-title">Holy Days Celebrations</h2>
+                    <p class="guide-description">
+                        Comprehensive guidance for task forces planning and hosting meaningful Holy Day observances
+                    </p>
+                </a>
+                
+                <a href="hosting-feasts.html" class="guide-card">
+                    <div class="guide-icon">🏠</div>
+                    <h2 class="guide-title">Hosting Feasts</h2>
+                    <p class="guide-description">
+                        A practical guide to creating warm and welcoming Nineteen Day Feasts
+                    </p>
+                </a>
             </div>
-        </div>
-
-        <!-- Engaging Children -->
-        <div class="content-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">Engaging Children in the Feast</h2>
-            <p class="text-gray-700 mb-4">
-                Children's participation enriches the Feast. Including activities for them is optional but greatly appreciated by families.
-            </p>
-
-            <h3 class="text-xl font-bold bahai-blue mb-3">Simple Ideas for Children</h3>
-            <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
-                <li><strong>Devotional participation:</strong> Children love to participate in the devotionals. Arrange in advance with their parents.</li>
-                <li><strong>Coloring station:</strong> Bahá'í-themed coloring pages related to the month</li>
-                <li><strong>Quiet activities:</strong> Puzzles, books, or drawing materials during administrative portion</li>
-                <li><strong>Craft project:</strong> Simple craft related to Bahá'í teachings or month's theme</li>
-                <li><strong>Music participation:</strong> Teach children a simple Bahá'í song to sing</li>
-                <li><strong>Service project:</strong> Simple activity like making cards for community members who are absent</li>
-                <li><strong>Story time:</strong> Brief story about Central Figures</li>
-                <li><strong>Outdoor play:</strong> If weather permits, designated play area outside</li>
-            </ul>
-
-            <div class="info-box">
-                <p class="font-semibold bahai-blue mb-2">Note:</p>
-                <p class="text-gray-700">
-                    Children's activities are optional. If you choose to provide them, keep them simple. Recruit youth or other adults to help supervise if needed. The goal is to help children feel included and valued as members of the community.
-                </p>
-            </div>
-        </div>
-
-        <!-- The Social Portion -->
-        <div class="content-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">The Social Portion: Refreshments and Fellowship</h2>
-            
-            <h3 class="text-xl font-bold bahai-blue mb-3">The Spiritual Purpose of Hospitality</h3>
-            <p class="text-gray-700 mb-4">
-                The social portion allows bonds of friendship to deepen. Refreshments are an expression of hospitality and love, not a requirement for elaborate food.
-            </p>
-
-            <div class="tip-box">
-                <p class="font-semibold bahai-gold mb-2 text-lg">💛 Most Important Principle:</p>
-                <p class="text-gray-700">
-                    <strong>Refreshments can be as simple as water.</strong> What truly matters is the spirit of fellowship and the warmth of hospitality. The quality of human connection is infinitely more important than the quality or quantity of food.
-                </p>
-            </div>
-
-            <h3 class="text-xl font-bold bahai-blue mb-3 mt-6">Refreshment Guidelines</h3>
-            <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-4">
-                <li><strong>Water is sufficient:</strong> Clean water served with love is a perfect offering</li>
-                <li><strong>Simple is beautiful:</strong> Light refreshments are completely appropriate</li>
-                <li><strong>Cultural sharing:</strong> Foods from diverse traditions represented in community</li>
-                <li><strong>Potluck option:</strong> Community members can bring items to share the responsibility</li>
-                <li><strong>Timing:</strong> Have refreshments ready as administrative portion ends</li>
-            </ul>
-
-            <div class="info-box">
-                <p class="font-semibold bahai-blue mb-2">Financial Consideration:</p>
-                <p class="text-gray-700">
-                    Please do not feel pressure to spend money on refreshments. If finances are a concern, water alone is perfectly acceptable and honorable. The community values your service, not expensive food. Consider asking if others would like to contribute items (potluck style) if that would help. Also, the LSA can provide funds for refreshments if needed.
-                </p>
-            </div>
-
-            <h3 class="text-xl font-bold bahai-blue mb-3 mt-6">Creating Fellowship</h3>
-            <p class="text-gray-700 mb-2">During the social time portion (all optional):</p>
-            <ul class="list-disc ml-6 space-y-2 text-gray-700">
-                <li>Circulate to welcome everyone</li>
-                <li>Introduce people who may not know each other</li>
-                <li>Make special effort to include newcomers</li>
-                <li>Keep conversations positive and inclusive</li>
-                <li>Encourage organic connection without forcing activities</li>
-                <li>Organize an activity that helps create a feeling of fellowship</li>
-            </ul>
-        </div>
-
-        <!-- Clean Up and Closing -->
-        <div class="content-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">Clean Up and Closing</h2>
-            
-            <h3 class="text-xl font-bold bahai-blue mb-3">Clean Up Checklist</h3>
-            <ul class="checklist text-gray-700 mb-6">
-                <li>Clear all dishes, cups, utensils</li>
-                <li>Pack up leftover food</li>
-                <li>Wash dishes or arrange for helpers to assist</li>
-                <li>Wipe down all surfaces</li>
-                <li>Take out trash and recycling</li>
-                <li>Return furniture to original arrangement</li>
-                <li>Collect borrowed items</li>
-                <li>Ensure space is completely clean and ready for next use</li>
-            </ul>
-
-            <div class="tip-box">
-                <p class="font-semibold bahai-gold mb-2">💡 Asking for Help</p>
-                <p class="text-gray-700 mb-3">
-                    You don't need to do everything alone! Community members are usually happy to help. It's completely appropriate to:
-                </p>
-                <ul class="list-disc ml-6 space-y-1 text-gray-700">
-                    <li>Ask someone to help with dishes during social portion</li>
-                    <li>Recruit youth to help with setup or children's activities</li>
-                    <li>Organize a cleanup team before Feast ends</li>
-                    <li>Request potluck contributions to share responsibility</li>
-                    <li>Have others bring specific items (ice, cups, napkins)</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Frequently Asked Questions -->
-        <div class="content-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-6">Frequently Asked Questions</h2>
-
-            <div class="faq-item">
-                <div class="faq-question">What if I'm hosting for the first time and feel nervous?</div>
-                <p class="text-gray-700">
-                    This is completely normal! Start simple and remember the community appreciates your service. Focus on creating a warm atmosphere—perfection is not expected. Ask the Assembly for support, and don't hesitate to recruit helpers. Your sincere effort is what matters most.
-                </p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">How much should I spend on refreshments?</div>
-                <p class="text-gray-700">
-                    You should spend whatever feels comfortable for you, which may be nothing at all. Water served with love is sufficient and honorable. Remember: the spirit of hospitality matters infinitely more than elaborate food. Never go into debt or financial strain to host Feast.
-                </p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Can Friends of the Faith attend the Feast?</div>
-                <p class="text-gray-700">
-                    The administrative portion of regular Feasts is for Bahá'ís only, as it includes community business and consultation. However, the Davis Bahá'í Community holds Unity Feasts periodically, which do not include the administrative portion and are open to friends of the Faith. For dates of Unity Feasts, please contact the Local Spiritual Assembly.
-                </p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">What if very few people attend?</div>
-                <p class="text-gray-700">
-                    A small Feast is still spiritually meaningful! Don't take low attendance personally—many factors affect turnout. The spiritual significance of Feast doesn't depend on numbers. Adjust as needed and appreciate the intimate gathering.
-                </p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Should I coordinate with the Assembly about the theme?</div>
-                <p class="text-gray-700">
-                    The Assembly handles all aspects of the administrative portion, including the consultation theme. You don't need to coordinate with them about this unless you're curious and want to align your prayer selection with the theme.
-                </p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">What if I need to cancel at the last minute?</div>
-                <p class="text-gray-700">
-                    Contact the Local Spiritual Assembly immediately. They will help find an alternative host or location. Life emergencies happen—the community will understand.
-                </p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Can I host Feast at a park or outdoor location?</div>
-                <p class="text-gray-700">
-                    Yes, if weather permits! Outdoor Feasts can be beautiful. Ensure there's adequate seating, shade if needed, and a backup plan for bad weather. Coordinate with the Assembly about logistics.
-                </p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">How do I handle children who are being disruptive during the devotional?</div>
-                <p class="text-gray-700">
-                    Parents are responsible for their own children. Most will handle disruptions naturally. If needed, having a separate children's area with activities allows parents to step away briefly. The community should be understanding of children's natural energy—they are cherished members of our community.
-                </p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">What if someone wants to share something that's not from Bahá'í Writings during devotional?</div>
-                <p class="text-gray-700">
-                    Gently explain that the devotional portion is specifically for Bahá'í sacred scripture. Suggest they might share their thoughts during the social portion or submit them for consideration at another time.
-                </p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question">Do I need to read the National Feast Letter?</div>
-                <p class="text-gray-700">
-                    No. The National Spiritual Assembly sends the Feast Letter to all Bahá'ís, and it will be handled by the Local Spiritual Assembly during the Administrative portion. This is not part of your hosting responsibilities.
-                </p>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="text-center mt-12 text-sm text-gray-500">
-            <p>Davis Local Spiritual Assembly</p>
-            <p class="mt-1">For questions or support, please contact the Assembly</p>
         </div>
     </div>
 </body>
