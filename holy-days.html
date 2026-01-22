@@ -353,39 +353,32 @@
 
         <!-- Holy Day Selector -->
         <div class="selector-box no-print">
-            <h2 class="text-2xl font-bold bahai-blue mb-4">Select a Holy Day or Resource</h2>
+            <h2 class="text-2xl font-bold bahai-blue mb-4">Select a Holy Day</h2>
             <select 
                 id="holy-day-selector" 
                 class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg bg-white"
                 onchange="showSelectedContent()"
             >
-                <option value="">-- Choose a Holy Day or Resource --</option>
-                <optgroup label="General Information">
-                    <option value="principles">General Principles for Holy Day Observances</option>
-                </optgroup>
-                <optgroup label="Holy Days (Chronological Order)">
-                    <option value="ayyam-i-ha">Ayyam-i-Ha (February 25 - March 1)</option>
-                    <option value="naw-ruz">Naw-Rúz (March 20 or 21)</option>
-                    <option value="ridvan-1">First Day of Ridván (April 21)</option>
-                    <option value="ridvan-9">Ninth Day of Ridván (April 29)</option>
-                    <option value="ridvan-12">Twelfth Day of Ridván (May 2)</option>
-                    <option value="declaration-bab">Declaration of the Báb (May 23)</option>
-                    <option value="ascension-bahaullah">Ascension of Bahá'u'lláh (May 29)</option>
-                    <option value="martyrdom-bab">Martyrdom of the Báb (July 9)</option>
-                    <option value="birth-bab">Birth of the Báb (Nov 9/10, 2026) - HIGH PRIORITY</option>
-                    <option value="birth-bahaullah">Birth of Bahá'u'lláh (Nov 10/11, 2026) - HIGH PRIORITY</option>
-                    <option value="day-covenant">Day of the Covenant (November 26)</option>
-                    <option value="ascension-abdulbaha">Ascension of 'Abdu'l-Bahá (November 28)</option>
-                </optgroup>
-                <optgroup label="Planning Resources">
-                    <option value="planning-template">Task Force Planning Template</option>
-                    <option value="venue-guide">Davis Community Venue Guide</option>
-                    <option value="budget">Budget Submission Process</option>
-                </optgroup>
+                <option value="">-- Choose a Holy Day --</option>
+                <option value="ayyam-i-ha">Ayyam-i-Ha (February 25 - March 1)</option>
+                <option value="naw-ruz">Naw-Rúz (March 20 or 21)</option>
+                <option value="ridvan-1">First Day of Ridván (April 21)</option>
+                <option value="ridvan-9">Ninth Day of Ridván (April 29)</option>
+                <option value="ridvan-12">Twelfth Day of Ridván (May 2)</option>
+                <option value="declaration-bab">Declaration of the Báb (May 23)</option>
+                <option value="ascension-bahaullah">Ascension of Bahá'u'lláh (May 29)</option>
+                <option value="martyrdom-bab">Martyrdom of the Báb (July 9)</option>
+                <option value="birth-bab">Birth of the Báb (Nov 9/10, 2026) - HIGH PRIORITY</option>
+                <option value="birth-bahaullah">Birth of Bahá'u'lláh (Nov 10/11, 2026) - HIGH PRIORITY</option>
+                <option value="day-covenant">Day of the Covenant (November 26)</option>
+                <option value="ascension-abdulbaha">Ascension of 'Abdu'l-Bahá (November 28)</option>
             </select>
+            <p class="text-sm text-gray-600 mt-3">
+                💡 <em>When you select a Holy Day, all planning resources and general principles will also be displayed below.</em>
+            </p>
         </div>
 
-        <!-- General Principles -->
+        <!-- General Principles (always shows with Holy Days) -->
         <div id="principles" class="content-section hidden-section">
             <h2 class="text-3xl font-bold bahai-blue mb-6">General Principles for Holy Day Observances</h2>
             
@@ -870,7 +863,7 @@
             </div>
         </div>
 
-        <!-- Task Force Planning Template -->
+        <!-- Task Force Planning Template (always shows with Holy Days) -->
         <div id="planning-template" class="content-section hidden-section">
             <h2 class="text-3xl font-bold bahai-blue mb-6">Task Force Planning Template</h2>
             <p class="text-gray-700 mb-6">
@@ -956,7 +949,7 @@
             </ul>
         </div>
 
-        <!-- Davis Community Venue Guide -->
+        <!-- Davis Community Venue Guide (always shows with Holy Days) -->
         <div id="venue-guide" class="content-section hidden-section">
             <h2 class="text-3xl font-bold bahai-blue mb-6">Davis Community Venue Guide</h2>
             <p class="text-gray-700 mb-4">
@@ -994,7 +987,7 @@
             </div>
         </div>
 
-        <!-- Budget Submission Process -->
+        <!-- Budget Submission Process (always shows with Holy Days) -->
         <div id="budget" class="content-section hidden-section">
             <h2 class="text-3xl font-bold bahai-blue mb-6">Budget Submission Process</h2>
             <p class="text-gray-700 mb-4">To request funds for Holy Day celebrations:</p>
@@ -1026,18 +1019,31 @@
                 section.classList.add('hidden-section');
             });
             
-            // Show selected section if one is chosen
+            // If a Holy Day is selected, show it along with all planning resources
             if (selectedValue) {
+                // Show the selected Holy Day
                 const selectedSection = document.getElementById(selectedValue);
                 if (selectedSection) {
                     selectedSection.classList.remove('hidden-section');
                     selectedSection.classList.add('visible-section');
-                    
-                    // Scroll to the section
-                    setTimeout(() => {
-                        selectedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 100);
                 }
+                
+                // Always show general principles and planning resources
+                const resourcesToShow = ['principles', 'planning-template', 'venue-guide', 'budget'];
+                resourcesToShow.forEach(resourceId => {
+                    const resource = document.getElementById(resourceId);
+                    if (resource) {
+                        resource.classList.remove('hidden-section');
+                        resource.classList.add('visible-section');
+                    }
+                });
+                
+                // Scroll to the selected Holy Day
+                setTimeout(() => {
+                    if (selectedSection) {
+                        selectedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100);
             }
         }
     </script>
