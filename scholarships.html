@@ -73,12 +73,6 @@
             padding: 2rem;
             margin: 2rem 0;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            position: relative;
-        }
-        
-        .policy-section.acknowledged {
-            border-color: #10b981;
-            background: #f0fdf4;
         }
         
         .info-box {
@@ -185,21 +179,28 @@
         }
         
         /* Acknowledgment Checkbox */
-        .acknowledge-box {
+        .acknowledge-container {
             background: linear-gradient(135deg, #fff9e6 0%, #fff4d1 100%);
-            border: 2px solid #FDB515;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
+            border: 3px solid #FDB515;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0 2rem 0;
+        }
+        
+        .acknowledge-box {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
             cursor: pointer;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
             transition: all 0.3s;
         }
         
         .acknowledge-box:hover {
-            background: linear-gradient(135deg, #fff4d1 0%, #ffe9b3 100%);
+            border-color: #003262;
             transform: translateX(4px);
         }
         
@@ -210,10 +211,10 @@
         
         .acknowledge-checkbox {
             flex-shrink: 0;
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border: 3px solid #003262;
-            border-radius: 6px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -229,7 +230,7 @@
         .acknowledge-checkbox::after {
             content: '✓';
             color: white;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
             opacity: 0;
             transition: opacity 0.3s;
@@ -243,41 +244,8 @@
             flex: 1;
             font-weight: 600;
             color: #003262;
+            font-size: 1.1rem;
             user-select: none;
-        }
-        
-        /* Progress Indicator */
-        .progress-bar-container {
-            position: sticky;
-            top: 0;
-            background: white;
-            padding: 1rem 0;
-            z-index: 100;
-            border-bottom: 2px solid #e5e7eb;
-            margin-bottom: 2rem;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: #e5e7eb;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #003262 0%, #0055a5 100%);
-            transition: width 0.5s ease;
-            border-radius: 6px;
-        }
-        
-        .progress-text {
-            text-align: center;
-            margin-top: 0.5rem;
-            font-weight: 600;
-            color: #003262;
-            font-size: 0.9rem;
         }
         
         /* Back to Top Button */
@@ -329,20 +297,12 @@
             .policy-section, .quote-box, .info-box { padding: 1.5rem; }
             .action-button { width: 100%; margin-bottom: 0.5rem; }
             .back-to-top { left: 1rem; bottom: 1rem; }
+            .acknowledge-box { flex-direction: row; }
+            .acknowledge-label { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-bar-container no-print">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="progress-text" id="progressText">Review Progress: 0 of 9 sections acknowledged</div>
-        </div>
-    </div>
-
     <div class="max-w-4xl mx-auto px-4 py-12">
         <!-- Header -->
         <div class="text-center mb-12">
@@ -351,32 +311,18 @@
             <p class="text-sm text-gray-500 mt-2">Approved: January 7, 2026 • Next Review: January 2028</p>
         </div>
 
-        <div class="info-box" style="background: linear-gradient(135deg, #fff9e6 0%, #fff4d1 100%); border-left-color: #FDB515;">
-            <p class="text-center font-semibold bahai-blue text-lg">
-                📋 Please read all sections below and check the box at the end of each section to acknowledge you have reviewed it.
-            </p>
-            <p class="text-center text-gray-600 mt-2">
-                The application button will become available once all sections are acknowledged.
-            </p>
-        </div>
-
         <!-- Section 1: Purpose -->
-        <div class="policy-section" id="section1">
+        <div class="policy-section">
             <h2 class="text-3xl font-bold bahai-blue mb-4">
                 <span class="section-number">1</span>Purpose
             </h2>
             <p class="text-lg text-gray-700">
                 The Davis Local Spiritual Assembly (LSA) seeks to encourage and support participation in Bahá'í-related conferences, gatherings, and training programs that strengthen capacity for service, community-building, or social action. This scholarship program provides financial assistance to those with demonstrated need so they may take part in activities that advance the Faith's aims and contribute to the growth of the community.
             </p>
-            
-            <div class="acknowledge-box" onclick="toggleAcknowledge(1)">
-                <div class="acknowledge-checkbox"></div>
-                <div class="acknowledge-label">I have read and understood the Purpose section</div>
-            </div>
         </div>
 
         <!-- Section 2: Guiding Principles -->
-        <div class="policy-section" id="section2">
+        <div class="policy-section">
             <h2 class="text-3xl font-bold bahai-blue mb-4">
                 <span class="section-number">2</span>Guiding Bahá'í Principles
             </h2>
@@ -393,15 +339,10 @@
             <p class="text-gray-700 mt-4">
                 The Assembly is entrusted with many responsibilities—teaching, community building, social action, and administration—and must allocate resources with wisdom and care. While it is committed to assisting individuals in attending worthy events, the Assembly cannot guarantee financial support in every case. Recipients are encouraged to contribute toward their own expenses through personal means, family support, or fundraising.
             </p>
-            
-            <div class="acknowledge-box" onclick="toggleAcknowledge(2)">
-                <div class="acknowledge-checkbox"></div>
-                <div class="acknowledge-label">I have read and understood the Guiding Bahá'í Principles section</div>
-            </div>
         </div>
 
         <!-- Section 3: Scope -->
-        <div class="policy-section" id="section3">
+        <div class="policy-section">
             <h2 class="text-3xl font-bold bahai-blue mb-4">
                 <span class="section-number">3</span>Scope
             </h2>
@@ -421,15 +362,10 @@
                     <li>Training programs related to Bahá'í community development or social action</li>
                 </ul>
             </div>
-            
-            <div class="acknowledge-box" onclick="toggleAcknowledge(3)">
-                <div class="acknowledge-checkbox"></div>
-                <div class="acknowledge-label">I have read and understood the Scope section</div>
-            </div>
         </div>
 
         <!-- Section 4: Annual Allocation -->
-        <div class="policy-section" id="section4">
+        <div class="policy-section">
             <h2 class="text-3xl font-bold bahai-blue mb-4">
                 <span class="section-number">4</span>Annual Allocation
             </h2>
@@ -445,15 +381,10 @@
                 <li>The number of requests received</li>
                 <li>The total funds available</li>
             </ul>
-            
-            <div class="acknowledge-box" onclick="toggleAcknowledge(4)">
-                <div class="acknowledge-checkbox"></div>
-                <div class="acknowledge-label">I have read and understood the Annual Allocation section</div>
-            </div>
         </div>
 
         <!-- Section 5: Application Deadline -->
-        <div class="policy-section" id="section5">
+        <div class="policy-section">
             <h2 class="text-3xl font-bold bahai-blue mb-4">
                 <span class="section-number">5</span>Application Deadline
             </h2>
@@ -469,15 +400,10 @@
                     Late applications may receive reduced funding or no funding, depending on the availability of resources after timely requests are considered.
                 </p>
             </div>
-            
-            <div class="acknowledge-box" onclick="toggleAcknowledge(5)">
-                <div class="acknowledge-checkbox"></div>
-                <div class="acknowledge-label">I have read and understood the Application Deadline section</div>
-            </div>
         </div>
 
         <!-- Section 6: Eligibility -->
-        <div class="policy-section" id="section6">
+        <div class="policy-section">
             <h2 class="text-3xl font-bold bahai-blue mb-4">
                 <span class="section-number">6</span>Eligibility
             </h2>
@@ -487,15 +413,10 @@
                 <li>Contribute toward the cost of the event through personal means, family support, or fundraising</li>
                 <li>Provide a written statement describing the nature of the event, how it advances the aims and principles of the Bahá'í Faith, and how attendance will contribute to the growth of the community</li>
             </ul>
-            
-            <div class="acknowledge-box" onclick="toggleAcknowledge(6)">
-                <div class="acknowledge-checkbox"></div>
-                <div class="acknowledge-label">I have read and understood the Eligibility section</div>
-            </div>
         </div>
 
         <!-- Section 7: Review & Allocation -->
-        <div class="policy-section" id="section7">
+        <div class="policy-section">
             <h2 class="text-3xl font-bold bahai-blue mb-4">
                 <span class="section-number">7</span>Review & Allocation Process
             </h2>
@@ -504,7 +425,7 @@
                 <div class="timeline-number">1</div>
                 <div>
                     <h4 class="font-semibold bahai-blue mb-1">Submit Application</h4>
-                    <p class="text-gray-700">Send your completed application.</p>
+                    <p class="text-gray-700">Send your completed application to <a href="mailto:bahai.community.davis@gmail.com" class="text-blue-600 hover:underline">bahai.community.davis@gmail.com</a> by the published deadline.</p>
                 </div>
             </div>
 
@@ -538,15 +459,10 @@
                     <p class="text-gray-700">The Assembly will strive to notify applicants of decisions within two weeks of the deadline.</p>
                 </div>
             </div>
-            
-            <div class="acknowledge-box" onclick="toggleAcknowledge(7)">
-                <div class="acknowledge-checkbox"></div>
-                <div class="acknowledge-label">I have read and understood the Review & Allocation Process section</div>
-            </div>
         </div>
 
         <!-- Section 8: Recipient Responsibilities -->
-        <div class="policy-section" id="section8">
+        <div class="policy-section">
             <h2 class="text-3xl font-bold bahai-blue mb-4">
                 <span class="section-number">8</span>Recipient Responsibilities
             </h2>
@@ -556,15 +472,10 @@
                 <li>Submit receipts (if applicable) and a brief reflection report within 14 days of the event</li>
                 <li>Be willing to share their experience at a Feast, devotional, or reflection gathering if invited</li>
             </ul>
-            
-            <div class="acknowledge-box" onclick="toggleAcknowledge(8)">
-                <div class="acknowledge-checkbox"></div>
-                <div class="acknowledge-label">I have read and understood the Recipient Responsibilities section</div>
-            </div>
         </div>
 
         <!-- Section 9: Confidentiality -->
-        <div class="policy-section" id="section9">
+        <div class="policy-section">
             <h2 class="text-3xl font-bold bahai-blue mb-4">
                 <span class="section-number">9</span>Confidentiality
             </h2>
@@ -573,10 +484,18 @@
                     All personal and financial information will remain confidential and will be shared only with members of the Assembly or those directly involved in administering the program.
                 </p>
             </div>
+        </div>
+
+        <!-- Acknowledgment Section -->
+        <div class="acknowledge-container">
+            <h3 class="text-2xl font-bold bahai-blue mb-4 text-center">📋 Acknowledgment Required</h3>
+            <p class="text-center text-gray-700 mb-4">
+                Please confirm that you have read and understood the entire scholarship policy before proceeding to the application.
+            </p>
             
-            <div class="acknowledge-box" onclick="toggleAcknowledge(9)">
+            <div class="acknowledge-box" id="acknowledgeBox" onclick="toggleAcknowledge()">
                 <div class="acknowledge-checkbox"></div>
-                <div class="acknowledge-label">I have read and understood the Confidentiality section</div>
+                <div class="acknowledge-label">I have read and understood the entire Community Scholarship Policy</div>
             </div>
         </div>
 
@@ -584,7 +503,7 @@
         <div class="policy-section" style="background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 100%); border: 2px solid #003262;">
             <h2 class="text-2xl font-bold bahai-blue mb-4 text-center">Ready to Apply?</h2>
             <p class="text-center text-gray-700 mb-6" id="applyMessage">
-                Please acknowledge all sections above to enable the application button.
+                Please acknowledge that you have read the policy above to enable the application button.
             </p>
             <div class="flex flex-wrap gap-3 justify-center">
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdQBESJ1rUY5EPthcWYCOgZI4dgaNAcUzKO2vzo5Qmvy6rSyA/viewform" 
@@ -616,49 +535,27 @@
     </div>
 
     <script>
-        // Track acknowledged sections
-        const acknowledged = new Set();
-        const totalSections = 9;
+        let acknowledged = false;
 
-        function toggleAcknowledge(sectionNum) {
-            const section = document.getElementById('section' + sectionNum);
-            const acknowledgeBox = section.querySelector('.acknowledge-box');
-            
-            if (acknowledged.has(sectionNum)) {
-                acknowledged.delete(sectionNum);
-                acknowledgeBox.classList.remove('checked');
-                section.classList.remove('acknowledged');
-            } else {
-                acknowledged.add(sectionNum);
-                acknowledgeBox.classList.add('checked');
-                section.classList.add('acknowledged');
-            }
-            
-            updateProgress();
-            checkAllAcknowledged();
-        }
-
-        function updateProgress() {
-            const progress = (acknowledged.size / totalSections) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('progressText').textContent = 
-                `Review Progress: ${acknowledged.size} of ${totalSections} sections acknowledged`;
-        }
-
-        function checkAllAcknowledged() {
+        function toggleAcknowledge() {
+            const acknowledgeBox = document.getElementById('acknowledgeBox');
             const applyButton = document.getElementById('applyButton');
             const applyMessage = document.getElementById('applyMessage');
             
-            if (acknowledged.size === totalSections) {
+            acknowledged = !acknowledged;
+            
+            if (acknowledged) {
+                acknowledgeBox.classList.add('checked');
                 applyButton.removeAttribute('disabled');
                 applyButton.style.pointerEvents = 'auto';
-                applyMessage.innerHTML = '✓ All sections acknowledged. You may now submit your application.';
+                applyMessage.innerHTML = '✓ Policy acknowledged. You may now submit your application.';
                 applyMessage.style.color = '#10b981';
                 applyMessage.style.fontWeight = '600';
             } else {
+                acknowledgeBox.classList.remove('checked');
                 applyButton.setAttribute('disabled', 'disabled');
                 applyButton.style.pointerEvents = 'none';
-                applyMessage.innerHTML = `Please acknowledge all sections above to enable the application button. (${totalSections - acknowledged.size} remaining)`;
+                applyMessage.innerHTML = 'Please acknowledge that you have read the policy above to enable the application button.';
                 applyMessage.style.color = '#6b7280';
                 applyMessage.style.fontWeight = 'normal';
             }
