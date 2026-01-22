@@ -1008,44 +1008,44 @@
         </div>
     </div>
 
-    <script>
-        function showSelectedContent() {
-            const selector = document.getElementById('holy-day-selector');
-            const selectedValue = selector.value;
+<script>
+    function showSelectedContent() {
+        const selector = document.getElementById('holy-day-selector');
+        const selectedValue = selector.value;
+        
+        // Hide ALL sections by targeting them directly (not just by class)
+        document.querySelectorAll('.holy-day-card, #principles, #planning-template, #venue-guide, #budget').forEach(section => {
+            section.classList.remove('visible-section');
+            section.classList.add('hidden-section');
+        });
+        
+        // If a Holy Day is selected, show it along with all planning resources
+        if (selectedValue) {
+            // Show the selected Holy Day
+            const selectedSection = document.getElementById(selectedValue);
+            if (selectedSection) {
+                selectedSection.classList.remove('hidden-section');
+                selectedSection.classList.add('visible-section');
+            }
             
-            // Hide all sections
-            document.querySelectorAll('.hidden-section').forEach(section => {
-                section.classList.remove('visible-section');
-                section.classList.add('hidden-section');
+            // Always show general principles and planning resources
+            const resourcesToShow = ['principles', 'planning-template', 'venue-guide', 'budget'];
+            resourcesToShow.forEach(resourceId => {
+                const resource = document.getElementById(resourceId);
+                if (resource) {
+                    resource.classList.remove('hidden-section');
+                    resource.classList.add('visible-section');
+                }
             });
             
-            // If a Holy Day is selected, show it along with all planning resources
-            if (selectedValue) {
-                // Show the selected Holy Day
-                const selectedSection = document.getElementById(selectedValue);
+            // Scroll to the selected Holy Day
+            setTimeout(() => {
                 if (selectedSection) {
-                    selectedSection.classList.remove('hidden-section');
-                    selectedSection.classList.add('visible-section');
+                    selectedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-                
-                // Always show general principles and planning resources
-                const resourcesToShow = ['principles', 'planning-template', 'venue-guide', 'budget'];
-                resourcesToShow.forEach(resourceId => {
-                    const resource = document.getElementById(resourceId);
-                    if (resource) {
-                        resource.classList.remove('hidden-section');
-                        resource.classList.add('visible-section');
-                    }
-                });
-                
-                // Scroll to the selected Holy Day
-                setTimeout(() => {
-                    if (selectedSection) {
-                        selectedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 100);
-            }
+            }, 100);
         }
-    </script>
+    }
+</script>
 </body>
 </html>
