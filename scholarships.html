@@ -18,6 +18,10 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: #ffffff;
@@ -35,8 +39,6 @@
         
         .bahai-blue { color: #003262; }
         .bahai-gold { color: #FDB515; }
-        .bahai-bg-blue { background-color: #003262; }
-        .bahai-bg-gold { background-color: #FDB515; }
         
         .gradient-text {
             background: linear-gradient(135deg, #003262 0%, #0055a5 100%);
@@ -102,12 +104,14 @@
         }
         
         .secondary-button {
-            background: #FDB515;
+            background: white;
             color: #003262;
+            border: 2px solid #003262;
         }
         
         .secondary-button:hover {
-            background: #e6a314;
+            background: #003262;
+            color: white;
         }
         
         .section-number {
@@ -147,48 +151,242 @@
             display: flex;
             gap: 1rem;
             margin: 1rem 0;
-            padding: 1rem;
-            background: #f9fafb;
-            border-radius: 8px;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .timeline-step:hover {
+            border-color: #003262;
+            box-shadow: 0 4px 12px rgba(0, 50, 98, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: -16px;
+            width: 2px;
+            height: 16px;
+            background: #e5e7eb;
+        }
+        
+        .timeline-step:first-child::before {
+            display: none;
         }
         
         .timeline-number {
             flex-shrink: 0;
-            width: 40px;
-            height: 40px;
-            background: #003262;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #003262 0%, #0055a5 100%);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
+            font-size: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0, 50, 98, 0.2);
         }
         
-        .print-button {
+        /* Sticky Apply Button */
+        .sticky-apply {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            box-shadow: 0 8px 24px rgba(0, 50, 98, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
             background: white;
-            border: 2px solid #003262;
             color: #003262;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
+            border: 2px solid #003262;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1000;
+            font-size: 1.5rem;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: #003262;
+            color: white;
+        }
+        
+        /* Quick Facts Cards */
+        .quick-fact-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
             transition: all 0.3s;
         }
         
-        .print-button:hover {
-            background: #003262;
+        .quick-fact-card:hover {
+            border-color: #003262;
+            box-shadow: 0 4px 12px rgba(0, 50, 98, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        .quick-fact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quick-fact-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+        
+        .quick-fact-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #003262;
+        }
+        
+        /* Table of Contents */
+        .toc {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 100%);
+            border: 2px solid #003262;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            background: white;
+            border-radius: 8px;
+            color: #003262;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .toc-link:hover {
+            border-color: #003262;
+            transform: translateX(8px);
+        }
+        
+        /* Collapsible Sections */
+        .collapsible-section {
+            margin: 2rem 0;
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, #003262 0%, #0055a5 100%);
             color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 50, 98, 0.2);
+        }
+        
+        .section-header:hover {
+            box-shadow: 0 4px 8px rgba(0, 50, 98, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .section-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .section-icon.expanded {
+            transform: rotate(180deg);
+        }
+        
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        
+        .section-content.expanded {
+            max-height: 10000px;
+            transition: max-height 0.6s ease-in;
+        }
+        
+        .section-inner {
+            padding: 2rem;
+            background: white;
+            border: 1px solid rgba(0, 50, 98, 0.08);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+        }
+        
+        .faq-item {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transition: all 0.3s;
+        }
+        
+        .faq-item:hover {
+            border-color: #003262;
+            box-shadow: 0 2px 8px rgba(0, 50, 98, 0.1);
+        }
+        
+        .faq-question {
+            font-weight: 700;
+            color: #003262;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
         }
         
         @media print {
             .no-print { display: none !important; }
             body { background: white; color: black; }
-            .policy-section, .quote-box, .info-box { 
-                page-break-inside: avoid;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
+            .section-content { max-height: none !important; }
+            .section-header { background: #003262 !important; }
             @page { margin: 1in; }
         }
         
@@ -197,6 +395,12 @@
             h2 { font-size: 1.5rem !important; }
             .policy-section, .quote-box, .info-box { padding: 1.5rem; }
             .action-button { width: 100%; margin-bottom: 0.5rem; }
+            .sticky-apply { bottom: 1rem; right: 1rem; left: 1rem; }
+            .sticky-apply .action-button { width: 100%; }
+            .back-to-top { left: 1rem; bottom: 5rem; }
+            .section-header { padding: 1rem 1.5rem; }
+            .section-title { font-size: 1.25rem; }
+            .timeline-step { padding: 1rem; }
         }
     </style>
 </head>
@@ -209,191 +413,326 @@
             <p class="text-sm text-gray-500 mt-2">Approved: January 7, 2026 • Next Review: January 2028</p>
         </div>
 
+        <!-- Quick Facts Summary -->
+        <div class="policy-section" style="background: linear-gradient(135deg, #fff9e6 0%, #fff4d1 100%); border: 2px solid #FDB515;">
+            <h2 class="text-2xl font-bold bahai-blue mb-4 text-center">📋 Quick Facts</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="quick-fact-card">
+                    <div class="quick-fact-icon">⏰</div>
+                    <div class="quick-fact-label">Apply By</div>
+                    <div class="quick-fact-value">6 Weeks Before</div>
+                </div>
+                <div class="quick-fact-card">
+                    <div class="quick-fact-icon">✅</div>
+                    <div class="quick-fact-label">Who Can Apply</div>
+                    <div class="quick-fact-value">Davis Community</div>
+                </div>
+                <div class="quick-fact-card">
+                    <div class="quick-fact-icon">📝</div>
+                    <div class="quick-fact-label">Decision Time</div>
+                    <div class="quick-fact-value">Within 2 Weeks</div>
+                </div>
+            </div>
+            <div class="text-center mt-6">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdQBESJ1rUY5EPthcWYCOgZI4dgaNAcUzKO2vzo5Qmvy6rSyA/viewform" 
+                   target="_blank" 
+                   class="action-button">
+                    📝 Apply Now
+                </a>
+            </div>
+        </div>
 
+        <!-- Table of Contents -->
+        <div class="toc no-print">
+            <h2 class="text-2xl font-bold bahai-blue mb-4 text-center">📚 Table of Contents</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <a href="#purpose" class="toc-link">1. Purpose</a>
+                <a href="#principles" class="toc-link">2. Guiding Principles</a>
+                <a href="#scope" class="toc-link">3. Scope</a>
+                <a href="#allocation" class="toc-link">4. Annual Allocation</a>
+                <a href="#deadline" class="toc-link">5. Application Deadline</a>
+                <a href="#eligibility" class="toc-link">6. Eligibility</a>
+                <a href="#process" class="toc-link">7. Review Process</a>
+                <a href="#responsibilities" class="toc-link">8. Recipient Responsibilities</a>
+                <a href="#confidentiality" class="toc-link">9. Confidentiality</a>
+                <a href="#faq" class="toc-link">❓ FAQs</a>
+            </div>
+        </div>
 
         <!-- Section 1: Purpose -->
-        <div class="policy-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">
-                <span class="section-number">1</span>Purpose
-            </h2>
-            <p class="text-lg text-gray-700">
-                The Davis Local Spiritual Assembly (LSA) seeks to encourage and support participation in Bahá'í-related conferences, gatherings, and training programs that strengthen capacity for service, community-building, or social action. This scholarship program provides financial assistance to those with demonstrated need so they may take part in activities that advance the Faith's aims and contribute to the growth of the community.
-            </p>
+        <div id="purpose" class="collapsible-section">
+            <div class="section-header" onclick="toggleSection('purpose')">
+                <div class="section-title">
+                    <span class="section-number">1</span>Purpose
+                </div>
+                <div class="section-icon" id="purpose-icon">▼</div>
+            </div>
+            <div class="section-content expanded" id="purpose-content">
+                <div class="section-inner">
+                    <p class="text-lg text-gray-700">
+                        The Davis Local Spiritual Assembly (LSA) seeks to encourage and support participation in Bahá'í-related conferences, gatherings, and training programs that strengthen capacity for service, community-building, or social action. This scholarship program provides financial assistance to those with demonstrated need so they may take part in activities that advance the Faith's aims and contribute to the growth of the community.
+                    </p>
+                </div>
+            </div>
         </div>
 
         <!-- Section 2: Guiding Principles -->
-        <div class="policy-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">
-                <span class="section-number">2</span>Guiding Bahá'í Principles
-            </h2>
-            
-            <div class="quote-box">
-                <p class="text-gray-800 italic">
-                    "All donations and contributions should be offered to the Treasurer of the Assembly, for the express purpose of promoting the interests of the Cause... It is the sacred obligation of every conscientious and faithful servant of Bahá'u'lláh... to contribute freely and generously for the increase of that Fund. The members of the Spiritual Assembly will at their own discretion expend it to promote the Teaching Campaign, to help the needy, to establish educational Bahá'í institutions, to extend in every way possible their sphere of service."
-                </p>
-                <p class="text-right mt-4 font-semibold text-gray-700">
-                    — Shoghi Effendi, letter dated March 12, 1923
-                </p>
+        <div id="principles" class="collapsible-section">
+            <div class="section-header" onclick="toggleSection('principles')">
+                <div class="section-title">
+                    <span class="section-number">2</span>Guiding Bahá'í Principles
+                </div>
+                <div class="section-icon" id="principles-icon">▼</div>
             </div>
+            <div class="section-content" id="principles-content">
+                <div class="section-inner">
+                    <div class="quote-box">
+                        <p class="text-gray-800 italic">
+                            "All donations and contributions should be offered to the Treasurer of the Assembly, for the express purpose of promoting the interests of the Cause... It is the sacred obligation of every conscientious and faithful servant of Bahá'u'lláh... to contribute freely and generously for the increase of that Fund. The members of the Spiritual Assembly will at their own discretion expend it to promote the Teaching Campaign, to help the needy, to establish educational Bahá'í institutions, to extend in every way possible their sphere of service."
+                        </p>
+                        <p class="text-right mt-4 font-semibold text-gray-700">
+                            Shoghi Effendi, letter dated March 12, 1923
+                        </p>
+                    </div>
 
-            <p class="text-gray-700 mt-4">
-                The Assembly is entrusted with many responsibilities—teaching, community building, social action, and administration—and must allocate resources with wisdom and care. While it is committed to assisting individuals in attending worthy events, the Assembly cannot guarantee financial support in every case. Recipients are encouraged to contribute toward their own expenses through personal means, family support, or fundraising.
-            </p>
+                    <p class="text-gray-700 mt-4">
+                        The Assembly is entrusted with many responsibilities—teaching, community building, social action, and administration—and must allocate resources with wisdom and care. While it is committed to assisting individuals in attending worthy events, the Assembly cannot guarantee financial support in every case. Recipients are encouraged to contribute toward their own expenses through personal means, family support, or fundraising.
+                    </p>
+                </div>
+            </div>
         </div>
 
         <!-- Section 3: Scope -->
-        <div class="policy-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">
-                <span class="section-number">3</span>Scope
-            </h2>
-            <p class="text-gray-700 mb-4">
-                This policy applies to any member of the Davis community, Bahá'í or not, who requests financial assistance to attend an event that:
-            </p>
-            <ul class="checklist text-gray-700 mb-4">
-                <li>Advances the aims and principles of the Bahá'í Faith</li>
-                <li>Builds capacity for service, community-building, or social action</li>
-            </ul>
-            
-            <div class="info-box">
-                <p class="font-semibold bahai-blue mb-2">Examples (non-exhaustive):</p>
-                <ul class="list-disc ml-6 space-y-1 text-gray-700">
-                    <li>Institute for Studies in Global Prosperity (ISGP) seminars</li>
-                    <li>Regional, national, or international Bahá'í conferences</li>
-                    <li>Training programs related to Bahá'í community development or social action</li>
-                </ul>
+        <div id="scope" class="collapsible-section">
+            <div class="section-header" onclick="toggleSection('scope')">
+                <div class="section-title">
+                    <span class="section-number">3</span>Scope
+                </div>
+                <div class="section-icon" id="scope-icon">▼</div>
+            </div>
+            <div class="section-content expanded" id="scope-content">
+                <div class="section-inner">
+                    <p class="text-gray-700 mb-4">
+                        This policy applies to any member of the Davis community, Bahá'í or not, who requests financial assistance to attend an event that:
+                    </p>
+                    <ul class="checklist text-gray-700 mb-4">
+                        <li>Advances the aims and principles of the Bahá'í Faith</li>
+                        <li>Builds capacity for service, community-building, or social action</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <p class="font-semibold bahai-blue mb-2">Examples (non-exhaustive):</p>
+                        <ul class="list-disc ml-6 space-y-1 text-gray-700">
+                            <li>Institute for Studies in Global Prosperity (ISGP) seminars</li>
+                            <li>Regional, national, or international Bahá'í conferences</li>
+                            <li>Training programs related to Bahá'í community development or social action</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Section 4: Annual Allocation -->
-        <div class="policy-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">
-                <span class="section-number">4</span>Annual Allocation
-            </h2>
-            <p class="text-gray-700 mb-4">
-                The LSA will normally include in its annual budget an amount designated for scholarships.
-            </p>
-            <p class="text-gray-700 mb-4">
-                There is no fixed cap per person or per event; awards are determined by the Assembly based on:
-            </p>
-            <ul class="list-disc ml-6 space-y-2 text-gray-700">
-                <li>The extent to which the event advances the aims and principles of the Faith</li>
-                <li>The individual's need for assistance</li>
-                <li>The number of requests received</li>
-                <li>The total funds available</li>
-            </ul>
+        <div id="allocation" class="collapsible-section">
+            <div class="section-header" onclick="toggleSection('allocation')">
+                <div class="section-title">
+                    <span class="section-number">4</span>Annual Allocation
+                </div>
+                <div class="section-icon" id="allocation-icon">▼</div>
+            </div>
+            <div class="section-content" id="allocation-content">
+                <div class="section-inner">
+                    <p class="text-gray-700 mb-4">
+                        The LSA will normally include in its annual budget an amount designated for scholarships.
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        There is no fixed cap per person or per event; awards are determined by the Assembly based on:
+                    </p>
+                    <ul class="list-disc ml-6 space-y-2 text-gray-700">
+                        <li>The extent to which the event advances the aims and principles of the Faith</li>
+                        <li>The individual's need for assistance</li>
+                        <li>The number of requests received</li>
+                        <li>The total funds available</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <!-- Section 5: Application Deadline -->
-        <div class="policy-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">
-                <span class="section-number">5</span>Application Deadline
-            </h2>
-            <p class="text-gray-700 mb-4">
-                Applicants should submit requests as soon as they know they wish to attend the event and will need assistance.
-            </p>
-            <div class="info-box">
-                <p class="font-semibold bahai-blue mb-2">⏰ Important Timeline:</p>
-                <p class="text-gray-700">
-                    Whenever possible, requests should be made <strong>at least six weeks</strong> before the earliest covered event.
-                </p>
-                <p class="text-sm text-gray-600 mt-2">
-                    Late applications may receive reduced funding or no funding, depending on the availability of resources after timely requests are considered.
-                </p>
+        <div id="deadline" class="collapsible-section">
+            <div class="section-header" onclick="toggleSection('deadline')">
+                <div class="section-title">
+                    <span class="section-number">5</span>Application Deadline
+                </div>
+                <div class="section-icon" id="deadline-icon">▼</div>
+            </div>
+            <div class="section-content expanded" id="deadline-content">
+                <div class="section-inner">
+                    <p class="text-gray-700 mb-4">
+                        Applicants should submit requests as soon as they know they wish to attend the event and will need assistance.
+                    </p>
+                    <div class="info-box">
+                        <p class="font-semibold bahai-blue mb-2">⏰ Important Timeline:</p>
+                        <p class="text-gray-700">
+                            Whenever possible, requests should be made <strong>at least six weeks</strong> before the earliest covered event.
+                        </p>
+                        <p class="text-sm text-gray-600 mt-2">
+                            Late applications may receive reduced funding or no funding, depending on the availability of resources after timely requests are considered.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Section 6: Eligibility -->
-        <div class="policy-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">
-                <span class="section-number">6</span>Eligibility
-            </h2>
-            <p class="text-gray-700 mb-4">Applicants must:</p>
-            <ul class="checklist text-gray-700">
-                <li>Reside within the jurisdiction of the Davis LSA or have a meaningful connection to the Davis community</li>
-                <li>Contribute toward the cost of the event through personal means, family support, or fundraising</li>
-                <li>Provide a written statement describing the nature of the event, how it advances the aims and principles of the Bahá'í Faith, and how attendance will contribute to the growth of the community</li>
-            </ul>
-        </div>
-
-        <!-- Section 7: Review & Allocation -->
-        <div class="policy-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">
-                <span class="section-number">7</span>Review & Allocation Process
-            </h2>
-            
-            <div class="timeline-step">
-                <div class="timeline-number">1</div>
-                <div>
-                    <h4 class="font-semibold bahai-blue mb-1">Submit Application</h4>
-                    <p class="text-gray-700">Send your completed application to <a href="mailto:bahai.community.davis@gmail.com" class="text-blue-600 hover:underline">bahai.community.davis@gmail.com</a> by the published deadline.</p>
+        <div id="eligibility" class="collapsible-section">
+            <div class="section-header" onclick="toggleSection('eligibility')">
+                <div class="section-title">
+                    <span class="section-number">6</span>Eligibility
                 </div>
+                <div class="section-icon" id="eligibility-icon">▼</div>
             </div>
-
-            <div class="timeline-step">
-                <div class="timeline-number">2</div>
-                <div>
-                    <h4 class="font-semibold bahai-blue mb-1">Review</h4>
-                    <p class="text-gray-700">All timely requests will be reviewed together, allowing the Assembly to compare needs and priorities.</p>
-                </div>
-            </div>
-
-            <div class="timeline-step">
-                <div class="timeline-number">3</div>
-                <div>
-                    <h4 class="font-semibold bahai-blue mb-1">Allocation</h4>
-                    <p class="text-gray-700 mb-2">Awards will be based on:</p>
-                    <ul class="list-disc ml-6 text-sm text-gray-600 space-y-1">
-                        <li>Alignment of the event with community priorities</li>
-                        <li>Level of demonstrated need</li>
-                        <li>Number of requests received</li>
-                        <li>Available funds</li>
-                        <li>Any other factors the Assembly deems appropriate and consistent with Bahá'í principles</li>
+            <div class="section-content expanded" id="eligibility-content">
+                <div class="section-inner">
+                    <p class="text-gray-700 mb-4">Applicants must:</p>
+                    <ul class="checklist text-gray-700">
+                        <li>Reside within the jurisdiction of the Davis LSA or have a meaningful connection to the Davis community</li>
+                        <li>Contribute toward the cost of the event through personal means, family support, or fundraising</li>
+                        <li>Provide a written statement describing the nature of the event, how it advances the aims and principles of the Bahá'í Faith, and how attendance will contribute to the growth of the community</li>
                     </ul>
                 </div>
             </div>
+        </div>
 
-            <div class="timeline-step">
-                <div class="timeline-number">4</div>
-                <div>
-                    <h4 class="font-semibold bahai-blue mb-1">Notification</h4>
-                    <p class="text-gray-700">The Assembly will strive to notify applicants of decisions within two weeks of the deadline.</p>
+        <!-- Section 7: Review & Allocation -->
+        <div id="process" class="collapsible-section">
+            <div class="section-header" onclick="toggleSection('process')">
+                <div class="section-title">
+                    <span class="section-number">7</span>Review & Allocation Process
+                </div>
+                <div class="section-icon" id="process-icon">▼</div>
+            </div>
+            <div class="section-content expanded" id="process-content">
+                <div class="section-inner">
+                    <div class="timeline-step">
+                        <div class="timeline-number">1</div>
+                        <div>
+                            <h4 class="font-semibold bahai-blue mb-1">Submit Application</h4>
+                            <p class="text-gray-700">Send your completed application to <a href="mailto:bahai.community.davis@gmail.com" class="text-blue-600 hover:underline">bahai.community.davis@gmail.com</a> by the published deadline.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="timeline-number">2</div>
+                        <div>
+                            <h4 class="font-semibold bahai-blue mb-1">Review</h4>
+                            <p class="text-gray-700">All timely requests will be reviewed together, allowing the Assembly to compare needs and priorities.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="timeline-number">3</div>
+                        <div>
+                            <h4 class="font-semibold bahai-blue mb-1">Allocation</h4>
+                            <p class="text-gray-700 mb-2">Awards will be based on:</p>
+                            <ul class="list-disc ml-6 text-sm text-gray-600 space-y-1">
+                                <li>Alignment of the event with community priorities</li>
+                                <li>Level of demonstrated need</li>
+                                <li>Number of requests received</li>
+                                <li>Available funds</li>
+                                <li>Any other factors the Assembly deems appropriate and consistent with Bahá'í principles</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="timeline-number">4</div>
+                        <div>
+                            <h4 class="font-semibold bahai-blue mb-1">Notification</h4>
+                            <p class="text-gray-700">The Assembly will strive to notify applicants of decisions within two weeks of the deadline.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Section 8: Recipient Responsibilities -->
-        <div class="policy-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">
-                <span class="section-number">8</span>Recipient Responsibilities
-            </h2>
-            <p class="text-gray-700 mb-4">Recipients are expected to:</p>
-            <ul class="checklist text-gray-700">
-                <li>Attend the full event and uphold its standards of conduct</li>
-                <li>Submit receipts (if applicable) and a brief reflection report within 14 days of the event</li>
-                <li>Be willing to share their experience at a Feast, devotional, or reflection gathering if invited</li>
-            </ul>
-        </div>
-
-        <!-- Section 9: Confidentiality -->
-        <div class="policy-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">
-                <span class="section-number">9</span>Confidentiality
-            </h2>
-            <div class="info-box">
-                <p class="text-gray-700">
-                    All personal and financial information will remain confidential and will be shared only with members of the Assembly or those directly involved in administering the program.
-                </p>
+        <div id="responsibilities" class="collapsible-section">
+            <div class="section-header" onclick="toggleSection('responsibilities')">
+                <div class="section-title">
+                    <span class="section-number">8</span>Recipient Responsibilities
+                </div>
+                <div class="section-icon" id="responsibilities-icon">▼</div>
+            </div>
+            <div class="section-content" id="responsibilities-content">
+                <div class="section-inner">
+                    <p class="text-gray-700 mb-4">Recipients are expected to:</p>
+                    <ul class="checklist text-gray-700">
+                        <li>Attend the full event and uphold its standards of conduct</li>
+                        <li>Submit receipts (if applicable) and a brief reflection report within 14 days of the event</li>
+                        <li>Be willing to share their experience at a Feast, devotional, or reflection gathering if invited</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <!-- Section 10: Policy Review -->
-        <div class="policy-section">
-            <h2 class="text-3xl font-bold bahai-blue mb-4">
-                <span class="section-number">10</span>Policy Review
-            </h2>
-            <p class="text-gray-700">
-                The LSA will review this policy every three years—or sooner if needed—to ensure it remains equitable, sustainable, and aligned with community needs.
-            </p>
+        <!-- Section 9: Confidentiality -->
+        <div id="confidentiality" class="collapsible-section">
+            <div class="section-header" onclick="toggleSection('confidentiality')">
+                <div class="section-title">
+                    <span class="section-number">9</span>Confidentiality
+                </div>
+                <div class="section-icon" id="confidentiality-icon">▼</div>
+            </div>
+            <div class="section-content" id="confidentiality-content">
+                <div class="section-inner">
+                    <div class="info-box">
+                        <p class="text-gray-700">
+                            All personal and financial information will remain confidential and will be shared only with members of the Assembly or those directly involved in administering the program.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQs -->
+        <div id="faq" class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-6 text-center">❓ Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I apply if I'm not a Bahá'í?</div>
+                <p class="text-gray-700">
+                    Yes! The policy applies to any member of the Davis community who wishes to attend an event that advances the aims and principles of the Bahá'í Faith or builds capacity for service, community-building, or social action.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How much financial assistance can I receive?</div>
+                <p class="text-gray-700">
+                    There is no fixed amount. The Assembly determines awards based on the nature of the event, your demonstrated need, available funds, and the number of requests received.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What if I miss the six-week deadline?</div>
+                <p class="text-gray-700">
+                    You can still apply, but late applications may receive reduced funding or no funding, depending on the availability of resources after timely requests are considered.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do I need to contribute any of my own money?</div>
+                <p class="text-gray-700">
+                    Yes. Applicants are expected to contribute toward the cost of the event through personal means, family support, or fundraising. This demonstrates commitment and allows the Assembly to assist more people.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What happens after I submit my application?</div>
+                <p class="text-gray-700">
+                    The Assembly will review all timely requests together and strive to notify you of their decision within two weeks of the application deadline.
+                </p>
+            </div>
         </div>
 
         <!-- Call to Action -->
@@ -422,5 +761,51 @@
             </p>
         </div>
     </div>
+
+    <!-- Sticky Apply Button -->
+    <div class="sticky-apply no-print">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdQBESJ1rUY5EPthcWYCOgZI4dgaNAcUzKO2vzo5Qmvy6rSyA/viewform" 
+           target="_blank" 
+           class="action-button">
+            📝 Apply for Scholarship
+        </a>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top no-print" id="backToTop" onclick="scrollToTop()">
+        ↑
+    </div>
+
+    <script>
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const icon = document.getElementById(sectionId + '-icon');
+            
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                icon.classList.remove('expanded');
+            } else {
+                content.classList.add('expanded');
+                icon.classList.add('expanded');
+            }
+        }
+
+        // Back to Top functionality
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 </html>
