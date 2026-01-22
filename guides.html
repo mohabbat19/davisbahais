@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Scholarship Policy | Davis Bahá'í Community</title>
+    <meta name="description" content="Davis Local Spiritual Assembly Community Scholarship Policy for Bahá'í-related conferences, gatherings, and training programs">
+    
+    <link rel="icon" type="image/png" href="nine-pointed-star.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .bahai-blue { color: #003262; }
+        .bahai-gold { color: #FDB515; }
+        .bahai-bg-blue { background-color: #003262; }
+        .bahai-bg-gold { background-color: #FDB515; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #003262 0%, #0055a5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .quote-box {
+            background: linear-gradient(135deg, #fafbfc 0%, #f5f7fa 100%);
+            border-left: 4px solid #FDB515;
+            position: relative;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 60px;
+            color: rgba(0, 50, 98, 0.1);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .policy-section {
+            background: white;
+            border: 1px solid rgba(0, 50, 98, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-box {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            border-left: 4px solid #003262;
+        }
+        
+        .action-button {
+            background: #003262;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .action-button:hover {
+            background: #0055a5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 50, 98, 0.3);
+        }
+        
+        .secondary-button {
+            background: #FDB515;
+            color: #003262;
+        }
+        
+        .secondary-button:hover {
+            background: #e6a314;
+        }
+        
+        .section-number {
+            display: inline-block;
+            background: #003262;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            margin-right: 0.75rem;
+        }
+        
+        ul.checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        ul.checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        ul.checklist li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #FDB515;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+        
+        .timeline-step {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+        
+        .timeline-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: #003262;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .print-button {
+            background: white;
+            border: 2px solid #003262;
+            color: #003262;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .print-button:hover {
+            background: #003262;
+            color: white;
+        }
+        
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; color: black; }
+            .policy-section, .quote-box, .info-box { 
+                page-break-inside: avoid;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            @page { margin: 1in; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem !important; }
+            h2 { font-size: 1.5rem !important; }
+            .policy-section, .quote-box, .info-box { padding: 1.5rem; }
+            .action-button { width: 100%; margin-bottom: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-4">Community Scholarship Policy</h1>
+            <p class="text-xl text-gray-600">Davis Local Spiritual Assembly</p>
+            <p class="text-sm text-gray-500 mt-2">Approved: January 7, 2026 • Next Review: January 2028</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="no-print flex flex-wrap gap-3 mb-8 justify-center">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdQBESJ1rUY5EPthcWYCOgZI4dgaNAcUzKO2vzo5Qmvy6rSyA/viewform" 
+               target="_blank" 
+               class="action-button">
+                📝 Apply for Scholarship
+            </a>
+            <button onclick="window.print()" class="print-button">
+                🖨️ Print Policy
+            </button>
+            <a href="mailto:scholarships@davis-lsa.org" class="action-button secondary-button">
+                ✉️ Contact Us
+            </a>
+        </div>
+
+        <!-- Section 1: Purpose -->
+        <div class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">
+                <span class="section-number">1</span>Purpose
+            </h2>
+            <p class="text-lg text-gray-700">
+                The Davis Local Spiritual Assembly (LSA) seeks to encourage and support participation in Bahá'í-related conferences, gatherings, and training programs that strengthen capacity for service, community-building, or social action. This scholarship program provides financial assistance to those with demonstrated need so they may take part in activities that advance the Faith's aims and contribute to the growth of the community.
+            </p>
+        </div>
+
+        <!-- Section 2: Guiding Principles -->
+        <div class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">
+                <span class="section-number">2</span>Guiding Bahá'í Principles
+            </h2>
+            
+            <div class="quote-box">
+                <p class="text-gray-800 italic">
+                    "All donations and contributions should be offered to the Treasurer of the Assembly, for the express purpose of promoting the interests of the Cause... It is the sacred obligation of every conscientious and faithful servant of Bahá'u'lláh... to contribute freely and generously for the increase of that Fund. The members of the Spiritual Assembly will at their own discretion expend it to promote the Teaching Campaign, to help the needy, to establish educational Bahá'í institutions, to extend in every way possible their sphere of service."
+                </p>
+                <p class="text-right mt-4 font-semibold text-gray-700">
+                    — Shoghi Effendi, letter dated March 12, 1923
+                </p>
+            </div>
+
+            <p class="text-gray-700 mt-4">
+                The Assembly is entrusted with many responsibilities—teaching, community building, social action, and administration—and must allocate resources with wisdom and care. While it is committed to assisting individuals in attending worthy events, the Assembly cannot guarantee financial support in every case. Recipients are encouraged to contribute toward their own expenses through personal means, family support, or fundraising.
+            </p>
+        </div>
+
+        <!-- Section 3: Scope -->
+        <div class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">
+                <span class="section-number">3</span>Scope
+            </h2>
+            <p class="text-gray-700 mb-4">
+                This policy applies to any member of the Davis community, Bahá'í or not, who requests financial assistance to attend an event that:
+            </p>
+            <ul class="checklist text-gray-700 mb-4">
+                <li>Advances the aims and principles of the Bahá'í Faith</li>
+                <li>Builds capacity for service, community-building, or social action</li>
+            </ul>
+            
+            <div class="info-box">
+                <p class="font-semibold bahai-blue mb-2">Examples (non-exhaustive):</p>
+                <ul class="list-disc ml-6 space-y-1 text-gray-700">
+                    <li>Institute for Studies in Global Prosperity (ISGP) seminars</li>
+                    <li>Regional, national, or international Bahá'í conferences</li>
+                    <li>Training programs related to Bahá'í community development or social action</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 4: Annual Allocation -->
+        <div class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">
+                <span class="section-number">4</span>Annual Allocation
+            </h2>
+            <p class="text-gray-700 mb-4">
+                The LSA will normally include in its annual budget an amount designated for scholarships.
+            </p>
+            <p class="text-gray-700 mb-4">
+                There is no fixed cap per person or per event; awards are determined by the Assembly based on:
+            </p>
+            <ul class="list-disc ml-6 space-y-2 text-gray-700">
+                <li>The extent to which the event advances the aims and principles of the Faith</li>
+                <li>The individual's need for assistance</li>
+                <li>The number of requests received</li>
+                <li>The total funds available</li>
+            </ul>
+        </div>
+
+        <!-- Section 5: Application Deadline -->
+        <div class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">
+                <span class="section-number">5</span>Application Deadline
+            </h2>
+            <p class="text-gray-700 mb-4">
+                Applicants should submit requests as soon as they know they wish to attend the event and will need assistance.
+            </p>
+            <div class="info-box">
+                <p class="font-semibold bahai-blue mb-2">⏰ Important Timeline:</p>
+                <p class="text-gray-700">
+                    Whenever possible, requests should be made <strong>at least six weeks</strong> before the earliest covered event.
+                </p>
+                <p class="text-sm text-gray-600 mt-2">
+                    Late applications may receive reduced funding or no funding, depending on the availability of resources after timely requests are considered.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 6: Eligibility -->
+        <div class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">
+                <span class="section-number">6</span>Eligibility
+            </h2>
+            <p class="text-gray-700 mb-4">Applicants must:</p>
+            <ul class="checklist text-gray-700">
+                <li>Reside within the jurisdiction of the Davis LSA or have a meaningful connection to the Davis community</li>
+                <li>Contribute toward the cost of the event through personal means, family support, or fundraising</li>
+                <li>Provide a written statement describing the nature of the event, how it advances the aims and principles of the Bahá'í Faith, and how attendance will contribute to the growth of the community</li>
+            </ul>
+        </div>
+
+        <!-- Section 7: Review & Allocation -->
+        <div class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">
+                <span class="section-number">7</span>Review & Allocation Process
+            </h2>
+            
+            <div class="timeline-step">
+                <div class="timeline-number">1</div>
+                <div>
+                    <h4 class="font-semibold bahai-blue mb-1">Submit Application</h4>
+                    <p class="text-gray-700">Send your completed application to <a href="mailto:scholarships@davis-lsa.org" class="text-blue-600 hover:underline">scholarships@davis-lsa.org</a> by the published deadline.</p>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="timeline-number">2</div>
+                <div>
+                    <h4 class="font-semibold bahai-blue mb-1">Review</h4>
+                    <p class="text-gray-700">All timely requests will be reviewed together, allowing the Assembly to compare needs and priorities.</p>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="timeline-number">3</div>
+                <div>
+                    <h4 class="font-semibold bahai-blue mb-1">Allocation</h4>
+                    <p class="text-gray-700 mb-2">Awards will be based on:</p>
+                    <ul class="list-disc ml-6 text-sm text-gray-600 space-y-1">
+                        <li>Alignment of the event with community priorities</li>
+                        <li>Level of demonstrated need</li>
+                        <li>Number of requests received</li>
+                        <li>Available funds</li>
+                        <li>Any other factors the Assembly deems appropriate and consistent with Bahá'í principles</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-step">
+                <div class="timeline-number">4</div>
+                <div>
+                    <h4 class="font-semibold bahai-blue mb-1">Notification</h4>
+                    <p class="text-gray-700">The Assembly will strive to notify applicants of decisions within two weeks of the deadline.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 8: Recipient Responsibilities -->
+        <div class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">
+                <span class="section-number">8</span>Recipient Responsibilities
+            </h2>
+            <p class="text-gray-700 mb-4">Recipients are expected to:</p>
+            <ul class="checklist text-gray-700">
+                <li>Attend the full event and uphold its standards of conduct</li>
+                <li>Submit receipts (if applicable) and a brief reflection report within 14 days of the event</li>
+                <li>Be willing to share their experience at a Feast, devotional, or reflection gathering if invited</li>
+            </ul>
+        </div>
+
+        <!-- Section 9: Confidentiality -->
+        <div class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">
+                <span class="section-number">9</span>Confidentiality
+            </h2>
+            <div class="info-box">
+                <p class="text-gray-700">
+                    All personal and financial information will remain confidential and will be shared only with members of the Assembly or those directly involved in administering the program.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 10: Policy Review -->
+        <div class="policy-section">
+            <h2 class="text-3xl font-bold bahai-blue mb-4">
+                <span class="section-number">10</span>Policy Review
+            </h2>
+            <p class="text-gray-700">
+                The LSA will review this policy every three years—or sooner if needed—to ensure it remains equitable, sustainable, and aligned with community needs.
+            </p>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="policy-section" style="background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 100%); border: 2px solid #003262;">
+            <h2 class="text-2xl font-bold bahai-blue mb-4 text-center">Ready to Apply?</h2>
+            <p class="text-center text-gray-700 mb-6">
+                If you need assistance to attend a qualifying event, we encourage you to apply early.
+            </p>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdQBESJ1rUY5EPthcWYCOgZI4dgaNAcUzKO2vzo5Qmvy6rSyA/viewform" 
+                   target="_blank" 
+                   class="action-button">
+                    📝 Submit Application
+                </a>
+                <a href="mailto:scholarships@davis-lsa.org" class="action-button secondary-button">
+                    ✉️ Questions? Email Us
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 text-sm text-gray-500">
+            <p>Davis Local Spiritual Assembly</p>
+            <p class="mt-1">
+                Contact: <a href="mailto:scholarships@davis-lsa.org" class="text-blue-600 hover:underline">scholarships@davis-lsa.org</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
